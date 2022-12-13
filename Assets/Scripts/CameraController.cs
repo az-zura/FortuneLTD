@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Cinemachine;
@@ -76,7 +78,10 @@ public class CameraController : MonoBehaviour
                     {
                         MeshRenderer rend = obstructions[i].gameObject.GetComponent<MeshRenderer>();
                         if (rend != null)
-                            rend.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+                        {
+                            //TODO rend.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+                            StartCoroutine(FadeMaterial(rend.materials[0], 1f));
+                        }
                     }
 
                     obstructions.Clear();
@@ -111,7 +116,10 @@ public class CameraController : MonoBehaviour
                 {
                     MeshRenderer rend = obs.gameObject.GetComponent<MeshRenderer>();
                     if (rend != null)
-                        rend.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;
+                    {
+                        //TODO rend.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;
+                        StartCoroutine(FadeMaterial(rend.materials[0], 0f));
+                    }
                 }
             }
             else
@@ -123,7 +131,10 @@ public class CameraController : MonoBehaviour
                     {
                         MeshRenderer rend = obstructions[i].gameObject.GetComponent<MeshRenderer>();
                         if (rend != null)
-                            rend.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+                        {
+                            //TODO rend.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+                            StartCoroutine(FadeMaterial(rend.materials[0], 1f));
+                        }
                     }
 
                     oldHitsNumber = 0;
@@ -163,8 +174,12 @@ public class CameraController : MonoBehaviour
                     // Repaint all the previous obstructions. Because some of the stuff might be not blocking anymore
                     for (int i = 0; i < obstructions.Count; i++)
                     {
-                        obstructions[i].gameObject.GetComponent<MeshRenderer>().shadowCastingMode =
-                            UnityEngine.Rendering.ShadowCastingMode.On;
+                        MeshRenderer rend = obstructions[i].gameObject.GetComponent<MeshRenderer>();
+                        if (rend != null)
+                        {
+                            //TODO rend.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+                            StartCoroutine(FadeMaterial(rend.materials[0], 1f));
+                        }
                     }
                     
                     obstructions.Clear();
@@ -174,8 +189,12 @@ public class CameraController : MonoBehaviour
                 for (int i = 0; i < hits.Count; i++)
                 {
                     Transform obstruction = hits[i].transform;
-                    obstruction.gameObject.GetComponent<MeshRenderer>().shadowCastingMode =
-                        UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;
+                    MeshRenderer rend = obstruction.gameObject.GetComponent<MeshRenderer>();
+                    if (rend != null)
+                    {
+                        //TODO rend.shadowCastingMode =  UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;
+                        StartCoroutine(FadeMaterial(rend.materials[0], 0f));
+                    }
                     obstructions.Add(obstruction);
                 }
 
@@ -188,8 +207,12 @@ public class CameraController : MonoBehaviour
                 {
                     for (int i = 0; i < obstructions.Count; i++)
                     {
-                        obstructions[i].gameObject.GetComponent<MeshRenderer>().shadowCastingMode =
-                            UnityEngine.Rendering.ShadowCastingMode.On;
+                        MeshRenderer rend = obstructions[i].gameObject.GetComponent<MeshRenderer>();
+                        if (rend != null)
+                        {
+                            //TODO rend.shadowCastingMode =  UnityEngine.Rendering.ShadowCastingMode.On;
+                            StartCoroutine(FadeMaterial(rend.materials[0], 1f));
+                        }
                     }
 
                     oldHitsNumber = 0;
@@ -197,5 +220,42 @@ public class CameraController : MonoBehaviour
                 }
             }
         }
+    }
+
+    private Dictionary<Material, float> currentlyFading = new Dictionary<Material, float>();
+    private IEnumerator FadeMaterial(Material material, float toalpha, float fadeSpeed = 1f)
+    {
+        if (!currentlyFading.ContainsKey(material))
+        {
+            MaterialExtensions.ToFadeMode(material);
+            material.renderQueue = (int) UnityEngine.Rendering.RenderQueue.Transparent;
+            currentlyFading.Add(material, toalpha);
+        }
+        else
+        {
+            // material is already fading
+            currentlyFading[material] = toalpha;
+            yield break;
+        }
+
+        while (Math.Abs(material.color.a - currentlyFading[material]) > 0.01f)
+        {
+            if (material.color.a < currentlyFading[material])
+            {
+                // increase alpha
+                material.color += new Color(0,0,0,fadeSpeed * Time.deltaTime);
+            }
+            else if (material.color.a > currentlyFading[material])
+            {
+                // decrease alpha
+                material.color -= new Color(0,0,0,fadeSpeed * Time.deltaTime);
+            }
+
+            yield return null;
+        }
+        
+        //fading done
+        material.color = new Color(material.color.r,material.color.g,material.color.b,currentlyFading[material]);
+        currentlyFading.Remove(material);
     }
 }
