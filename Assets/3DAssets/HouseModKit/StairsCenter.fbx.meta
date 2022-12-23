@@ -1,19 +1,9 @@
 fileFormatVersion: 2
-guid: 1e74fea0b5fa308488ce72c952d34adf
+guid: f126df5ac2b2d614fa35168bb53acab5
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: InsideMatBright
-    second: {fileID: 2100000, guid: 2eba455390d3d5a4b8d0ea2b22ed3807, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: WallMatOutisde
-    second: {fileID: 2100000, guid: a89613e72143dd44fbd1d15c38c43318, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
