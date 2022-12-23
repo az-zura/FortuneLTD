@@ -31,11 +31,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleMovement()
     {
-        moveDirection = Vector3.Lerp(direction,  new Vector3(_inputManager.horizontalInput, 0, _inputManager.verticalInput).normalized, directionInterpolation);
-
-        if (moveDirection.magnitude >= 0.1f)
+        var normalizedDirection = new Vector3(_inputManager.horizontalInput, 0, _inputManager.verticalInput).normalized;
+        direction = Vector3.Lerp(direction,  normalizedDirection , directionInterpolation).normalized;
+        if (normalizedDirection.magnitude >= 0.1f)
         {
-            controller.Move(moveDirection * speed * Time.deltaTime);
+            controller.Move(direction * (speed * Time.deltaTime));
         }
     }
     
