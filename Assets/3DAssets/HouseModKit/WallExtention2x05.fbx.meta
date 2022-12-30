@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: aecf9885a198e484f95446d38f053376
+guid: c065bca3ea5904342a917ed1d462d00d
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -7,13 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: FloorTileBright
-    second: {fileID: 2100000, guid: 2eba455390d3d5a4b8d0ea2b22ed3807, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: InsideMatBright
-    second: {fileID: 2100000, guid: 2eba455390d3d5a4b8d0ea2b22ed3807, type: 2}
+      name: WallMatOutisde
+    second: {fileID: 2100000, guid: a89613e72143dd44fbd1d15c38c43318, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
