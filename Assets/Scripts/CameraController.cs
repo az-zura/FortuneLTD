@@ -159,7 +159,7 @@ public class CameraController : MonoBehaviour
                 {
                     Vector3 moveVector = player.position + right * fx + up * fy;
                     hits.AddRange(Physics.RaycastAll(transform.position,
-                        (player.position + moveVector) - transform.position,
+                        moveVector - transform.position,
                         characterDistance, layerMask));
                 }
             }

@@ -7,6 +7,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: PolyTownTexture
+    second: {fileID: 2100000, guid: 28646867ddcf90a4989276acd313ea43, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: WallMatOutisde
     second: {fileID: 2100000, guid: a89613e72143dd44fbd1d15c38c43318, type: 2}
   materials:
