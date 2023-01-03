@@ -14,14 +14,17 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 direction = new Vector3();
     
     private CharacterController controller;
+    private bool isMoving;
     
     [SerializeField] private float speed = 4f;
-
+    public event EventHandler UpdateMoving;
+    private GhostAnimation _ghostAnimation;
 
     private void Awake()
     {
         _inputManager = GetComponent<InputManager>();
         controller = GetComponent<CharacterController>();
+        _ghostAnimation = GetComponentInChildren<GhostAnimation>();
     }
 
     public void HandleAllMovement() //also floating but not implemented yet
@@ -31,11 +34,22 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleMovement()
     {
+        bool currentMovingState = isMoving;
         var normalizedDirection = new Vector3(_inputManager.horizontalInput, 0, _inputManager.verticalInput).normalized;
         direction = Vector3.Lerp(direction,  normalizedDirection , directionInterpolation).normalized;
         if (normalizedDirection.magnitude >= 0.1f)
         {
             controller.Move(direction * (speed * Time.deltaTime));
+            isMoving = true;
+        }
+        else
+        {
+            isMoving = false;
+        }
+
+        if (isMoving != currentMovingState)
+        {
+            _ghostAnimation.setMoving(isMoving);
         }
     }
     

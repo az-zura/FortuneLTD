@@ -6233,7 +6233,7 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
+  m_Color: {r: 0.71008366, g: 0.764151, b: 0.7467553, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
@@ -8826,6 +8826,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerHouseBuilding
       objectReference: {fileID: 0}
+    - target: {fileID: 7647052122038204881, guid: 7b14c31d4c3100247b73e590d8ab6dbc, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7941842200913665406, guid: 7b14c31d4c3100247b73e590d8ab6dbc, type: 3}
       propertyPath: m_LocalPosition.x
       value: 12.00001
@@ -8920,6 +8924,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7993343879046329494, guid: 7b14c31d4c3100247b73e590d8ab6dbc, type: 3}
       propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9114225423395308466, guid: 7b14c31d4c3100247b73e590d8ab6dbc, type: 3}
+      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9114225424284478731, guid: 7b14c31d4c3100247b73e590d8ab6dbc, type: 3}
