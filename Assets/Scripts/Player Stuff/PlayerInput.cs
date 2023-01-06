@@ -105,7 +105,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""Up"",
+                    ""name"": ""left"",
                     ""id"": ""fc315fbd-a6af-42cc-8191-21ebdc1461e6"",
                     ""path"": ""<Gamepad>/leftStick/left"",
                     ""interactions"": """",
@@ -116,7 +116,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""Down"",
+                    ""name"": ""right"",
                     ""id"": ""04c36512-9820-45a6-b41a-93984dd94252"",
                     ""path"": ""<Gamepad>/leftStick/right"",
                     ""interactions"": """",
@@ -127,7 +127,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""Left"",
+                    ""name"": ""up"",
                     ""id"": ""b15d6feb-084e-4e09-b0a0-cf45f5dcfc21"",
                     ""path"": ""<Gamepad>/leftStick/up"",
                     ""interactions"": """",
@@ -138,7 +138,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""Right"",
+                    ""name"": ""down"",
                     ""id"": ""7ed3938c-dfc1-4f7d-a5aa-c162d192c8c5"",
                     ""path"": ""<Gamepad>/leftStick/down"",
                     ""interactions"": """",
