@@ -64,6 +64,9 @@ MonoBehaviour:
   - {fileID: 1485908063295808, guid: fb18d4566413aa5459cd2362e30401a2, type: 3}
   - {fileID: 1022330334122198, guid: ac9716868f33bd846bc118554c8a72d4, type: 3}
   - {fileID: 1122182512248524, guid: 1265dd59fa332d74f9413ea3f346dd55, type: 3}
+  - {fileID: 1077657506260428, guid: 2660cd93116a246439780568b58eca30, type: 3}
+  - {fileID: 1277163129526764, guid: 6c943777f29ba7c4994e93de7ad5ef7f, type: 3}
+  - {fileID: 1553826968180558, guid: 3ad8a79aa34ec764885be45c25593d3d, type: 3}
   garden:
     m_Center: {x: 20, y: 0, z: 10}
     m_Extent: {x: 5, y: 0, z: 7}

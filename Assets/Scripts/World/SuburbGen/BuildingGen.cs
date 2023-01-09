@@ -30,6 +30,7 @@ public class BuildingGen : MonoBehaviour
     public Vector2 housePosition;
     public Vector2 lanternPosition;
     public Vector2 trashPosition;
+    public float rotation;
 
     private const int GROUND_TILE_SIZE = 5;
 
@@ -37,11 +38,15 @@ public class BuildingGen : MonoBehaviour
 
     public void generate()
     {
+        this.transform.rotation = Quaternion.Euler(0,0,0);
+
         clear();
         
         placeGround();
         placeSingleObjects();
         fillGarden();
+        
+        this.transform.rotation = Quaternion.Euler(0,rotation,0);
     }
 
 
