@@ -5,15 +5,8 @@ using UnityEngine;
 
 public class CursorController : MonoBehaviour
 {
-    private PlayerInput input;
+    private InputManager input;
+    private PlayerInput _playerInput;
 
-    private void Awake()
-    {
-        throw new NotImplementedException();
-    }
-
-    private void OnEnable()
-    {
-        input.Enable();
-    }
+    
 }

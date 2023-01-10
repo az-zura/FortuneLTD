@@ -10,8 +10,14 @@ public class InputManager : MonoBehaviour
     private Vector2 movementInput;
     public float verticalInput;
     public float horizontalInput;
-    private Camera deskCamera;
-    
+    [SerializeField] private Camera deskCamera;
+
+
+    public PlayerInput GetPlayerInput()
+    {
+        return _playerInput;
+    }
+
     private void OnEnable()
     {
         if (_playerInput == null)
@@ -43,21 +49,32 @@ public class InputManager : MonoBehaviour
     //clicking on 3d Objects with mouse left click
     private void Start()
     {
-        _playerInput.Player.Click.started += _ => StartedClick();
-        _playerInput.Player.Click.performed += _ => EndedClick();
+        _playerInput.Player.Click.started += _ => ClickStarted();
+        _playerInput.Player.Click.performed += _ => ClickPerformed();
+    }
+    
+    private void ClickStarted()
+    {
+        Debug.Log("ClickStarted");
     }
 
-    private void StartedClick()
+    private void ClickPerformed()
     {
-        
-    }
-    private void EndedClick()
-    {
-        
+        Debug.Log("ClickPerformed");
+        DetectObject();
     }
 
     private void DetectObject()
     {
-        
+        Ray ray = deskCamera.ScreenPointToRay(_playerInput.Player.MousePosition.ReadValue<Vector2>());
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit))
+        {
+            if (hit.collider != null)
+            {
+                Debug.Log("3D hit: " + hit.collider.tag);
+            }
+        }
     }
+    
 }
