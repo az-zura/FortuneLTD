@@ -380,7 +380,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 358534368}
-  m_LocalRotation: {x: 0.012919561, y: -0.85039395, z: 0.020904291, w: 0.5255724}
+  m_LocalRotation: {x: 0.012919548, y: -0.85039395, z: 0.02090427, w: 0.5255724}
   m_LocalPosition: {x: 10, y: 2, z: 5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2401,7 +2401,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2039555446}
-  m_LocalRotation: {x: 0.012919561, y: -0.85039395, z: 0.020904291, w: 0.5255724}
+  m_LocalRotation: {x: 0.012919548, y: -0.85039395, z: 0.02090427, w: 0.5255724}
   m_LocalPosition: {x: 10, y: 2, z: 5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2482,6 +2482,10 @@ PrefabInstance:
       propertyPath: speaker
       value: 
       objectReference: {fileID: 1158627839}
+    - target: {fileID: 5845744996144135338, guid: 444bd93dc36f745ae8dea746b34fd6d3, type: 3}
+      propertyPath: scaleWithSpeaker
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5845744996144135382, guid: 444bd93dc36f745ae8dea746b34fd6d3, type: 3}
       propertyPath: m_Name
       value: SpeechBubble

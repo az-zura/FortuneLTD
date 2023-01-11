@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using Image = UnityEngine.UI.Image;
 
@@ -13,6 +14,7 @@ public class Speechbubble : MonoBehaviour
         Thought
     }
     
+    [SerializeField] private TextMeshProUGUI bubbleText;
     [SerializeField] private Image talkIndicator;
     [SerializeField] private BubbleType bubbleType = BubbleType.Speech;
     [SerializeField] [Tooltip("[0]: speech, [1]: thought")] private Sprite[] typeSprites; 
@@ -114,12 +116,15 @@ public class Speechbubble : MonoBehaviour
         ChangeBubbleType(type.GetHashCode());
     }
 
-    /*IEnumerator Test()
+    public void SetBubbleText(string text)
     {
-        while (true)
-        {
-            yield return new WaitForSeconds(5);
-            ChangeBubbleType((bubbleType.GetHashCode() + 1) % typeSprites.Length);
-        }
-    }*/
+        bubbleText.text = text;
+    }
+
+    public void SetBubble(string text, BubbleType type, Transform speaker)
+    {
+        SetBubbleText(text);
+        ChangeBubbleType(type.GetHashCode());
+        ChangeSpeaker(speaker);
+    }
 }

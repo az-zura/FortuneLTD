@@ -168,6 +168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2647e0764415e4ca1b9f49706c3ea241, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bubbleText: {fileID: 5845744997689388093}
   talkIndicator: {fileID: 5845744996139940568}
   bubbleType: 0
   typeSprites:
