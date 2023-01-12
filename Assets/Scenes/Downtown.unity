@@ -953,9 +953,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2140099840594776703, guid: f8a24b81ffc2d3d4a9d46792581e9a93, type: 3}
+      propertyPath: m_RootOrder
+      value: 28
+      objectReference: {fileID: 0}
     - target: {fileID: 2377226924486642657, guid: f8a24b81ffc2d3d4a9d46792581e9a93, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4094898236968660010, guid: f8a24b81ffc2d3d4a9d46792581e9a93, type: 3}
+      propertyPath: m_RootOrder
+      value: 29
       objectReference: {fileID: 0}
     - target: {fileID: 5483539232194915954, guid: f8a24b81ffc2d3d4a9d46792581e9a93, type: 3}
       propertyPath: m_IsActive
