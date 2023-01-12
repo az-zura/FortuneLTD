@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class InputManager : MonoBehaviour
@@ -11,6 +12,7 @@ public class InputManager : MonoBehaviour
     public float verticalInput;
     public float horizontalInput;
     [SerializeField] private Camera deskCamera;
+    private DeskManager _deskManager;
 
 
     public PlayerInput GetPlayerInput()
@@ -27,7 +29,7 @@ public class InputManager : MonoBehaviour
         }
         
         _playerInput.Enable();
-        
+
     }
 
     private void OnDisable()
@@ -51,16 +53,16 @@ public class InputManager : MonoBehaviour
     {
         _playerInput.Player.Click.started += _ => ClickStarted();
         _playerInput.Player.Click.performed += _ => ClickPerformed();
+        _deskManager = GameObject.Find("Desk").GetComponent<DeskManager>();
+        Debug.Log(_deskManager.name);
     }
     
     private void ClickStarted()
     {
-        Debug.Log("ClickStarted");
     }
 
     private void ClickPerformed()
     {
-        Debug.Log("ClickPerformed");
         DetectObject();
     }
 
@@ -72,7 +74,12 @@ public class InputManager : MonoBehaviour
         {
             if (hit.collider != null)
             {
-                Debug.Log("3D hit: " + hit.collider.tag);
+                if (hit.collider.tag == "Joe Desk")
+                {
+                    _deskManager.ObjectHit(hit.collider.name);
+                    Debug.Log("HIT RIGHT OBJECT");
+                }
+                //Debug.Log("3D hit: " + hit.collider.name);
             }
         }
     }

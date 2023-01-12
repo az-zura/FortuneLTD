@@ -13,4 +13,6 @@ public class ChangeCamera : MonoBehaviour
         disableCamera.gameObject.SetActive(false);
         enableCamera.gameObject.SetActive(true);
     }
+
+    
 }
