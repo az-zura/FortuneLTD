@@ -9,6 +9,7 @@ TagManager:
   - Akte Image
   - Akte FirstPage
   - Akte
+  - Akte SecondPage
   layers:
   - Default
   - TransparentFX
