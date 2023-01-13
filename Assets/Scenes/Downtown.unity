@@ -478,6 +478,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7174161269440659679, guid: f8a24b81ffc2d3d4a9d46792581e9a93, type: 3}
   m_PrefabInstance: {fileID: 7174161269602100052}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &551817018 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3862392848545114116, guid: f8a24b81ffc2d3d4a9d46792581e9a93, type: 3}
+  m_PrefabInstance: {fileID: 7174161269602100052}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &628055480
 GameObject:
   m_ObjectHideFlags: 0
@@ -972,6 +977,10 @@ PrefabInstance:
       value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 3862392848545114116, guid: f8a24b81ffc2d3d4a9d46792581e9a93, type: 3}
+      propertyPath: m_Name
+      value: Akte Seth Steinsburgh
+      objectReference: {fileID: 0}
+    - target: {fileID: 3862392848545114116, guid: f8a24b81ffc2d3d4a9d46792581e9a93, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -999,6 +1008,14 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6022818075110265420, guid: f8a24b81ffc2d3d4a9d46792581e9a93, type: 3}
+      propertyPath: foldersGameobjects.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6022818075110265420, guid: f8a24b81ffc2d3d4a9d46792581e9a93, type: 3}
+      propertyPath: foldersGameobjects.Array.data[0]
+      value: 
+      objectReference: {fileID: 551817018}
     - target: {fileID: 7163820557979840379, guid: f8a24b81ffc2d3d4a9d46792581e9a93, type: 3}
       propertyPath: m_IsTrigger
       value: 0

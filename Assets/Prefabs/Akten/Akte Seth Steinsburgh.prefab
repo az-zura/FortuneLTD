@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7084928249058359765}
   m_Layer: 0
   m_Name: Bild Seth Steinsburgh
-  m_TagString: Untagged
+  m_TagString: Akte Image
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -108,7 +108,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7844933874128730926}
   m_Layer: 0
-  m_Name: Seth Steinsburgh page 1
+  m_Name: Akte Seth Steinsburgh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -145,7 +145,7 @@ GameObject:
   - component: {fileID: 8804429636641423095}
   m_Layer: 0
   m_Name: Seth Steinsburgh Allgemein
-  m_TagString: Untagged
+  m_TagString: Akte FirstPage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
