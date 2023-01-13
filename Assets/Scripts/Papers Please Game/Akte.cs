@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Akte
 {
-    private bool isFinished;
+    public bool isFinished;
     private GameObject parent;
     private GameObject image;
     private GameObject firstPage; //general information
@@ -15,7 +15,7 @@ public class Akte
     public Akte(GameObject gameObject)
     {
         parent = gameObject;
-        Debug.Log("I am the parent " + parent.name);
+        isFinished = false;
         Transform _parent = gameObject.transform;
         foreach (Transform child in _parent)
         {
@@ -24,18 +24,37 @@ public class Akte
                 case "Akte Image":
                 {
                     image = child.gameObject;
-                    Debug.Log("I found " + image.name);
                     break;
 
                 }
                 case "Akte FirstPage":
                 {
                     firstPage = child.gameObject;
-                    Debug.Log("I found " + firstPage.name);
                     break;
                 }
+                case "Akte SecondPage":
+                {
+                    secondPage = child.gameObject;
+                    break;
+                }
+                case "Akte ThirdPage":
+                {
+                    thirdPage = child.gameObject;
+                    break;
+                }
+
             }
-         
         }
     }
+
+    public void OpenSecondPage()
+    {
+        firstPage.SetActive(false);
+    }
+
+    public void OpenThirdPage()
+    {
+        secondPage.SetActive(false);
+    }
+    
 }

@@ -960,6 +960,10 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 29
       objectReference: {fileID: 0}
+    - target: {fileID: 2129463021134421072, guid: f8a24b81ffc2d3d4a9d46792581e9a93, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2140099840594776703, guid: f8a24b81ffc2d3d4a9d46792581e9a93, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -986,7 +990,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3993453571684675883, guid: f8a24b81ffc2d3d4a9d46792581e9a93, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4094898236968660010, guid: f8a24b81ffc2d3d4a9d46792581e9a93, type: 3}
       propertyPath: m_RootOrder
@@ -1006,7 +1010,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5971670034302436793, guid: f8a24b81ffc2d3d4a9d46792581e9a93, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6022818075110265420, guid: f8a24b81ffc2d3d4a9d46792581e9a93, type: 3}
       propertyPath: foldersGameobjects.Array.size
@@ -1194,7 +1198,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7170156256025276547, guid: f8a24b81ffc2d3d4a9d46792581e9a93, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7172291061587253519, guid: f8a24b81ffc2d3d4a9d46792581e9a93, type: 3}
       propertyPath: m_TagString
@@ -1458,7 +1462,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8057996428113743718, guid: f8a24b81ffc2d3d4a9d46792581e9a93, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8167062606438953682, guid: f8a24b81ffc2d3d4a9d46792581e9a93, type: 3}
       propertyPath: m_RootOrder
@@ -1476,6 +1480,10 @@ PrefabInstance:
       propertyPath: disableCamera
       value: 
       objectReference: {fileID: 1199667376}
+    - target: {fileID: 8702857080949506027, guid: f8a24b81ffc2d3d4a9d46792581e9a93, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8874532106250024630, guid: f8a24b81ffc2d3d4a9d46792581e9a93, type: 3}
       propertyPath: m_RootOrder
       value: 0
