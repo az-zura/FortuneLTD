@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2688962598807697210}
   m_Layer: 0
   m_Name: ThirdPage
-  m_TagString: Akte ThirdPage
+  m_TagString: Joe Desk
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -110,7 +110,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 10, y: 2.220446e-16, z: 10}
+  m_Size: {x: 10, y: 0.1, z: 10}
   m_Center: {x: 0, y: 0.000061035156, z: 0}
 --- !u!1 &3112537273059444848
 GameObject:
@@ -125,7 +125,7 @@ GameObject:
   - component: {fileID: 1053913069872719355}
   - component: {fileID: 7084928249058359765}
   m_Layer: 0
-  m_Name: Bild Seth Steinsburgh
+  m_Name: Image
   m_TagString: Akte Image
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -260,7 +260,7 @@ GameObject:
   - component: {fileID: 3980116516147412037}
   m_Layer: 0
   m_Name: SecondPage
-  m_TagString: Akte SecondPage
+  m_TagString: Joe Desk
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -355,7 +355,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 10, y: 2.220446e-16, z: 10}
+  m_Size: {x: 10, y: 0.1, z: 10}
   m_Center: {x: 0, y: 0.000061035156, z: 0}
 --- !u!1 &9090530991691123040
 GameObject:
@@ -372,7 +372,7 @@ GameObject:
   - component: {fileID: 7039845559122041607}
   m_Layer: 0
   m_Name: FirstPage
-  m_TagString: Akte FirstPage
+  m_TagString: Joe Desk
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -385,7 +385,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9090530991691123040}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -467,5 +467,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 10, y: 2.220446e-16, z: 10}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 10, y: 0.1, z: 10}
+  m_Center: {x: 0, y: 1.110223e-16, z: 0}

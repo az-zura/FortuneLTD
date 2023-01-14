@@ -63,10 +63,18 @@ public class InputManager : MonoBehaviour
 
     private void ClickPerformed()
     {
-        DetectObject();
+        if (!DetectObject())
+        {
+            CloseCurrentAction();
+        }
     }
 
-    private void DetectObject()
+    private void CloseCurrentAction()
+    {
+        _deskManager.CloseCurrentAction();
+    }
+
+    private bool DetectObject()
     {
         Ray ray = deskCamera.ScreenPointToRay(_playerInput.Player.MousePosition.ReadValue<Vector2>());
         RaycastHit hit;
@@ -77,11 +85,11 @@ public class InputManager : MonoBehaviour
                 if (hit.collider.tag == "Joe Desk")
                 {
                     _deskManager.ObjectHit(hit.collider.name);
-                    Debug.Log("HIT RIGHT OBJECT");
+                    return true;
                 }
-                //Debug.Log("3D hit: " + hit.collider.name);
             }
         }
+        return false;
     }
     
 }

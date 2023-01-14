@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class DeskManager : MonoBehaviour
 {
+
     [SerializeField] private List<GameObject> foldersGameobjects;
     private List<Akte> akten;
     [SerializeField] private GameObject _backgroundAkte;
@@ -16,11 +17,12 @@ public class DeskManager : MonoBehaviour
 
     [SerializeField] private Camera folderCamera;
     [SerializeField] private Camera deskCamera;
+    [SerializeField] private Camera monitorCamera;
     
-    private bool folderOpened; //true if there is currently a folder to work on on the desk
+    private bool folderToWorkOn; //true if there is currently a folder to work on on the desk
     private bool foldersEmpty; //true if there is no new folder to work on or joe
     private bool computerToUse; //true if folder is done and now computer is to use
-    
+    private bool folderOpened;
     
     
     
@@ -29,10 +31,10 @@ public class DeskManager : MonoBehaviour
     private void Start()
     {
         #region Bools
-        folderOpened = false;
+        folderToWorkOn = false;
         foldersEmpty = false;
         computerToUse = false;
-
+        folderOpened = false;
         #endregion
         
         folderOnDesk.SetActive(false);
@@ -51,7 +53,6 @@ public class DeskManager : MonoBehaviour
     
     public void ObjectHit(string hitObject)
     {
-        Debug.Log(hitObject);
         switch (hitObject)
         {
             case "FolderUnopened":
@@ -62,6 +63,7 @@ public class DeskManager : MonoBehaviour
             
                 deskCamera.gameObject.SetActive(false);
                 folderCamera.gameObject.SetActive(true);
+                folderOpened = true;
                 break;
             }
             case "FolderTray":
@@ -69,23 +71,41 @@ public class DeskManager : MonoBehaviour
                 if (!folderOnDesk.activeSelf && !foldersEmpty)
                 {
                     folderOnDesk.gameObject.SetActive(true);
-                    folderOpened = true;
+                    folderToWorkOn = true;
                 }
                 break;
             }
             case "FirstPage":
             {
-                Debug.Log("Works");
-                akten[GetIndexOfActiveAkte()].OpenSecondPage();
+                akten[GetIndexOfActiveAkte()].OpenOrCloseSecondPage();
                 break;
             }
             case "SecondPage":
             {
-                akten[GetIndexOfActiveAkte()].OpenThirdPage();
+                akten[GetIndexOfActiveAkte()].OpenOrCloseThirdPage();
+                break;
+            }
+            case "Monitor":
+            {
+                deskCamera.gameObject.SetActive(false);
+                monitorCamera.gameObject.SetActive(true);
                 break;
             }
         }
        
+    }
+
+    public void CloseCurrentAction()
+    {
+        if (folderOpened)
+        {
+            _backgroundAkte.SetActive(false);
+            closedFolder.SetActive(true);
+            foldersGameobjects[GetIndexOfActiveAkte()].SetActive(false);
+            deskCamera.gameObject.SetActive(true);
+            folderCamera.gameObject.SetActive(false);
+            folderOpened = false;
+        }
     }
 
     int GetIndexOfActiveAkte()
@@ -97,7 +117,6 @@ public class DeskManager : MonoBehaviour
                 return akten.IndexOf(akte);
             }
         }
-
         return -1;
     }
 }
