@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,6 +14,11 @@ namespace EventSystem
         public void SuspendAction(float timeInSeconds)
         {
             eventBase.SuspendAction(this,timeInSeconds);
+        }
+
+        public void DispatchCoroutine(IEnumerator coroutine)
+        {
+            this.eventBase.ExecuteCoroutine(coroutine);
         }
 
         //adds a condition to the execution of this action

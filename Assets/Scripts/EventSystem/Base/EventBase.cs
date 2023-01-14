@@ -17,7 +17,6 @@ namespace EventSystem
             }
             else
             {
-                Debug.Log("Cant run action -> cyclic wait");
                 StartCoroutine(CyclicWait(action));
             }
         }
@@ -26,6 +25,12 @@ namespace EventSystem
         public void SuspendAction(ActionBase action, float timeInSeconds)
         {
             StartCoroutine(Suspend(action, timeInSeconds));
+        }
+        
+        //can be called by action
+        public void ExecuteCoroutine(IEnumerator coroutine)
+        {
+            StartCoroutine(coroutine);
         }
         
         IEnumerator Suspend(ActionBase action,float timeInSeconds)

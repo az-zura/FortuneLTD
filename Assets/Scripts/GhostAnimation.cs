@@ -12,6 +12,17 @@ public class GhostAnimation : MonoBehaviour
     static Vector3 _onlyHorizontal = new Vector3(1, 1, 0).normalized;
 
     private Animator animator;
+    
+    public enum Emotion
+    {
+        Default,
+        Happy,
+        Sad,
+        Angry,
+        Sceptical,
+        Surprised,
+        Thinking
+    }
 
     private void Start()
     {
@@ -35,5 +46,11 @@ public class GhostAnimation : MonoBehaviour
     public void setMoving(bool isMoving)
     {
         animator.SetBool("IsFloating", isMoving);
+    }
+
+    public void setEmotion(Emotion emotion)
+    {
+        Debug.Log("change emotion to "+ emotion);
+        animator.SetInteger("Emotion",emotion.GetHashCode());
     }
 }

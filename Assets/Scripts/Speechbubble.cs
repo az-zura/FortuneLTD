@@ -11,7 +11,8 @@ public class Speechbubble : MonoBehaviour
     public enum BubbleType
     {
         Speech,
-        Thought
+        Thought,
+        Dismissed
     }
     
     [SerializeField] private TextMeshProUGUI bubbleText;
@@ -33,8 +34,12 @@ public class Speechbubble : MonoBehaviour
 
     private void Start()
     {
+        if (speaker)
+        {
+            ChangeSpeaker(speaker);
+        }
         camera = Camera.main;
-        playerSize = speaker.GetComponent<MeshRenderer>().bounds.size;
+
         rectTrans = GetComponent<RectTransform>();
         canvasGroup = GetComponent<CanvasGroup>();
 
@@ -42,12 +47,18 @@ public class Speechbubble : MonoBehaviour
         initialSize = rectTrans.sizeDelta;
         initialSizeIndicator = talkIndicator.rectTransform.sizeDelta;
 
-        talkIndicator.sprite = typeSprites[bubbleType.GetHashCode()];
+        talkIndicator.sprite =
+            typeSprites[(bubbleType.GetHashCode() < typeSprites.Length) ? bubbleType.GetHashCode() : 0];
         //StartCoroutine(Test());
     }
 
     private void Update()
     {
+        if (bubbleType == BubbleType.Dismissed)
+        {
+            this.gameObject.SetActive(false);
+            return;
+        }
         if (scaleWithSpeaker)
         {
             // scale depending on distance to player
@@ -66,7 +77,7 @@ public class Speechbubble : MonoBehaviour
         }
         
         //project player position onto canvas
-        Vector3 worldPos = speaker.position + camera.transform.up * playerSize.y * 0.7f;
+        Vector3 worldPos = speaker.position + camera.transform.up * (playerSize.y * 0.7f);
         Vector3 projectedPos = RectTransformUtility.WorldToScreenPoint(camera, worldPos);
         transform.position =  new Vector2(initialPos.x, projectedPos.y);
         projectedPos = RectTransformUtility.WorldToScreenPoint(camera, speaker.position);
@@ -94,27 +105,27 @@ public class Speechbubble : MonoBehaviour
     public void ChangeSpeaker(Transform speaker)
     {
         this.speaker = speaker;
-    }
-    
-    public void ChangeBubbleType(int typeId)
-    {
-        switch (typeId)
-        {
-            case 0:
-            case 1:
-                bubbleType = (BubbleType) typeId;
-                talkIndicator.sprite = typeSprites[typeId];
-                break;
-            default:
-                Debug.LogError($"Bubble type {typeId} does not exist.");
-                break;
-        }
+        playerSize = speaker.GetComponentInChildren<Renderer>().bounds.size;
+
     }
     
     public void ChangeBubbleType(BubbleType type)
     {
-        ChangeBubbleType(type.GetHashCode());
-    }
+        switch (type)
+        {
+            case BubbleType.Speech:
+            case BubbleType.Thought:
+                bubbleType = type;
+                talkIndicator.sprite = typeSprites[type.GetHashCode()];
+                this.gameObject.SetActive(true);
+                break;
+            case BubbleType.Dismissed:
+                this.gameObject.SetActive(false);
+                break;
+            default:
+                Debug.LogError($"Bubble type {type} does not exist.");
+                break;
+        }    }
 
     public void SetBubbleText(string text)
     {
@@ -124,7 +135,7 @@ public class Speechbubble : MonoBehaviour
     public void SetBubble(string text, BubbleType type, Transform speaker)
     {
         SetBubbleText(text);
-        ChangeBubbleType(type.GetHashCode());
+        ChangeBubbleType(type);
         ChangeSpeaker(speaker);
     }
 }
