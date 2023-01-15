@@ -11,6 +11,7 @@ TagManager:
   - Akte
   - Akte SecondPage
   - Akte ThirdPage
+  - Selectable
   layers:
   - Default
   - TransparentFX
