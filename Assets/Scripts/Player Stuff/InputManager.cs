@@ -12,6 +12,8 @@ public class InputManager : MonoBehaviour
     public float verticalInput;
     public float horizontalInput;
     [SerializeField] private Camera deskCamera;
+    [SerializeField] private Camera folderCamera;
+    [SerializeField] private Camera monitorCamera;
     private DeskManager _deskManager;
 
 
@@ -27,7 +29,7 @@ public class InputManager : MonoBehaviour
             _playerInput = new PlayerInput();
             _playerInput.Player.Movement.performed += i => movementInput = i.ReadValue<Vector2>();
         }
-        
+
         _playerInput.Enable();
 
     }
@@ -54,9 +56,8 @@ public class InputManager : MonoBehaviour
         _playerInput.Player.Click.started += _ => ClickStarted();
         _playerInput.Player.Click.performed += _ => ClickPerformed();
         _deskManager = GameObject.Find("Desk").GetComponent<DeskManager>();
-        Debug.Log(_deskManager.name);
     }
-    
+
     private void ClickStarted()
     {
     }
@@ -76,7 +77,7 @@ public class InputManager : MonoBehaviour
 
     private bool DetectObject()
     {
-        Ray ray = deskCamera.ScreenPointToRay(_playerInput.Player.MousePosition.ReadValue<Vector2>());
+        Ray ray = GetActiveCamera().ScreenPointToRay(_playerInput.Player.MousePosition.ReadValue<Vector2>());
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit))
         {
@@ -89,7 +90,24 @@ public class InputManager : MonoBehaviour
                 }
             }
         }
+
         return false;
     }
-    
+
+    private Camera GetActiveCamera()
+    {
+        switch (_deskManager.GetCurrentState())
+        {
+            case 0:
+                return deskCamera;
+                break;
+            case 1:
+                return folderCamera;
+                break;
+            case 2:
+                return monitorCamera;
+                break;
+        }
+        return Camera.current;
+    }
 }

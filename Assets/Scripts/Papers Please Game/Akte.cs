@@ -12,13 +12,15 @@ public class Akte
     private GameObject firstPage; //general information
     private GameObject secondPage; //special interests
     private GameObject thirdPage; //confidential
-    private bool secondPageOpened = false; //first page and image are on the left side
-    private bool thirdPageOpened = false; //second page is on the left
+    private bool secondPageOpened; //first page and image are on the left side
+    private bool thirdPageOpened; //second page is on the left
     
     public Akte(GameObject gameObject)
     {
         parent = gameObject;
         isFinished = false;
+        secondPageOpened = false; 
+        thirdPageOpened = false;
         Transform _parent = gameObject.transform;
         foreach (Transform child in _parent)
         {
@@ -50,36 +52,26 @@ public class Akte
         }
     }
 
-    public void OpenOrCloseSecondPage()
+    public void DisableFirstPageAndImage()
     {
-        if (!secondPageOpened)
-        {
-            firstPage.transform.Translate(new Vector3(0.55f, 0,0));
-            image.transform.Translate(new Vector3(0.55f, 0,0.1f));
-            secondPageOpened = true;
-        }
-        else
-        {
-            firstPage.transform.Translate(new Vector3(-0.55f, 0,0));
-            image.transform.Translate(new Vector3(-0.55f, 0,-0.1f));
-            secondPageOpened = false;
-        }
-        
+        firstPage.gameObject.SetActive(false);
+        image.gameObject.SetActive(false);
     }
 
-    public void OpenOrCloseThirdPage()
+    public void EnableFirstPageAndImage()
     {
-        if (!thirdPageOpened)
-        {
-             secondPage.transform.Translate(new Vector3(0.55f, 0.03f,0));
-             thirdPageOpened = true;
-        }
-        else
-        {
-            Debug.Log("BACK TO SECOND PAGE");
-            secondPage.transform.Translate(new Vector3(-0.55f, -0.03f, 0));
-            thirdPageOpened = false;
-        }
+        firstPage.gameObject.SetActive(true);
+        image.gameObject.SetActive(true);
+    }
+
+    public void DisableSecondPage()
+    {
+        secondPage.gameObject.SetActive(false);
+    }
+
+    public void EnableSecondPage()
+    {
+        secondPage.gameObject.SetActive(true);
     }
 
     public void FinishAkte()

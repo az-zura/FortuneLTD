@@ -300,6 +300,13 @@ MonoBehaviour:
   verticalInput: 0
   horizontalInput: 0
   deskCamera: {fileID: 0}
+  folderCamera: {fileID: 0}
+  monitorCamera: {fileID: 0}
+--- !u!20 &106439594 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 2154112274725336112, guid: f8a24b81ffc2d3d4a9d46792581e9a93, type: 3}
+  m_PrefabInstance: {fileID: 7174161269602100052}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &246031573
 GameObject:
   m_ObjectHideFlags: 0
@@ -599,6 +606,14 @@ PrefabInstance:
       propertyPath: deskCamera
       value: 
       objectReference: {fileID: 686511777}
+    - target: {fileID: 1102896049371242391, guid: 849b53c4415c4474288649924173c171, type: 3}
+      propertyPath: folderCamera
+      value: 
+      objectReference: {fileID: 1668997276}
+    - target: {fileID: 1102896049371242391, guid: 849b53c4415c4474288649924173c171, type: 3}
+      propertyPath: monitorCamera
+      value: 
+      objectReference: {fileID: 106439594}
     - target: {fileID: 2769990789042781894, guid: 849b53c4415c4474288649924173c171, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -784,6 +799,11 @@ Camera:
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7635453201666794604, guid: 849b53c4415c4474288649924173c171, type: 3}
   m_PrefabInstance: {fileID: 732202846}
+  m_PrefabAsset: {fileID: 0}
+--- !u!20 &1668997276 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 1841561392147900777, guid: f8a24b81ffc2d3d4a9d46792581e9a93, type: 3}
+  m_PrefabInstance: {fileID: 7174161269602100052}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1802529592
 GameObject:

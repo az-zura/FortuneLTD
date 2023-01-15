@@ -8,10 +8,13 @@ public class ChangeCamera : MonoBehaviour
     [SerializeField] private Camera disableCamera;
     [SerializeField] private Camera enableCamera;
 
+    [SerializeField] private bool changeToDesk;
+    [SerializeField] private GameObject decke;
     private void OnTriggerEnter(Collider other)
     {
         disableCamera.gameObject.SetActive(false);
         enableCamera.gameObject.SetActive(true);
+        if(changeToDesk) decke.SetActive(true);
     }
 
     

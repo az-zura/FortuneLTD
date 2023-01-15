@@ -1,32 +1,45 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class DeskManager : MonoBehaviour
 {
+    private enum state
+    {
+        desk, folder, monitor
+    }
 
-    [SerializeField] private List<GameObject> foldersGameobjects;
-    private List<Akte> akten;
-    [SerializeField] private GameObject _backgroundAkte;
+    private state currentState;
+    
     [SerializeField] private GameObject folderTray;
-    [SerializeField] private GameObject closedFolder;
-    [SerializeField] private GameObject folderOnDesk;
-
-    [SerializeField] private Camera folderCamera;
     [SerializeField] private Camera deskCamera;
-    [SerializeField] private Camera monitorCamera;
-    
-    private bool folderToWorkOn; //true if there is currently a folder to work on on the desk
-    private bool foldersEmpty; //true if there is no new folder to work on or joe
-    private bool computerToUse; //true if folder is done and now computer is to use
-    private bool folderOpened;
-    
-    
-    
-    private int currentFolderToDo = 0;
+
+    #region every variable only folder related
+        [SerializeField] private List<GameObject> foldersGameobjects;
+        private List<Akte> akten;
+        
+        [SerializeField] private GameObject _backgroundAkte;
+        [SerializeField] private GameObject closedFolder;
+        [SerializeField] private GameObject folderOnDesk;
+        
+        [SerializeField] private Camera folderCamera;
+        
+        private bool folderToWorkOn; //true if there is currently a folder to work on on the desk
+        private bool foldersEmpty; //true if there is no new folder to work on or joe
+        private bool folderOpened;
+        private bool secondPageJustOpened;
+        
+        private int currentFolderToDo = 0;
+    #endregion
+
+    #region every variable only monitor related
+        [SerializeField] private GameObject monitor;
+
+        [SerializeField] private Camera monitorCamera;
+
+        private bool computerToUse; //true if folder is done and now computer is to use
+        private bool monitorOpened;
+        
+    #endregion
     
     private void Start()
     {
@@ -35,20 +48,14 @@ public class DeskManager : MonoBehaviour
         foldersEmpty = false;
         computerToUse = false;
         folderOpened = false;
+        secondPageJustOpened = true;
+        monitorOpened = false;
         #endregion
-        
+
+        currentState = state.desk;
         folderOnDesk.SetActive(false);
         akten = new List<Akte>();
         GetAktenFromFolderGameObjects();
-    }
-
-    private void GetAktenFromFolderGameObjects()
-    {
-        foreach (var currentAkte in foldersGameobjects)
-        {
-            Akte tmpakte = new Akte(currentAkte);
-            akten.Add(tmpakte);
-        }
     }
     
     public void ObjectHit(string hitObject)
@@ -64,6 +71,7 @@ public class DeskManager : MonoBehaviour
                 deskCamera.gameObject.SetActive(false);
                 folderCamera.gameObject.SetActive(true);
                 folderOpened = true;
+                currentState = state.folder;
                 break;
             }
             case "FolderTray":
@@ -77,18 +85,35 @@ public class DeskManager : MonoBehaviour
             }
             case "FirstPage":
             {
-                akten[GetIndexOfActiveAkte()].OpenOrCloseSecondPage();
+                akten[GetIndexOfActiveAkte()].DisableFirstPageAndImage();
                 break;
             }
             case "SecondPage":
             {
-                akten[GetIndexOfActiveAkte()].OpenOrCloseThirdPage();
+                if (secondPageJustOpened)
+                {
+                    akten[GetIndexOfActiveAkte()].DisableSecondPage();
+                }
+                else
+                {
+                    akten[GetIndexOfActiveAkte()].EnableFirstPageAndImage();
+                }
+                secondPageJustOpened = !secondPageJustOpened;
+                break;
+            }
+            case "ThirdPage":
+            {
+                akten[GetIndexOfActiveAkte()].EnableSecondPage();
                 break;
             }
             case "Monitor":
             {
-                deskCamera.gameObject.SetActive(false);
-                monitorCamera.gameObject.SetActive(true);
+                if (currentState == state.desk)
+                {
+                    deskCamera.gameObject.SetActive(false);
+                    monitorCamera.gameObject.SetActive(true);
+                    currentState = state.monitor;
+                }
                 break;
             }
         }
@@ -97,7 +122,7 @@ public class DeskManager : MonoBehaviour
 
     public void CloseCurrentAction()
     {
-        if (folderOpened)
+        if (currentState == state.folder)
         {
             _backgroundAkte.SetActive(false);
             closedFolder.SetActive(true);
@@ -106,17 +131,47 @@ public class DeskManager : MonoBehaviour
             folderCamera.gameObject.SetActive(false);
             folderOpened = false;
         }
+
+        if (currentState == state.monitor)
+        {
+            deskCamera.gameObject.SetActive(true);
+            monitorCamera.gameObject.SetActive(false);
+        }
+        currentState = state.desk;
+    }
+    
+    public int GetCurrentState()
+    {
+        switch (currentState)
+        {
+            case state.desk: return 0;
+            case state.folder: return 1;
+            case state.monitor: return 2;
+        }
+
+        return -1; //error no state
     }
 
-    int GetIndexOfActiveAkte()
-    {
-        foreach (Akte akte in akten)
+    #region every function only folder related
+        int GetIndexOfActiveAkte()
         {
-            if (!akte.isFinished)
+            foreach (Akte akte in akten)
             {
-                return akten.IndexOf(akte);
+                if (!akte.isFinished)
+                {
+                    return akten.IndexOf(akte);
+                }
+            }
+            return -1;
+        }
+        
+        private void GetAktenFromFolderGameObjects()
+        {
+            foreach (var currentAkte in foldersGameobjects)
+            {
+                Akte tmpakte = new Akte(currentAkte);
+                akten.Add(tmpakte);
             }
         }
-        return -1;
-    }
+    #endregion
 }
