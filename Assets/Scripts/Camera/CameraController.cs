@@ -37,9 +37,13 @@ public class CameraController : MonoBehaviour
         boxcast
     }
 
+    private Vector3 oldPos;
+
     void Start()
     {
         oldHitsNumber = 0;
+        oldPos = transform.position;
+        ViewObstructed();
 
         foreach (CinemachineVirtualCamera cam in cameras)
         {
@@ -51,7 +55,12 @@ public class CameraController : MonoBehaviour
 
     private void LateUpdate()
     {
-        ViewObstructed();
+        //check if camera is moving
+        if (transform.position != oldPos)
+        {
+            ViewObstructed();
+            oldPos = transform.position;
+        }
     }
 
     public void SwitchToCamera(int camNum)
@@ -139,7 +148,7 @@ public class CameraController : MonoBehaviour
                 if (rend != null)
                 {
                     rend.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;
-                    StartCoroutine(FadeMaterial(rend.materials[0], 0f));
+                    StartCoroutine(FadeMaterial( rend.materials[0], 0f));
                 }
 
                 obstructions.Add(obstruction);
