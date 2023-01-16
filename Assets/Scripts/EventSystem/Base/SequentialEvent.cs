@@ -40,7 +40,7 @@ namespace EventSystem
             currentAction++;
             if (currentAction >= actions.Count)
             {
-                Debug.Log("Last action has been played");
+                finalizeEvent();
             }
             else
             {

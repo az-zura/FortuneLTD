@@ -5,14 +5,13 @@ using UnityEngine;
 
 public class GhostAnimation : MonoBehaviour
 {
-
-    
     public CharacterController controller;
     public float idleBobHeight = 0.4f;
-    static Vector3 _onlyHorizontal = new Vector3(1, 1, 0).normalized;
 
     private Animator animator;
-    
+
+    public Transform lookAt;
+
     public enum Emotion
     {
         Default,
@@ -31,16 +30,36 @@ public class GhostAnimation : MonoBehaviour
 
     void Update()
     {
-        Vector3 v = new Vector3(controller.velocity.x,0,controller.velocity.z).normalized;
-        if (!(v.x == 0 && v.z == 0))
+        if (controller)
         {
-            gameObject.transform.forward = -v;
+            Vector3 v = new Vector3(controller.velocity.x, 0, controller.velocity.z).normalized;
+            if (!(v.x == 0 && v.z == 0))
+            {
+                gameObject.transform.forward = -v;
+            }
         }
+        else
+        {
+            if (lookAt)
+            {
+                Vector3 v = (lookAt.position - transform.position);
+                v.y = 0;
+                v = -v.normalized;
+                gameObject.transform.forward = Vector3.Lerp(gameObject.transform.forward, v, 0.8f);
+            }
+        }
+
 
         var o = gameObject;
         var localPosition = o.transform.localPosition;
-        localPosition = new Vector3(localPosition.x,Mathf.Cos(Time.time)*idleBobHeight,localPosition.z);
+        localPosition = new Vector3(localPosition.x, Mathf.Cos(Time.time) * idleBobHeight, localPosition.z);
         o.transform.localPosition = localPosition;
+    }
+
+    public Transform LookAt
+    {
+        get => lookAt;
+        set => lookAt = value;
     }
 
     public void setMoving(bool isMoving)
@@ -50,7 +69,7 @@ public class GhostAnimation : MonoBehaviour
 
     public void setEmotion(Emotion emotion)
     {
-        Debug.Log("change emotion to "+ emotion);
-        animator.SetInteger("Emotion",emotion.GetHashCode());
+        Debug.Log("change emotion to " + emotion);
+        animator.SetInteger("Emotion", emotion.GetHashCode());
     }
 }

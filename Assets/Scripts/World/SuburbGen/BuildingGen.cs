@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using Range = UnityEngine.SocialPlatforms.Range;
@@ -22,9 +23,9 @@ public class BuildingGen : MonoBehaviour
 
     public int gardenAssetsMax;
     public int gardenAssetsMin;
-    
-    
-    public int terrainWidth; 
+
+
+    public int terrainWidth;
     public int terrainLength;
 
     public Vector2 housePosition;
@@ -38,17 +39,16 @@ public class BuildingGen : MonoBehaviour
 
     public void generate()
     {
-        this.transform.rotation = Quaternion.Euler(0,0,0);
+        this.transform.rotation = Quaternion.Euler(0, 0, 0);
 
         clear();
-        
+
         placeGround();
         placeSingleObjects();
         fillGarden();
-        
-        this.transform.rotation = Quaternion.Euler(0,rotation,0);
-    }
 
+        this.transform.rotation = Quaternion.Euler(0, rotation, 0);
+    }
 
 
     private void clear()
@@ -56,21 +56,25 @@ public class BuildingGen : MonoBehaviour
         for (int i = 0; i < this.gameObject.transform.childCount; i++)
         {
             DestroyImmediate(gameObject.transform.GetChild(i).gameObject);
-            
         }
-        foreach (GameObject child  in placed)
+
+        foreach (GameObject child in placed)
         {
             DestroyImmediate(child);
         }
     }
 
-    private void place(GameObject gameObject, Vector3 pos, Quaternion rotation = default)
+    private void place(GameObject gameObject, Vector3 pos, Quaternion rotation = default, bool navMesh = false)
     {
         if (rotation == default)
         {
             rotation = this.transform.rotation;
         }
-        placed.Add(Instantiate(gameObject,pos,rotation,transform));
+
+        GameObject instantiated = Instantiate(gameObject, pos, rotation, transform);
+        instantiated.isStatic = true;
+        if (navMesh) GameObjectUtility.SetStaticEditorFlags(instantiated, StaticEditorFlags.NavigationStatic);
+        placed.Add(instantiated);
     }
 
     private void placeGround()
@@ -79,23 +83,22 @@ public class BuildingGen : MonoBehaviour
         for (int z = 1; z < terrainWidth + 1; z++)
         {
             var pos = this.transform.position + new Vector3(GROUND_TILE_SIZE, 0, GROUND_TILE_SIZE * z);
-            place(roadPrefab, pos);
+            place(roadPrefab, pos, navMesh: true);
         }
-        
+
         //street
         for (int z = 1; z < terrainWidth + 1; z++)
         {
             var pos = this.transform.position + new Vector3(GROUND_TILE_SIZE * 2, 0, GROUND_TILE_SIZE * z);
             pos.x -= GROUND_TILE_SIZE;
-            place(sidewalkPrefab, pos, Quaternion.Euler(0,-90,0));
+            place(sidewalkPrefab, pos, Quaternion.Euler(0, -90, 0), navMesh: true);
         }
 
-        
+
         //terrain
-        for (int z = 1; z < terrainWidth+1; z++)
+        for (int z = 1; z < terrainWidth + 1; z++)
         {
-            
-            for (int x = 3; x < terrainLength+4; x++)
+            for (int x = 3; x < terrainLength + 4; x++)
             {
                 var pos = this.transform.position + new Vector3(GROUND_TILE_SIZE * x, 0, GROUND_TILE_SIZE * z);
                 var rotation = this.transform.rotation;
@@ -103,51 +106,51 @@ public class BuildingGen : MonoBehaviour
                 switch (r)
                 {
                     case 0:
-                        rotation = Quaternion.Euler(0,90,0);
+                        rotation = Quaternion.Euler(0, 90, 0);
                         pos.z -= GROUND_TILE_SIZE;
                         break;
                     case 1:
-                        rotation = Quaternion.Euler(0,180,0);
+                        rotation = Quaternion.Euler(0, 180, 0);
                         pos.z -= GROUND_TILE_SIZE;
                         pos.x -= GROUND_TILE_SIZE;
                         break;
                     case 2:
-                        rotation = Quaternion.Euler(0,270,0);
+                        rotation = Quaternion.Euler(0, 270, 0);
                         pos.x -= GROUND_TILE_SIZE;
                         break;
                 }
-                place(floorPrefab, pos,rotation);
+
+                place(floorPrefab, pos, rotation, navMesh: true);
             }
         }
-        
     }
-    
+
     private void placeSingleObjects()
     {
         var position = this.transform.position;
-        place(housePrefab,position + new Vector3(housePosition.x,0,housePosition.y));
-        place(lanternPrefab,position + new Vector3(lanternPosition.x,0,lanternPosition.y),Quaternion.Euler(0,-90,0));
-        place(trashPrefab[Random.Range(0,trashPrefab.Length)],position+ new Vector3(trashPosition.x,0,trashPosition.y),Quaternion.Euler(0,Random.Range(0,360),0));
+        place(housePrefab, position + new Vector3(housePosition.x, 0, housePosition.y));
+        place(lanternPrefab, position + new Vector3(lanternPosition.x, 0, lanternPosition.y),
+            Quaternion.Euler(0, -90, 0));
+        place(trashPrefab[Random.Range(0, trashPrefab.Length)],
+            position + new Vector3(trashPosition.x, 0, trashPosition.y), Quaternion.Euler(0, Random.Range(0, 360), 0),
+            navMesh: true);
     }
 
     private void placeRadomInBox(Bounds bounds, GameObject[] gameObjects, float height, int amount)
     {
         for (int i = 0; i < amount; i++)
         {
-            
-            GameObject toInstantiate = gameObjects[Random.Range(0,gameObjects.Length)];
+            GameObject toInstantiate = gameObjects[Random.Range(0, gameObjects.Length)];
             Vector3 pos = new Vector3(Random.Range(bounds.min.x, bounds.max.x), height,
                 Random.Range(bounds.min.z, bounds.max.z));
             pos += this.transform.position;
-            place(toInstantiate,pos,Quaternion.Euler(0,Random.Range(0,360),0));
+            place(toInstantiate, pos, Quaternion.Euler(0, Random.Range(0, 360), 0));
         }
     }
 
     private void fillGarden()
     {
-        placeRadomInBox(garden, smallRocks, 0, Random.Range(rockMin,rockMax));
-        placeRadomInBox(garden, randomGardenProps, 0, Random.Range(gardenAssetsMin,gardenAssetsMax));
-    
-        
+        placeRadomInBox(garden, smallRocks, 0, Random.Range(rockMin, rockMax));
+        placeRadomInBox(garden, randomGardenProps, 0, Random.Range(gardenAssetsMin, gardenAssetsMax));
     }
 }

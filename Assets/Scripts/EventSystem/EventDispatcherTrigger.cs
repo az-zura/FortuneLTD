@@ -8,7 +8,7 @@ namespace EventSystem
         private EventBase eventBase;
         private void OnTriggerEnter(Collider other)
         {
-            eventBase.InitEvent();
+            eventBase.InitializeEvent();
         }
     }
 }
