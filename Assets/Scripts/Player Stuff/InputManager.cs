@@ -14,6 +14,7 @@ public class InputManager : MonoBehaviour
     [SerializeField] private Camera deskCamera;
     [SerializeField] private Camera folderCamera;
     [SerializeField] private Camera monitorCamera;
+    [SerializeField] private Camera rulesheetCamera;
     private DeskManager _deskManager;
 
 

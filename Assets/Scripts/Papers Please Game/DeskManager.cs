@@ -5,7 +5,7 @@ public class DeskManager : MonoBehaviour
 {
     private enum state
     {
-        desk, folder, monitor
+        desk, folder, monitor, rulesheet
     }
 
     private state currentState;
@@ -39,6 +39,12 @@ public class DeskManager : MonoBehaviour
         private bool computerToUse; //true if folder is done and now computer is to use
         private bool monitorOpened;
         
+    #endregion
+
+    #region every variable only rule sheet related
+
+    [SerializeField] private Camera rulesheetCamera;
+
     #endregion
     
     private void Start()
@@ -114,6 +120,15 @@ public class DeskManager : MonoBehaviour
                     monitorCamera.gameObject.SetActive(true);
                     currentState = state.monitor;
                 }
+                break;
+            }
+            case "RuleSheet":
+            {
+                if (currentState == state.desk)
+                {
+                    currentState = state.rulesheet;
+                }
+
                 break;
             }
         }
