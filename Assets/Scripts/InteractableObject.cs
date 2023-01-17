@@ -10,6 +10,11 @@ public class InteractableObject : MonoBehaviour
 {
     public UnityEvent onClick;
 
+    private void Start()
+    {
+        transform.tag = SelectionManager.selectableTag;
+    }
+
     public void Test()
     {
         Debug.Log("Test");
