@@ -298,6 +298,8 @@ MonoBehaviour:
   verticalInput: 0
   horizontalInput: 0
   deskCamera: {fileID: 0}
+  folderCamera: {fileID: 0}
+  monitorCamera: {fileID: 0}
 --- !u!1 &9002339360135295068
 GameObject:
   m_ObjectHideFlags: 0
@@ -434,10 +436,11 @@ MonoBehaviour:
   - {fileID: 816429316641750398}
   currentCam: 0
   player: {fileID: 4989267936017735571}
-  multipleRaycasts: 1
+  wallCheck: 2
   numOfRaycasts: 100
   windowSize: {x: 2, y: 2}
   windowOffset: {x: 0, y: 0}
+  boxXYSize: {x: 1, y: 1}
 --- !u!1 &9202447379209081723
 GameObject:
   m_ObjectHideFlags: 0
