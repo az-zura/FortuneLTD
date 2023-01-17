@@ -13,6 +13,7 @@ public class InteractableObject : MonoBehaviour
     private void Start()
     {
         transform.tag = SelectionManager.selectableTag;
+        SelectionManager.instance.interactableObjs.Add(transform);
     }
 
     public void Test()

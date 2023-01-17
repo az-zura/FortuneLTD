@@ -1,16 +1,35 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEditor.UI;
 using UnityEngine;
 
 public class SelectionManager : MonoBehaviour
 {
+    public static SelectionManager instance; //Singleton --> there is only one Selection Manager in each Scene!
     public static string selectableTag = "Selectable";
-    [SerializeField] private Material highlightMaterial;
-    
+    [SerializeField] private Material selectionMaterial;
+    [SerializeField] private Material highlightMaterial; //highlights ALL selectable Objects
+    [SerializeField] private Transform player;
+    [SerializeField] private float radius;
+
+    [HideInInspector] public List<Transform> interactableObjs = new List<Transform>();
     private Material defaultMaterial;
     private Transform _selection;
-    
+
+    private void Awake()
+    {
+        if (instance)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            instance = this;
+        }
+    }
+
     private void Update()
     {
         if (_selection != null)
@@ -29,7 +48,7 @@ public class SelectionManager : MonoBehaviour
         if (hits.Count > 0)
         {
             var selection = hits[hits.Count - 1].transform;
-            for (int i = 0; i < hits.Count; i++)
+            for (int i = 0; i < hits.Count - 1; i++)
             {
                 Renderer rend = hits[i].transform.GetComponent<Renderer>();
                 if (rend && hits[i].transform.CompareTag(selectableTag))
@@ -58,7 +77,7 @@ public class SelectionManager : MonoBehaviour
                 {
                     defaultMaterial = selectionRenderer.material;
                     //selectionRenderer.material = highlightMaterial;
-                    selectionRenderer.materials = new[] {defaultMaterial, highlightMaterial};
+                    selectionRenderer.materials = new[] {defaultMaterial, selectionMaterial};
                 }
 
                 _selection = selection;
@@ -72,6 +91,31 @@ public class SelectionManager : MonoBehaviour
                     iObj.onClick?.Invoke();
                 }
             }
+
+            //TODO sth like this:
+            /*
+            foreach (var iobj in interactableObjs)
+            {
+                
+                    Renderer r = iobj.GetComponent<Renderer>();
+                    if (r)
+                    {
+                        List <Material> mats = r.materials.ToList();
+                        if (Vector3.Distance(player.position, iobj.position) <= radius && iobj != _selection)
+                        {
+                            if (!mats.Contains(highlightMaterial))
+                            {
+                                mats.Add(highlightMaterial);
+                            }
+                        }
+                        else if (mats.Contains(highlightMaterial))
+                        {
+                            mats.Remove(highlightMaterial);
+                        }
+
+                        iobj.GetComponent<Renderer>().materials = mats.ToArray();
+                    }
+            }*/
         }
     }
 }
