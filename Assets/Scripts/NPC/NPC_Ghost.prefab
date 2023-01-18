@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7178236727368459298}
+  - component: {fileID: 6487598098479464080}
   - component: {fileID: 454039282630948576}
   - component: {fileID: 7417895561144789061}
   m_Layer: 0
@@ -34,6 +35,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6487598098479464080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7564740288785736056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a57c1837af8b0d4cb490c10b49c1910, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speedMin: 3
+  speedMax: 6
+  ghostMeshMale: {fileID: 3772797090071207700, guid: bea754ac805b25044984967f22fc9dc9, type: 3}
+  ghostMeshFemale: {fileID: 1613899991831622912, guid: 6d876b6185cc5a1498a271811d6c23fa, type: 3}
 --- !u!195 &454039282630948576
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -79,6 +96,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ghost
       objectReference: {fileID: 0}
+    - target: {fileID: 1145961984398258472, guid: fc402e53ef1b2ea4c8621e30a647d562, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2163171387548237501, guid: fc402e53ef1b2ea4c8621e30a647d562, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 3772797090071207700, guid: bea754ac805b25044984967f22fc9dc9, type: 3}
     - target: {fileID: 8704840744690742668, guid: fc402e53ef1b2ea4c8621e30a647d562, type: 3}
       propertyPath: m_RootOrder
       value: 0

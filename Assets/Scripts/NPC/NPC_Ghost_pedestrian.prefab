@@ -11,6 +11,18 @@ PrefabInstance:
       propertyPath: m_WalkableMask
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 6487598098479464080, guid: 731739b4c67b8b346a36669553dd1e1d, type: 3}
+      propertyPath: speedMax
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6487598098479464080, guid: 731739b4c67b8b346a36669553dd1e1d, type: 3}
+      propertyPath: ghostMeshMale
+      value: 
+      objectReference: {fileID: 3772797090071207700, guid: bea754ac805b25044984967f22fc9dc9, type: 3}
+    - target: {fileID: 6487598098479464080, guid: 731739b4c67b8b346a36669553dd1e1d, type: 3}
+      propertyPath: ghostMeshFemale
+      value: 
+      objectReference: {fileID: 1613899991831622912, guid: 6d876b6185cc5a1498a271811d6c23fa, type: 3}
     - target: {fileID: 7178236727368459298, guid: 731739b4c67b8b346a36669553dd1e1d, type: 3}
       propertyPath: m_RootOrder
       value: 0

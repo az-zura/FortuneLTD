@@ -1044,7 +1044,9 @@ MonoBehaviour:
   amountNPCMin: 10
   amountNPCMax: 20
   npcDespawnRange: 120
+  visibleRange: 50
   ghostNPCPrefabPedastrian: {fileID: 3518048605800187010, guid: 241d3216154141941bac2ac34ca75921, type: 3}
+  ghostNPCPrefabRoad: {fileID: 4295128672805001594, guid: 397f71e638ae6c64285cf55421283846, type: 3}
 --- !u!4 &1492205384
 Transform:
   m_ObjectHideFlags: 0
@@ -1422,6 +1424,10 @@ PrefabInstance:
     - target: {fileID: 7402064094373029308, guid: 666346b9ad9745444a2bf9e308f6c1ee, type: 3}
       propertyPath: m_Name
       value: Suburbs
+      objectReference: {fileID: 0}
+    - target: {fileID: 9150846081506890918, guid: 666346b9ad9745444a2bf9e308f6c1ee, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 666346b9ad9745444a2bf9e308f6c1ee, type: 3}

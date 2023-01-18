@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &6007810647265114114
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 454039282630948576, guid: 731739b4c67b8b346a36669553dd1e1d, type: 3}
+      propertyPath: m_AgentTypeID
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 454039282630948576, guid: 731739b4c67b8b346a36669553dd1e1d, type: 3}
+      propertyPath: m_AngularSpeed
+      value: 80000
+      objectReference: {fileID: 0}
+    - target: {fileID: 454039282630948576, guid: 731739b4c67b8b346a36669553dd1e1d, type: 3}
+      propertyPath: m_WalkableMask
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 6487598098479464080, guid: 731739b4c67b8b346a36669553dd1e1d, type: 3}
+      propertyPath: speedMax
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6487598098479464080, guid: 731739b4c67b8b346a36669553dd1e1d, type: 3}
+      propertyPath: speedMin
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7178236727368459298, guid: 731739b4c67b8b346a36669553dd1e1d, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7178236727368459298, guid: 731739b4c67b8b346a36669553dd1e1d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7178236727368459298, guid: 731739b4c67b8b346a36669553dd1e1d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7178236727368459298, guid: 731739b4c67b8b346a36669553dd1e1d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7178236727368459298, guid: 731739b4c67b8b346a36669553dd1e1d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7178236727368459298, guid: 731739b4c67b8b346a36669553dd1e1d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7178236727368459298, guid: 731739b4c67b8b346a36669553dd1e1d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7178236727368459298, guid: 731739b4c67b8b346a36669553dd1e1d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7178236727368459298, guid: 731739b4c67b8b346a36669553dd1e1d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7178236727368459298, guid: 731739b4c67b8b346a36669553dd1e1d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7178236727368459298, guid: 731739b4c67b8b346a36669553dd1e1d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7564740288785736056, guid: 731739b4c67b8b346a36669553dd1e1d, type: 3}
+      propertyPath: m_Name
+      value: NPC_Ghost Road
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 731739b4c67b8b346a36669553dd1e1d, type: 3}

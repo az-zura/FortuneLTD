@@ -277,6 +277,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 541601277110111785}
+  - component: {fileID: 1903866830517125422}
   m_Layer: 0
   m_Name: NPC_Goto_House_Suburb
   m_TagString: NPC_Goto
@@ -299,6 +300,19 @@ Transform:
   m_Father: {fileID: 7993343879046329494}
   m_RootOrder: 42
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1903866830517125422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 587857042750709915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c026861ebafb082418ff3f3f35bbd245, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isHidden: 1
 --- !u!1 &654267591877732991
 GameObject:
   m_ObjectHideFlags: 0

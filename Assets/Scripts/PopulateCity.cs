@@ -10,11 +10,18 @@ public class PopulateCity : MonoBehaviour
     public GameObject player;
     public int amountNPCMin;
     public int amountNPCMax;
+    
     public float npcDespawnRange = 50;
+    public float visibleRange = 50;
 
     public GameObject ghostNPCPrefabPedastrian;
+    public GameObject ghostNPCPrefabRoad;
     private GameObject[] pointsOfInterest;
+    private List<NPC_Goto> spawnPedestrian = new List<NPC_Goto>();
+    private List<NPC_Goto> spawnRoadGhost = new List<NPC_Goto>();
 
+    
+    
     private List<GameObject> npcs = new List<GameObject>();
     
     public enum GhostType
@@ -25,8 +32,34 @@ public class PopulateCity : MonoBehaviour
 
     private void Start()
     {
+        GameObject.FindGameObjectsWithTag("NPC_Goto");
         pointsOfInterest = GameObject.FindGameObjectsWithTag("NPC_Goto");
         Debug.Log("found " + pointsOfInterest.Length +" points of interest");
+        foreach (var p in pointsOfInterest)
+        {
+            NPC_Goto npcGoto = p.GetComponent<NPC_Goto>();
+            if(!npcGoto)
+            {
+                Debug.LogError("Couldn't find NPC_Goto in object with NPC_Goto tag");
+            }
+            else
+            {
+                foreach (var spawnType in npcGoto.canSpawn)
+                {
+                    switch (spawnType)
+                    {
+                        case NPC_Goto.NPC_Spawn_Type.pedastrianGhost:
+                            spawnPedestrian.Add(npcGoto);
+                            break;
+                        case NPC_Goto.NPC_Spawn_Type.roadGhost:
+                            spawnRoadGhost.Add(npcGoto);
+                            break;
+                    }
+                }
+            }
+            
+        }
+
     }
 
     private void Update()
@@ -35,31 +68,55 @@ public class PopulateCity : MonoBehaviour
         {
             for (int i = 0; i < Random.Range(amountNPCMin,amountNPCMax) - npcs.Count; i++)
             {
-                spawnNPC(GhostType.pedastrian);
+                if (Random.Range(0.0f, 1.0f) < 0.7)
+                {
+                    spawnNPC(GhostType.pedastrian);
+                }
+                else
+                {
+                    spawnNPC(GhostType.roadGhost);
+
+                }
             }
         }
     }
 
-    private Vector3[] getPath()
+    private Vector3[] getPath(List<NPC_Goto> possibleSpawns)
     {
         Vector3[] ret = new Vector3[2];
-        int start = Random.Range(0, pointsOfInterest.Length);
-        ret[0] = pointsOfInterest[start].transform.position;
-        int end = Random.Range(start + 1, pointsOfInterest.Length + start) % pointsOfInterest.Length;
-        ret[1] = pointsOfInterest[end].transform.position;
+        int start = Random.Range(0, possibleSpawns.Count);
+        ret[0] = possibleSpawns[start].transform.position;
+        int end = Random.Range(start + 1, possibleSpawns.Count + start) % possibleSpawns.Count;
+        ret[1] = possibleSpawns[end].transform.position;
         
         return ret;
     }
 
     private void spawnNPC(GhostType type)
-    {
+    { 
+        Vector3[] route;
+        NPC_Locomotion ghostLocomotion;
+        GameObject ghost;
         switch (type)
-        {
+        { 
             case GhostType.pedastrian:
-                Vector3[] route = getPath();
+                route = getPath(this.spawnPedestrian);
                 if (Vector3.Distance(route[0], player.transform.position) > npcDespawnRange) return;
-                GameObject ghost = Instantiate(ghostNPCPrefabPedastrian, route[0], Quaternion.identity);
-                NPC_Locomotion ghostLocomotion = ghost.GetComponent<NPC_Locomotion>();
+                ghost = Instantiate(ghostNPCPrefabPedastrian, route[0], Quaternion.identity);
+                ghostLocomotion = ghost.GetComponent<NPC_Locomotion>();
+                npcs.Add(ghost);
+                ghost.layer = LayerMask.NameToLayer("AiAgent");
+                ghostLocomotion.MoveTo(route[1]);
+                ghostLocomotion.PathEndReached += reachedPathEnd;
+                break;
+            
+            case GhostType.roadGhost:
+                Debug.Log("lksdfakljhsdfakjhfdsakjhl fds j hkfsd jn ROOOAD");
+                route = getPath(this.spawnRoadGhost);
+                if (Vector3.Distance(route[0], player.transform.position) < visibleRange) return;
+                
+                ghost = Instantiate(ghostNPCPrefabRoad, route[0], Quaternion.identity);
+                ghostLocomotion = ghost.GetComponent<NPC_Locomotion>();
                 npcs.Add(ghost);
                 ghost.layer = LayerMask.NameToLayer("AiAgent");
                 ghostLocomotion.MoveTo(route[1]);
