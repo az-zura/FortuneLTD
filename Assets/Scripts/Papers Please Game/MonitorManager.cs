@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
@@ -12,7 +13,11 @@ public class MonitorManager : MonoBehaviour
     [SerializeField] private GameObject image;
     [SerializeField] private GameObject firstWindow;
     [SerializeField] private GameObject formWindow;
+
+    [SerializeField] private TextMeshProUGUI idText;
     
+    private PersonForm currentPerson;
+
     //mouse click sounds
     private void Start()
     {
@@ -40,11 +45,11 @@ public class MonitorManager : MonoBehaviour
         desktop.SetActive(true);
     }
     
-
-    public bool AddPersonToDataBase(string id)
+    public bool AddPersonToDataBase(PersonForm personForm)
     {
-        if (_monitor.addPerson(id))
+        if (_monitor.AddPerson(personForm))
         {
+            currentPerson = personForm;
             return true;
         }
 
@@ -55,6 +60,11 @@ public class MonitorManager : MonoBehaviour
     {
         formWindow.SetActive(true);
         firstWindow.SetActive(false);
+        //Debug.Log(currentPerson.GetID());
+        string toAdd = "    " + currentPerson.GetID();
+        idText.text += toAdd;
     }
+
     
+    //add rest of data to person via second window:
 }

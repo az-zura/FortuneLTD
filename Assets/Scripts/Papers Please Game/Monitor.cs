@@ -20,22 +20,22 @@ public class Monitor
         personsIDs = new List<string>();
     }
 
-    public bool addPerson(string id)
+    public bool AddPerson(PersonForm personForm)
     {
-        if (!personAlreadyAdded(id))
+        if (!PersonAlreadyAdded(personForm))
         {
-            personsData.Add(new PersonForm(id));
+            personsData.Add(personForm);
             return true;
         }
 
         return false;
     }
 
-    public bool personAlreadyAdded(string id)
+    public bool PersonAlreadyAdded(PersonForm personForm)
     {
-        foreach (PersonForm personForm in personsData)
+        foreach (PersonForm pF in personsData)
         {
-            if (personForm.GetID().Equals(id))
+            if (pF.GetID().Equals(personForm.GetID()))
             {
                 return true;
             }
@@ -43,7 +43,18 @@ public class Monitor
 
         return false;
     }
-    
-    
+
+    public PersonForm FindPersonByID(string id)
+    {
+        foreach (var person in personsData)
+        {
+            if (person.GetID().Equals(id))
+            {
+                return person;
+            }
+        }
+
+        return null;
+    }
     
 }
