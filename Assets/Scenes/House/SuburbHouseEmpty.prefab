@@ -268,6 +268,37 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &587857042750709915
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 541601277110111785}
+  m_Layer: 0
+  m_Name: NPC_Goto_House_Suburb
+  m_TagString: NPC_Goto
+  m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &541601277110111785
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 587857042750709915}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -13.419, y: 1.5, z: 10.32}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7993343879046329494}
+  m_RootOrder: 42
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &654267591877732991
 GameObject:
   m_ObjectHideFlags: 0
@@ -1135,6 +1166,7 @@ Transform:
   - {fileID: 4905690023917063739}
   - {fileID: 5492651167602692555}
   - {fileID: 515580630698712149}
+  - {fileID: 541601277110111785}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -13723,9 +13755,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7993343879046329494}
     m_Modifications:
+    - target: {fileID: 1581464140701654, guid: 3f7955898b32cda4894a11ff3669f495, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 1608245415786108, guid: 3f7955898b32cda4894a11ff3669f495, type: 3}
       propertyPath: m_Name
       value: SM_Bld_House_Door_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1608245415786108, guid: 3f7955898b32cda4894a11ff3669f495, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4640045957761120, guid: 3f7955898b32cda4894a11ff3669f495, type: 3}
       propertyPath: m_RootOrder
@@ -18500,8 +18540,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8529455501500278601, guid: b7461ddba3ea788439bc0d5ff1778bda, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8529455501500278601, guid: b7461ddba3ea788439bc0d5ff1778bda, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8529455501500278605, guid: b7461ddba3ea788439bc0d5ff1778bda, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8529455501500278605, guid: b7461ddba3ea788439bc0d5ff1778bda, type: 3}
       propertyPath: m_NavMeshLayer
@@ -18510,6 +18558,10 @@ PrefabInstance:
     - target: {fileID: 8537829180230794840, guid: b7461ddba3ea788439bc0d5ff1778bda, type: 3}
       propertyPath: m_Name
       value: SM_Env_Fence_White_Gate_Door_01 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8537829180230794840, guid: b7461ddba3ea788439bc0d5ff1778bda, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8537829180230794840, guid: b7461ddba3ea788439bc0d5ff1778bda, type: 3}
       propertyPath: m_NavMeshLayer

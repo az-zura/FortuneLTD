@@ -64,7 +64,7 @@ public class BuildingGen : MonoBehaviour
         }
     }
 
-    private void place(GameObject gameObject, Vector3 pos, Quaternion rotation = default, bool navMesh = false)
+    private GameObject place(GameObject gameObject, Vector3 pos, Quaternion rotation = default, bool navMesh = false)
     {
         if (rotation == default)
         {
@@ -75,6 +75,7 @@ public class BuildingGen : MonoBehaviour
         instantiated.isStatic = true;
         if (navMesh) GameObjectUtility.SetStaticEditorFlags(instantiated, StaticEditorFlags.NavigationStatic);
         placed.Add(instantiated);
+        return instantiated;
     }
 
     private void placeGround()
@@ -123,6 +124,25 @@ public class BuildingGen : MonoBehaviour
                 place(floorPrefab, pos, rotation, navMesh: true);
             }
         }
+    }
+
+    public void reloadHouse()
+    {
+        this.transform.rotation = Quaternion.Euler(0, 0, 0);
+
+        //remove old
+        for (int i = 0; i < this.gameObject.transform.childCount; i++)
+        {
+            if (gameObject.transform.GetChild(i).name.Contains("SuburbHouseEmpty"))
+            {
+                var o = gameObject.transform.GetChild(i).gameObject;
+                DestroyImmediate(o);
+                placed.Remove(o);
+            }
+        }
+        place(housePrefab, transform.position + new Vector3(housePosition.x, 0, housePosition.y));
+        this.transform.rotation = Quaternion.Euler(0, rotation, 0);
+        
     }
 
     private void placeSingleObjects()

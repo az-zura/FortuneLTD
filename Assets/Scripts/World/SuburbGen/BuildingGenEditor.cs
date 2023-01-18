@@ -14,10 +14,15 @@ public class BuildingGenEditor : Editor
         {
             buildingGen.generate();
         }
-
-        if (GUI.changed)
+        
+        if (GUILayout.Button(("ReloadHouse")))
         {
-            buildingGen.generate();
+            buildingGen.reloadHouse();
         }
+
+        //if (GUI.changed)
+        //{
+        //    buildingGen.generate();
+        //}
     }
 }

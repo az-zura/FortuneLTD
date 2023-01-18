@@ -40,7 +40,7 @@ public class NPCGotoAction : ActionBase
 
     public override void OnActionStart()
     {
-        locomotion.moveTo(targetPosition,radiusMin,radiusMax);
+        locomotion.MoveTo(targetPosition,radiusMin,radiusMax);
         locomotion.PathEndReached += reached;
     }
 }

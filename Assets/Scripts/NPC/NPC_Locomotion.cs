@@ -16,11 +16,24 @@ public class NPC_Locomotion : MonoBehaviour
     private static int _maxPathEndIntents = 16; 
     //events
     public event EventHandler PathEndReached;
+    
+    public enum NPCNavigationState
+    {
+        idle,
+        walking,
+        waiting
+    }
+
+    private NPCNavigationState navigationState = NPCNavigationState.idle;
+    
+    
     void Start()
     {
         navMeshAgent = gameObject.GetComponent<NavMeshAgent>();
         controller = gameObject.GetComponent<CharacterController>();
         ghostAnimation = gameObject.GetComponentInChildren<GhostAnimation>();
+        if (!navMeshAgent) Debug.Log("navMeshAgent is not :(");
+        Debug.Log("navMeshAgent is asfsd");
 
     }
 
@@ -32,8 +45,12 @@ public class NPC_Locomotion : MonoBehaviour
             if (movedLastTick) OnPathEndReached();
             movedLastTick = navMeshAgent.hasPath;
             ghostAnimation.setMoving(movedLastTick);
-
         }
+    }
+
+    public void pauseNavigation()
+    {
+        setNPCMotionState(NPCNavigationState.waiting);
     }
 
     private NavMeshHit findStopOnNavMeshInRange(Vector3 center, float radiusMax, float radiusMin)
@@ -45,7 +62,7 @@ public class NPC_Locomotion : MonoBehaviour
                             * Random.Range(radiusMin,radiusMax);
 
             Vector3 samplePos = center + new Vector3(pos2D.x, 0, pos2D.y);
-            NavMesh.SamplePosition(samplePos, out hit, 5, 1);
+            NavMesh.SamplePosition(samplePos, out hit, 5, navMeshAgent.areaMask);
             if (hit.hit)
             {
                 return hit;
@@ -56,11 +73,17 @@ public class NPC_Locomotion : MonoBehaviour
 
     public void OnPathEndReached()
     {
+        setNPCMotionState(NPCNavigationState.idle);
         EventHandler handler = PathEndReached;
+
         handler?.Invoke(this,EventArgs.Empty);
     }
 
-    public bool moveTo(Vector3 destination, float minDistance = default, float maxDistance = default)
+    public void setNPCMotionState(NPCNavigationState state)
+    {
+        this.navigationState = state;
+    }
+    public bool MoveTo(Vector3 destination, float minDistance = default, float maxDistance = default)
     {
         if (minDistance != default || maxDistance != default)
         {
@@ -76,7 +99,10 @@ public class NPC_Locomotion : MonoBehaviour
         {
             currentDestination = destination;
         }
-        
+
+        setNPCMotionState(NPCNavigationState.walking);
+        if (!navMeshAgent) navMeshAgent = gameObject.GetComponent<NavMeshAgent>();
+
         return navMeshAgent.SetDestination(currentDestination);
     }
 }

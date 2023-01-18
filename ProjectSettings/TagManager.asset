@@ -12,6 +12,7 @@ TagManager:
   - Akte SecondPage
   - Akte ThirdPage
   - Selectable
+  - NPC_Goto
   layers:
   - Default
   - TransparentFX
@@ -22,8 +23,8 @@ TagManager:
   - Walls
   - PostProcessing
   - NavMeshBlocking
-  - 
-  - 
+  - AiAgent
+  - AiAgentIgnore
   - 
   - 
   - 

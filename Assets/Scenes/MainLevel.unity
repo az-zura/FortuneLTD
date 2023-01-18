@@ -108,8 +108,8 @@ NavMeshSettings:
     agentTypeID: 0
     agentRadius: 0.61
     agentHeight: 2
-    agentSlope: 45
-    agentClimb: 0.4
+    agentSlope: 55
+    agentClimb: 0.7
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
     minRegionArea: 2
@@ -195,37 +195,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &186914222
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 186914223}
-  m_Layer: 0
-  m_Name: MovementTarget
-  m_TagString: Untagged
-  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &186914223
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 186914222}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -38.5, y: -0, z: -54.6}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &230196523 stripped
 RectTransform:
@@ -376,7 +345,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7364759299102760517, guid: 849b53c4415c4474288649924173c171, type: 3}
       propertyPath: m_CullingMask.m_Bits
-      value: 247
+      value: 1783
       objectReference: {fileID: 0}
     - target: {fileID: 7635453201666794604, guid: 849b53c4415c4474288649924173c171, type: 3}
       propertyPath: m_Icon
@@ -626,6 +595,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1648202825509193556, guid: 731739b4c67b8b346a36669553dd1e1d, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3792952358049388447, guid: 731739b4c67b8b346a36669553dd1e1d, type: 3}
+      propertyPath: lookAt
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6702718761513927411, guid: 731739b4c67b8b346a36669553dd1e1d, type: 3}
       propertyPath: destination.x
       value: -40
@@ -640,15 +617,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7178236727368459298, guid: 731739b4c67b8b346a36669553dd1e1d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.61
+      value: 7.95
       objectReference: {fileID: 0}
     - target: {fileID: 7178236727368459298, guid: 731739b4c67b8b346a36669553dd1e1d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.42
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7178236727368459298, guid: 731739b4c67b8b346a36669553dd1e1d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 19.09
+      value: 18.82
       objectReference: {fileID: 0}
     - target: {fileID: 7178236727368459298, guid: 731739b4c67b8b346a36669553dd1e1d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1034,6 +1011,55 @@ Transform:
   m_Father: {fileID: 1731452166}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 21.677, y: -25.878, z: 21.767}
+--- !u!1 &1492205382
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1492205384}
+  - component: {fileID: 1492205383}
+  m_Layer: 0
+  m_Name: NPC_Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1492205383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1492205382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b1dea102671c9943b4f68817ee6a5f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 2054865935}
+  amountNPCMin: 10
+  amountNPCMax: 20
+  npcDespawnRange: 120
+  ghostNPCPrefabPedastrian: {fileID: 3518048605800187010, guid: 241d3216154141941bac2ac34ca75921, type: 3}
+--- !u!4 &1492205384
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1492205382}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1560149584 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7402064094373029283, guid: 666346b9ad9745444a2bf9e308f6c1ee, type: 3}
