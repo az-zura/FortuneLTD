@@ -39,31 +39,4 @@ public class ButtonManager : MonoBehaviour
             }
         }      
     }
-
-    public void FillOutPersonInformation()
-    {
-        
-        
-    }
-
-    public void FillOutPersonInformationName(TMP_InputField name) 
-    {
-        
-    }
-    
-    public void FillOutPersonInformationLifeTime(TMP_InputField lifetime) 
-    {
-        
-    }
-    
-    public void FillOutPersonInformationSchulabschluss(TMP_InputField schulabschluss) 
-    {
-        
-    }
-    
-    public void FillOutPersonInformationJob(TMP_InputField job) 
-    {
-        
-    }
-    
 }

@@ -12,7 +12,7 @@ public class PersonForm
 
     private enum job
     {
-        bauingenieur
+        bauingenieur, arbeitslos
     }
     
     private string identificationNr;
@@ -32,6 +32,11 @@ public class PersonForm
         return identificationNr;
     }
 
+    public string GetName()
+    {
+        return name;
+    }
+
     public void SetName(string name)
     {
         this.name = name;
@@ -44,10 +49,41 @@ public class PersonForm
 
     public void SetSchulabschluss(string abschluss)
     {
-        
+        string toCheck = abschluss.ToLower();
+        if (toCheck.Contains("hauptschule"))
+        {
+            schulabschluss = eduaction.hauptschule;
+        }
+        else if (toCheck.Contains("realschule"))
+        {
+            schulabschluss = eduaction.realschule;
+        }
+        else if (toCheck.Contains("gymnasium"))
+        {
+            schulabschluss = eduaction.gymnasium;
+        }
+        else if (toCheck.Contains("ausbildung"))
+        {
+            schulabschluss = eduaction.ausbildung;
+        }
+        else if (toCheck.Contains("studium"))
+        {
+            schulabschluss = eduaction.studium;
+        }
     }
-    
 
+    public void SetJob(string work)
+    {
+        string toCheck = work.ToLower();
+        if (toCheck.Contains("bauingenieur"))
+        {
+            this.work = job.bauingenieur;
+        }
+        else
+        {
+            
+        }
+    }
 
 
 }

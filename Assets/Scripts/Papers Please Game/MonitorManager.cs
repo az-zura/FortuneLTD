@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
@@ -13,6 +14,7 @@ public class MonitorManager : MonoBehaviour
     [SerializeField] private GameObject image;
     [SerializeField] private GameObject firstWindow;
     [SerializeField] private GameObject formWindow;
+    [SerializeField] private GameObject calculatorWindow;
 
     [SerializeField] private TextMeshProUGUI idText;
     
@@ -65,6 +67,20 @@ public class MonitorManager : MonoBehaviour
         idText.text += toAdd;
     }
 
-    
+    public void SwitchToCalculator()
+    {
+        formWindow.SetActive(false);
+        calculatorWindow.SetActive(true);
+        Debug.Log(currentPerson.GetName());
+    }
+
+    public void AddDataToPerson(string name, int lifeExpectancy, string education, string job)
+    {
+        currentPerson.SetName(name);
+        currentPerson.SetLifeExpectancy(lifeExpectancy);
+        currentPerson.SetSchulabschluss(education);
+        currentPerson.SetSchulabschluss(education);
+        
+    }
     //add rest of data to person via second window:
 }
