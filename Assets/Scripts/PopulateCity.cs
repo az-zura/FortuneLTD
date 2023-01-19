@@ -19,7 +19,8 @@ public class PopulateCity : MonoBehaviour
     private GameObject[] pointsOfInterest;
     private List<NPC_Goto> spawnPedestrian = new List<NPC_Goto>();
     private List<NPC_Goto> spawnRoadGhost = new List<NPC_Goto>();
-
+    private int checkNPCIndex;
+    
     
     
     private List<GameObject> npcs = new List<GameObject>();
@@ -79,6 +80,23 @@ public class PopulateCity : MonoBehaviour
                 }
             }
         }
+
+        //checks each tick if one actor is dispawnable 
+        if (checkNPCIndex < npcs.Count)
+        {
+            checkNPC(npcs[checkNPCIndex]);
+        }
+
+        checkNPCIndex = (checkNPCIndex + 1) % (npcs.Count - 1);
+    }
+
+    private void checkNPC(GameObject ghost)
+    {
+        if (Vector3.Distance(player.transform.position, ghost.transform.position) > npcDespawnRange)
+        {
+            Debug.Log("removing ghost because of distance");
+            removeNPC(ghost);
+        }
     }
 
     private Vector3[] getPath(List<NPC_Goto> possibleSpawns)
@@ -111,7 +129,6 @@ public class PopulateCity : MonoBehaviour
                 break;
             
             case GhostType.roadGhost:
-                Debug.Log("lksdfakljhsdfakjhfdsakjhl fds j hkfsd jn ROOOAD");
                 route = getPath(this.spawnRoadGhost);
                 if (Vector3.Distance(route[0], player.transform.position) < visibleRange) return;
                 
@@ -131,10 +148,14 @@ public class PopulateCity : MonoBehaviour
         NPC_Locomotion l = sender as NPC_Locomotion;
         if (l)
         {
-            npcs.Remove(l.gameObject);
-            Destroy(l.gameObject);
-            
+            removeNPC(l.gameObject);
         }
+    }
+
+    private void removeNPC(GameObject ghost)
+    {
+        npcs.Remove(ghost);
+        Destroy(ghost);
     }
 
 
