@@ -1,6 +1,7 @@
 ﻿using UnityEngine.Audio;
 using System.Collections;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.SceneManagement;
@@ -9,7 +10,7 @@ public class AudioManager : MonoBehaviour
 {
     // this script is on the AudioManagerPrefab, which should be in every scene !!!!!!!!!!
 
-    public Sound[] sounds;
+    public List<Sound> sounds;
     public Sound[] themes;
 
     [SerializeField][Range(0.01f, 1f)] private float defaultMusicVol = 1f;
@@ -38,7 +39,11 @@ public class AudioManager : MonoBehaviour
 
         foreach (Sound s in sounds)
         {
-            s.source = gameObject.AddComponent<AudioSource>();
+            if (!s.attachedToGameObject)
+            {
+                s.attachedToGameObject = gameObject;
+            }
+            s.source = s.attachedToGameObject.AddComponent<AudioSource>();
             s.source.clip = s.clip;
             s.source.outputAudioMixerGroup = soundMixer;
 
@@ -50,7 +55,8 @@ public class AudioManager : MonoBehaviour
 
         foreach (Sound s in themes)
         {
-            s.source = gameObject.AddComponent<AudioSource>();
+            s.attachedToGameObject = gameObject; // Themes aer always on the AudioMixer
+            s.source = s.attachedToGameObject.AddComponent<AudioSource>();
             
             s.source.clip = s.clip;
             s.source.outputAudioMixerGroup = musicMixer;
@@ -91,25 +97,54 @@ public class AudioManager : MonoBehaviour
         soundMixer.audioMixer.SetFloat("soundVol", Mathf.Log10(vol) * 20);
     }
 
-    public void PlaySound(string soundName, GameObject onObject = null)
+    public void PlaySound(string soundName, GameObject onObject = null, GameObject replaceOnGO = null)
     {
-        if (!onObject)
-        {
-            onObject = gameObject;
-        }
-        
-        Sound s = Array.Find(sounds, sound => sound.name == soundName);
-        if (s == null)
+        Sound[] snds = Array.FindAll(sounds.ToArray(), sound => sound.name == soundName);
+        Debug.Log(snds[0].name);
+        if (snds.Length == 0)
         {
             Debug.LogWarning("Sound called \"" + soundName + "\" not found.");
             return;
         }
-
-        if (!onObject && onObject != s.source.gameObject)
+        
+        if (!onObject)
         {
-            // objects of sound changed
+            onObject = gameObject;
+        }
+
+        Sound s = Array.Find(snds, sound => sound.attachedToGameObject == onObject); // Sound on the onObject
+
+        bool replace = replaceOnGO != null;
+        if (replace && s != null)
+        {
             Destroy(s.source);
-            s.source = onObject.AddComponent<AudioSource>();
+            s.source = replaceOnGO.AddComponent<AudioSource>();
+        } else if (replace && s == null)
+        {
+            // Add new sound on replace
+            s = new Sound(snds[0].name, snds[0].clip, snds[0].volume, snds[0].pitch,
+                replaceOnGO.AddComponent<AudioSource>(), snds[0].loop, replaceOnGO);
+            sounds.Add(s);
+        } else if (!replace)
+        {
+            if (s == null)
+            {
+                s = new Sound(snds[0].name, snds[0].clip, snds[0].volume, snds[0].pitch, onObject.AddComponent<AudioSource>(), snds[0].loop, onObject);
+                sounds.Add(s);
+                
+                if (!s.attachedToGameObject)
+                {
+                    s.attachedToGameObject = gameObject;
+                }
+                s.source = s.attachedToGameObject.AddComponent<AudioSource>();
+                s.source.clip = s.clip;
+                s.source.outputAudioMixerGroup = soundMixer;
+
+                s.source.volume = s.volume;
+                s.source.pitch = s.pitch;
+
+                s.source.loop = s.loop;
+            }
         }
 
         if (PlayerPrefs.GetInt("sound", 1) != 0)
@@ -136,7 +171,7 @@ public class AudioManager : MonoBehaviour
         if (themeChanged)
         {
             //Change Theme
-            s = Array.Find(sounds, sound => sound.name == soundName);
+            s = Array.Find(sounds.ToArray(), sound => sound.name == soundName);
             if (s == null)
             {
                 Debug.LogWarning("Sound called \"" + soundName + "\" not found.");
@@ -148,14 +183,12 @@ public class AudioManager : MonoBehaviour
         {
             if (!s.source.isPlaying)
             {
-                Debug.Log("fade in");
                 StartCoroutine(FadeMusic(s, duration: 1f, 0f));
             }
 
             if (currentTheme.source.isPlaying && themeChanged)
             {
                 // Turn off old theme
-                Debug.Log("Turn off old theme");
                 StartCoroutine(FadeMusic(currentTheme, fadeIn: false, duration: 1f, delay: 0));
             }
         }
@@ -164,12 +197,10 @@ public class AudioManager : MonoBehaviour
             //Turn off music
             if (s.source.isPlaying)
             {
-                Debug.Log("Turn off music fade");
                 StartCoroutine(FadeMusic(s, fadeIn: false, duration: 1f, delay: 0));
             }
             else
             {
-                Debug.Log("Turn off music");
                 s.source.Stop();
             }
 

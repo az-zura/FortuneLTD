@@ -306,7 +306,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 298232409}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: PlayTestSound
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1993459759}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &329754945
 GameObject:
   m_ObjectHideFlags: 0
@@ -422,7 +434,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 358534368}
-  m_LocalRotation: {x: 0.012919561, y: -0.85039395, z: 0.020904291, w: 0.5255724}
+  m_LocalRotation: {x: 0.012919548, y: -0.85039395, z: 0.02090427, w: 0.5255724}
   m_LocalPosition: {x: 10, y: 2, z: 5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2946,7 +2958,7 @@ MonoBehaviour:
         m_MethodName: PlayTestSound
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 1993459759}
+          m_ObjectArgument: {fileID: 1158627835}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -3031,7 +3043,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2039555446}
-  m_LocalRotation: {x: 0.012919561, y: -0.85039395, z: 0.020904291, w: 0.5255724}
+  m_LocalRotation: {x: 0.012919548, y: -0.85039395, z: 0.02090427, w: 0.5255724}
   m_LocalPosition: {x: 10, y: 2, z: 5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3160,6 +3172,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioManager
       objectReference: {fileID: 0}
+    - target: {fileID: 2235073799219944211, guid: c36a6f737c1064768b5f34d0b9d1c686, type: 3}
+      propertyPath: sounds.Array.data[0].attachedToGameObject
+      value: 
+      objectReference: {fileID: 1158627835}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c36a6f737c1064768b5f34d0b9d1c686, type: 3}
 --- !u!1001 &5845744995836518762
