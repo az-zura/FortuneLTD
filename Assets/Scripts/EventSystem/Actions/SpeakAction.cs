@@ -38,6 +38,11 @@ public class SpeakAction : ActionBase
     public override void OnActionStart()
     {
         speechBubble.SetBubble(text,Speechbubble.BubbleType.Speech,speaker.transform);
+        speechBubble.btn.onClick.AddListener(() => { 
+            dismissAfterTime = false;
+            OnResumeExecution();
+        });
+        
         if (dismissAfterTime)
         {
             SuspendAction(time);
