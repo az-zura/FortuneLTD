@@ -49,8 +49,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speedMin: 3
   speedMax: 6
-  ghostMeshMale: {fileID: 3772797090071207700, guid: bea754ac805b25044984967f22fc9dc9, type: 3}
-  ghostMeshFemale: {fileID: 1613899991831622912, guid: 6d876b6185cc5a1498a271811d6c23fa, type: 3}
 --- !u!195 &454039282630948576
 NavMeshAgent:
   m_ObjectHideFlags: 0
