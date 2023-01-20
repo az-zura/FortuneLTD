@@ -7,6 +7,7 @@ using UnityEngine;
 public class Akte
 {
     public bool isFinished;
+    public bool isConfidential;
     private GameObject parent;
     private GameObject image;
     private GameObject firstPage; //general information
@@ -14,13 +15,16 @@ public class Akte
     private GameObject thirdPage; //confidential
     private bool secondPageOpened; //first page and image are on the left side
     private bool thirdPageOpened; //second page is on the left
-    
+
+    private int aktenNr;
+
     public Akte(GameObject gameObject)
     {
         parent = gameObject;
         isFinished = false;
         secondPageOpened = false; 
         thirdPageOpened = false;
+        isConfidential = true;
         Transform _parent = gameObject.transform;
         foreach (Transform child in _parent)
         {
@@ -50,6 +54,15 @@ public class Akte
 
             }
         }
+
+        switch (parent.name)
+        {
+            case "Akte Seth Steinsburgh":
+                aktenNr = 0;
+                Debug.Log(parent.name);
+                break;
+            
+        }
     }
 
     public void DisableFirstPageAndImage()
@@ -66,12 +79,18 @@ public class Akte
 
     public void DisableSecondPage()
     {
-        secondPage.gameObject.SetActive(false);
+        if (!isConfidential)
+        {
+            secondPage.gameObject.SetActive(false);
+        }
     }
 
     public void EnableSecondPage()
     {
-        secondPage.gameObject.SetActive(true);
+        if (!isConfidential)
+        {
+            secondPage.gameObject.SetActive(true);
+        }
     }
 
     public void FinishAkte()

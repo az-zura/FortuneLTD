@@ -174,7 +174,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4bc8df9d47d9481458cc3578f695ae4c, type: 2}
+  - {fileID: 2100000, guid: eee4cdacd2ee6d846bb29a2eb9d5026b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -220,7 +220,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7844933874128730926}
   m_Layer: 0
-  m_Name: Akte Seth Steinsburgh
+  m_Name: Akte Bernd Frueh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

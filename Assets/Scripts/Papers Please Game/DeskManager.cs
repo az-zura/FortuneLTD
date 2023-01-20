@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DeskManager : MonoBehaviour
 {
@@ -16,7 +17,8 @@ public class DeskManager : MonoBehaviour
     #region every variable only folder related
         [SerializeField] private List<GameObject> foldersGameobjects;
         private List<Akte> akten;
-        
+        private List<Person> persons;
+
         [SerializeField] private GameObject _backgroundAkte;
         [SerializeField] private GameObject closedFolder;
         [SerializeField] private GameObject folderOnDesk;
@@ -62,12 +64,22 @@ public class DeskManager : MonoBehaviour
         folderOnDesk.SetActive(false);
         akten = new List<Akte>();
         GetAktenFromFolderGameObjects();
+        persons = Person.InstantiatePersons();
     }
     
     public void ObjectHit(string hitObject)
     {
         switch (hitObject)
         {
+            case "FolderTray":
+            {
+                if (!folderOnDesk.activeSelf && !foldersEmpty)
+                {
+                    folderOnDesk.gameObject.SetActive(true);
+                    folderToWorkOn = true;
+                }
+                break;
+            }
             case "FolderUnopened":
             {
                 _backgroundAkte.SetActive(true);
@@ -78,15 +90,6 @@ public class DeskManager : MonoBehaviour
                 folderCamera.gameObject.SetActive(true);
                 folderOpened = true;
                 currentState = state.folder;
-                break;
-            }
-            case "FolderTray":
-            {
-                if (!folderOnDesk.activeSelf && !foldersEmpty)
-                {
-                    folderOnDesk.gameObject.SetActive(true);
-                    folderToWorkOn = true;
-                }
                 break;
             }
             case "FirstPage":
@@ -116,9 +119,11 @@ public class DeskManager : MonoBehaviour
             {
                 if (currentState == state.desk)
                 {
-                    deskCamera.gameObject.SetActive(false);
+                    /*deskCamera.gameObject.SetActive(false);
                     monitorCamera.gameObject.SetActive(true);
                     currentState = state.monitor;
+                    */
+                    SceneManager.LoadScene(1);
                 }
                 break;
             }
@@ -188,5 +193,7 @@ public class DeskManager : MonoBehaviour
                 akten.Add(tmpakte);
             }
         }
+
+        
     #endregion
 }
