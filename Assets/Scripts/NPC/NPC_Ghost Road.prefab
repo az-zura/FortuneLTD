@@ -12,8 +12,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 454039282630948576, guid: 731739b4c67b8b346a36669553dd1e1d, type: 3}
+      propertyPath: m_Acceleration
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 454039282630948576, guid: 731739b4c67b8b346a36669553dd1e1d, type: 3}
       propertyPath: m_AngularSpeed
-      value: 80000
+      value: 360
       objectReference: {fileID: 0}
     - target: {fileID: 454039282630948576, guid: 731739b4c67b8b346a36669553dd1e1d, type: 3}
       propertyPath: m_WalkableMask

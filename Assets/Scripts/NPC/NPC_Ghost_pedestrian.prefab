@@ -73,3 +73,32 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 731739b4c67b8b346a36669553dd1e1d, type: 3}
+--- !u!1 &6846003919260260682 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 515699459965795504, guid: 731739b4c67b8b346a36669553dd1e1d, type: 3}
+  m_PrefabInstance: {fileID: 6352826073795765754}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &492283876201370562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6846003919260260682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 181fabf7233741441ad46ee5b54f5619, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  glasses:
+  - {fileID: 2630716547122163939, guid: b7582c41419e5dc4ba1101b987d0a829, type: 3}
+  handHeld:
+  - {fileID: 793482097702380607, guid: 322ea8a8547f1d1489f054dc252acf5c, type: 3}
+  - {fileID: 793482097702380607, guid: 309f946875511814ebc4664e9b6f1ab3, type: 3}
+  - {fileID: 793482097702380607, guid: 5a39f5b374221494f8ffd15161e3e3ec, type: 3}
+  - {fileID: 793482097702380607, guid: d627252bb00e48049b91af904f1542d0, type: 3}
+  - {fileID: 793482097702380607, guid: 2a026ccee3f781343b681bc007186b96, type: 3}
+  ghostMeshMale: {fileID: 3772797090071207700, guid: bea754ac805b25044984967f22fc9dc9, type: 3}
+  ghostMeshFemale: {fileID: 1613899991831622912, guid: 6d876b6185cc5a1498a271811d6c23fa, type: 3}
+  glassesChance: 0.2
+  handHeldChance: 0.6
