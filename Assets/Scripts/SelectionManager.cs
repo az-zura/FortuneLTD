@@ -12,7 +12,7 @@ public class SelectionManager : MonoBehaviour
     [SerializeField] private Material selectionMaterial;
     [SerializeField] private Material highlightMaterial; //highlights ALL selectable Objects
     [SerializeField] private Transform player;
-    [SerializeField] private float radius;
+    [SerializeField] private float radius = 5;
 
     [HideInInspector] public List<Transform> interactableObjs = new List<Transform>();
     private Material defaultMaterial;
@@ -32,11 +32,30 @@ public class SelectionManager : MonoBehaviour
 
     private void Update()
     {
+        foreach (var iobj in interactableObjs)
+        {
+            Renderer r = iobj.GetComponent<Renderer>();
+            if (r)
+            {
+                Material m = r.material;
+                if (Vector3.Distance(player.position, iobj.position) <= radius && iobj != _selection)
+                {
+                    r.materials = new[] {m, highlightMaterial};
+                }
+                else
+                {
+                    r.materials = new[] {m};
+                }
+            }
+        }
+        
         if (_selection != null)
         {
             var selectionRenderer = _selection.GetComponent<Renderer>();
             //selectionRenderer.material = defaultMaterial;
-            selectionRenderer.materials = new[] {defaultMaterial};
+            List<Material> materials = selectionRenderer.materials.ToList();
+            materials.Remove(selectionMaterial);
+            selectionRenderer.materials = materials.ToArray();//new[] {defaultMaterial};
             _selection = null;
         }
         
@@ -76,7 +95,6 @@ public class SelectionManager : MonoBehaviour
                 if (selectionRenderer)
                 {
                     defaultMaterial = selectionRenderer.material;
-                    //selectionRenderer.material = highlightMaterial;
                     selectionRenderer.materials = new[] {defaultMaterial, selectionMaterial};
                 }
 
@@ -91,31 +109,6 @@ public class SelectionManager : MonoBehaviour
                     iObj.onClick?.Invoke();
                 }
             }
-
-            //TODO sth like this:
-            /*
-            foreach (var iobj in interactableObjs)
-            {
-                
-                    Renderer r = iobj.GetComponent<Renderer>();
-                    if (r)
-                    {
-                        List <Material> mats = r.materials.ToList();
-                        if (Vector3.Distance(player.position, iobj.position) <= radius && iobj != _selection)
-                        {
-                            if (!mats.Contains(highlightMaterial))
-                            {
-                                mats.Add(highlightMaterial);
-                            }
-                        }
-                        else if (mats.Contains(highlightMaterial))
-                        {
-                            mats.Remove(highlightMaterial);
-                        }
-
-                        iobj.GetComponent<Renderer>().materials = mats.ToArray();
-                    }
-            }*/
         }
     }
 }
