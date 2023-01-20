@@ -113,9 +113,9 @@ public class CameraController : MonoBehaviour
                 break;
             case WallCheckType.boxcast:
                 Vector3 dir = (player.position - transform.position).normalized;
-                hits.AddRange(Physics.BoxCastAll(transform.position + dir * characterDistance * 0.5f/*(player.position + transform.position) * 0.5f*/,
-                    new Vector3(boxXYSize.x, boxXYSize.y, characterDistance) * 0.5f, dir,
-                    Quaternion.identity, 0, layerMask));
+                hits.AddRange(Physics.BoxCastAll(transform.position,
+                    new Vector3(boxXYSize.x, boxXYSize.y, 0.01f) * 0.5f, dir,
+                    Quaternion.identity, characterDistance, layerMask));
                 break;
         }
 
