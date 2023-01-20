@@ -112,10 +112,10 @@ public class CameraController : MonoBehaviour
                 }
                 break;
             case WallCheckType.boxcast:
-                Vector3 dir = (player.position - transform.position);
-                hits.AddRange(Physics.BoxCastAll((player.position + transform.position) * 0.5f,
-                    new Vector3(boxXYSize.x, boxXYSize.y, characterDistance) * 0.5f, dir.normalized,
-                    Quaternion.identity, Mathf.Infinity, layerMask));
+                Vector3 dir = (player.position - transform.position).normalized;
+                hits.AddRange(Physics.BoxCastAll(transform.position + dir * characterDistance * 0.5f/*(player.position + transform.position) * 0.5f*/,
+                    new Vector3(boxXYSize.x, boxXYSize.y, characterDistance) * 0.5f, dir,
+                    Quaternion.identity, 0, layerMask));
                 break;
         }
 

@@ -2,9 +2,11 @@ using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using Image = UnityEngine.UI.Image;
 
 [RequireComponent(typeof(CanvasGroup))]
+[RequireComponent(typeof(Button))]
 public class Speechbubble : MonoBehaviour
 {
     [System.Serializable]
@@ -23,6 +25,8 @@ public class Speechbubble : MonoBehaviour
     [SerializeField] private bool scaleWithSpeaker;
     [SerializeField] private float minScale = 0.1f;
     [SerializeField] private float scaleFactor = 10f;
+    
+    [HideInInspector] public Button btn;
 
     private Vector3 playerSize;
     private Camera camera;
@@ -34,6 +38,7 @@ public class Speechbubble : MonoBehaviour
 
     private void Start()
     {
+        btn = GetComponent<Button>();
         if (speaker)
         {
             ChangeSpeaker(speaker);
