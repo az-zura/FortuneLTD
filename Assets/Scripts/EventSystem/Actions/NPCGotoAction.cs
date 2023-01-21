@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using EventSystem;
+using EventSystem.Base;
 using UnityEngine;
 
 public class NPCGotoAction : ActionBase
@@ -35,10 +36,10 @@ public class NPCGotoAction : ActionBase
 
     private void reached(object sender, EventArgs args)
     {
-        EndAction();
+        EndEventItem();
     }
 
-    public override void OnActionStart()
+    public override void OnItemStart()
     {
         locomotion.MoveTo(targetPosition,radiusMin,radiusMax);
         locomotion.PathEndReached += reached;

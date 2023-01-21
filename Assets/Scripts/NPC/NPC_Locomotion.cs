@@ -32,8 +32,7 @@ public class NPC_Locomotion : MonoBehaviour
         navMeshAgent = gameObject.GetComponent<NavMeshAgent>();
         controller = gameObject.GetComponent<CharacterController>();
         ghostAnimation = gameObject.GetComponentInChildren<GhostAnimation>();
-        if (!navMeshAgent) Debug.Log("navMeshAgent is not :(");
-        Debug.Log("navMeshAgent is asfsd");
+        if (!navMeshAgent) Debug.LogError("navMeshAgent is not initialized");
 
     }
 

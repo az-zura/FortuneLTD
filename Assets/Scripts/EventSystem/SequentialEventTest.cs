@@ -1,3 +1,5 @@
+using EventSystem.Actions;
+using EventSystem.Base;
 using UnityEngine;
 
 namespace EventSystem
@@ -7,8 +9,10 @@ namespace EventSystem
         public ActionExecuteCondition playerInGarageCondition; 
         public ActionExecuteCondition playerInGardenCondition;
         public GhostAnimation playerAnimation;
+        public ClickableItemCondition clickOnCube;
 
         public GameObject player;
+        public Transform NPC_leaveStagePosition;
         public Speechbubble Speechbubble;
         public GameObject ghost;
         public override void OnEventInitialized()
@@ -38,11 +42,14 @@ namespace EventSystem
             AddAction(new SpeakAction(Speechbubble, player, "... Rasen haben wir auch nicht", 2.5f));
             */
             
-            AddAction(new NPCGotoAction(ghost.GetComponentInChildren<NPC_Locomotion>(),player,6,3));
-            AddAction(new NPCLookAtAction(ghost.GetComponentInChildren<GhostAnimation>(), player.transform));
-            AddAction(new SpeakAction(Speechbubble,player,"Hello",5.0f));
-            AddAction(new SpeakAction(Speechbubble,ghost,"Hi",5.0f));
-            AddAction(new NPCLookAtAction(ghost.GetComponentInChildren<GhostAnimation>()));
+            AddEventItem(new NPCGotoAction(ghost.GetComponentInChildren<NPC_Locomotion>(),player,1,3));
+            AddEventItem(new NPCLookAtAction(ghost.GetComponentInChildren<GhostAnimation>(), player.transform));
+            AddEventItem(new SpeakAction(Speechbubble,player,"Hello"));
+            AddEventItem(new TimerCondition(1));
+            AddEventItem(new SpeakAction(Speechbubble,ghost,"Hi"));
+            AddEventItem(new NPCLookAtAction(ghost.GetComponentInChildren<GhostAnimation>()));
+            AddEventItem(new NPCGotoAction(ghost.GetComponentInChildren<NPC_Locomotion>(),NPC_leaveStagePosition.position));
+            AddEventItem(new DestroyAction(ghost));
             StartSequentialEvent();
         }
     }
