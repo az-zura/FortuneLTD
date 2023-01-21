@@ -65,6 +65,11 @@ public class Akte
         }
     }
 
+    public Akte(int test)
+    {
+        aktenNr = test;
+    }
+
     public void DisableFirstPageAndImage()
     {
         firstPage.gameObject.SetActive(false);

@@ -15,6 +15,8 @@ public class InputManager : MonoBehaviour
     [SerializeField] private Camera folderCamera;
     [SerializeField] private Camera monitorCamera;
     [SerializeField] private Camera rulesheetCamera;
+    [SerializeField] private GameObject deskGameobject;
+
     private DeskManager _deskManager;
 
 
@@ -56,7 +58,7 @@ public class InputManager : MonoBehaviour
     {
         _playerInput.Player.Click.started += _ => ClickStarted();
         _playerInput.Player.Click.performed += _ => ClickPerformed();
-        _deskManager = GameObject.Find("Desk").GetComponent<DeskManager>();
+        _deskManager = deskGameobject.GetComponent<DeskManager>();
     }
 
     private void ClickStarted()
