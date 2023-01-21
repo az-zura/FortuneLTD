@@ -17,7 +17,7 @@ public class ElevatorTP : MonoBehaviour
         }
         else
         {
-            movement = new Vector3(0, -34, 5);
+            movement = new Vector3(0, -35.5f, 5);
 
         }
         playerController.Move(movement);

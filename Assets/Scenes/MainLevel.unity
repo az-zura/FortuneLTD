@@ -65873,7 +65873,7 @@ PrefabInstance:
     - target: {fileID: 7174161270233118905, guid: f8a24b81ffc2d3d4a9d46792581e9a93, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2054865935}
     - target: {fileID: 7174161270328581723, guid: f8a24b81ffc2d3d4a9d46792581e9a93, type: 3}
       propertyPath: m_IsActive
       value: 1
