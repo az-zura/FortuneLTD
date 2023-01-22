@@ -22,28 +22,7 @@ public class DeskManager : MonoBehaviour
 
     #region GameObjects on Desk
     [SerializeField] private GameObject folderTray;
-    //akten
-    [SerializeField] private GameObject folder0;
-    [SerializeField] private GameObject folder1;
-    [SerializeField] private GameObject folder2;
-    [SerializeField] private GameObject folder3;
-    [SerializeField] private GameObject folder4;
-    [SerializeField] private GameObject folder5;
-    [SerializeField] private GameObject folder6;
-    [SerializeField] private GameObject folder7;
-    [SerializeField] private GameObject folder8;
-    [SerializeField] private GameObject folder9;
-    [SerializeField] private GameObject folder10;
-    [SerializeField] private GameObject folder11;
-    [SerializeField] private GameObject folder12;
-    [SerializeField] private GameObject folder13;
-    [SerializeField] private GameObject folder14;
-    [SerializeField] private GameObject folder15;
-    [SerializeField] private GameObject folder16;
-    [SerializeField] private GameObject folder17;
-    [SerializeField] private GameObject folder18;
-    [SerializeField] private GameObject folder19;
-
+    //[SerializeField] private List<GameObject> folders;
     [SerializeField] private GameObject _backgroundAkte; //Umschlag ohne Papierinhalt
     [SerializeField] private GameObject closedFolder; 
     [SerializeField] private GameObject folderOnDesk; 

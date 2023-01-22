@@ -13,12 +13,12 @@ public class InputManager : MonoBehaviour
     public float horizontalInput;
     [SerializeField] private Camera deskCamera;
     [SerializeField] private Camera folderCamera;
-    [SerializeField] private Camera monitorCamera;
     [SerializeField] private Camera rulesheetCamera;
-    [SerializeField] private GameObject deskGameobject;
+    //[SerializeField] private GameObject deskGameobject;
+    [SerializeField] private MiniGameLoop _miniGameLoop;
 
-    private DeskManager _deskManager;
-
+    //private DeskManager _deskManager;
+    
 
     public PlayerInput GetPlayerInput()
     {
@@ -58,7 +58,7 @@ public class InputManager : MonoBehaviour
     {
         _playerInput.Player.Click.started += _ => ClickStarted();
         _playerInput.Player.Click.performed += _ => ClickPerformed();
-        _deskManager = deskGameobject.GetComponent<DeskManager>();
+        //_deskManager = deskGameobject.GetComponent<DeskManager>();
     }
 
     private void ClickStarted()
@@ -75,12 +75,12 @@ public class InputManager : MonoBehaviour
 
     private void CloseCurrentAction()
     {
-        _deskManager.CloseCurrentAction();
+        _miniGameLoop.CloseCurrentAction(); 
     }
 
     private bool DetectObject()
     {
-        Ray ray = GetActiveCamera().ScreenPointToRay(_playerInput.Player.MousePosition.ReadValue<Vector2>());
+        Ray ray = _miniGameLoop.GetCurrentCamera().ScreenPointToRay(_playerInput.Player.MousePosition.ReadValue<Vector2>());
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit))
         {
@@ -88,7 +88,7 @@ public class InputManager : MonoBehaviour
             {
                 if (hit.collider.tag == "Joe Desk")
                 {
-                    _deskManager.ObjectHit(hit.collider.name);
+                    _miniGameLoop.ObjectHit(hit.collider.name);
                     return true;
                 }
             }
@@ -97,17 +97,7 @@ public class InputManager : MonoBehaviour
         return false;
     }
 
-    private Camera GetActiveCamera()
-    {
-        switch (_deskManager.GetCurrentState())
-        {
-            case 0:
-                return deskCamera;
-                break;
-            case 1:
-                return folderCamera;
-                break;
-        }
-        return Camera.current;
-    }
+    
+    
+    
 }
