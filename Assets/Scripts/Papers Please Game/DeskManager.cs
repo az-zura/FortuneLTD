@@ -10,20 +10,55 @@ public class DeskManager : MonoBehaviour
     }
 
     private state currentState;
+
+    [SerializeField] private MiniGameLoop _miniGameLoop;
     
-    [SerializeField] private GameObject folderTray;
+
+    #region Cameras
     [SerializeField] private Camera deskCamera;
+    [SerializeField] private Camera folderCamera;
+    [SerializeField] private Camera rulesheetCamera;
+    #endregion
+
+    #region GameObjects on Desk
+    [SerializeField] private GameObject folderTray;
+    //akten
+    [SerializeField] private GameObject folder0;
+    [SerializeField] private GameObject folder1;
+    [SerializeField] private GameObject folder2;
+    [SerializeField] private GameObject folder3;
+    [SerializeField] private GameObject folder4;
+    [SerializeField] private GameObject folder5;
+    [SerializeField] private GameObject folder6;
+    [SerializeField] private GameObject folder7;
+    [SerializeField] private GameObject folder8;
+    [SerializeField] private GameObject folder9;
+    [SerializeField] private GameObject folder10;
+    [SerializeField] private GameObject folder11;
+    [SerializeField] private GameObject folder12;
+    [SerializeField] private GameObject folder13;
+    [SerializeField] private GameObject folder14;
+    [SerializeField] private GameObject folder15;
+    [SerializeField] private GameObject folder16;
+    [SerializeField] private GameObject folder17;
+    [SerializeField] private GameObject folder18;
+    [SerializeField] private GameObject folder19;
+
+    [SerializeField] private GameObject _backgroundAkte; //Umschlag ohne Papierinhalt
+    [SerializeField] private GameObject closedFolder; 
+    [SerializeField] private GameObject folderOnDesk; 
+
+    #endregion
 
     #region every variable only folder related
-        [SerializeField] private List<GameObject> foldersGameobjects;
+    
+        //private List<GameObject> foldersGameobjects;
         private List<Akte> akten;
-        private List<Person> persons;
 
-        [SerializeField] private GameObject _backgroundAkte;
-        [SerializeField] private GameObject closedFolder;
-        [SerializeField] private GameObject folderOnDesk;
         
-        [SerializeField] private Camera folderCamera;
+        private GameObject currentFolder;
+        private Akte currentAkte;
+        
         
         private bool folderToWorkOn; //true if there is currently a folder to work on on the desk
         private bool foldersEmpty; //true if there is no new folder to work on or joe
@@ -34,21 +69,15 @@ public class DeskManager : MonoBehaviour
     #endregion
 
     #region every variable only monitor related
-        [SerializeField] private GameObject monitor;
+        [SerializeField] private Canvas monitor;
 
-        [SerializeField] private Camera monitorCamera;
 
         private bool computerToUse; //true if folder is done and now computer is to use
         private bool monitorOpened;
         
     #endregion
 
-    #region every variable only rule sheet related
-
-    [SerializeField] private Camera rulesheetCamera;
-
-    #endregion
-    
+ 
     private void Start()
     {
         #region Bools
@@ -63,12 +92,11 @@ public class DeskManager : MonoBehaviour
         currentState = state.desk;
         folderOnDesk.SetActive(false);
         akten = new List<Akte>();
-        GetAktenFromFolderGameObjects();
-        persons = Person.InstantiatePersons();
     }
     
     public void ObjectHit(string hitObject)
     {
+
         switch (hitObject)
         {
             case "FolderTray":
@@ -83,9 +111,9 @@ public class DeskManager : MonoBehaviour
             case "FolderUnopened":
             {
                 _backgroundAkte.SetActive(true);
-                foldersGameobjects[GetIndexOfActiveAkte()].SetActive(true);
                 closedFolder.SetActive(false);
-            
+                //problem
+                //folder0.setActive(true);
                 deskCamera.gameObject.SetActive(false);
                 folderCamera.gameObject.SetActive(true);
                 folderOpened = true;
@@ -94,25 +122,25 @@ public class DeskManager : MonoBehaviour
             }
             case "FirstPage":
             {
-                akten[GetIndexOfActiveAkte()].DisableFirstPageAndImage();
+                currentAkte.DisableFirstPageAndImage();
                 break;
             }
             case "SecondPage":
             {
                 if (secondPageJustOpened)
                 {
-                    akten[GetIndexOfActiveAkte()].DisableSecondPage();
+                    currentAkte.DisableSecondPage();
                 }
                 else
                 {
-                    akten[GetIndexOfActiveAkte()].EnableFirstPageAndImage();
+                    currentAkte.EnableFirstPageAndImage();
                 }
                 secondPageJustOpened = !secondPageJustOpened;
                 break;
             }
             case "ThirdPage":
             {
-                akten[GetIndexOfActiveAkte()].EnableSecondPage();
+                currentAkte.EnableSecondPage();
                 break;
             }
             case "Monitor":
@@ -123,7 +151,7 @@ public class DeskManager : MonoBehaviour
                     monitorCamera.gameObject.SetActive(true);
                     currentState = state.monitor;
                     */
-                    SceneManager.LoadScene(1);
+                    monitor.gameObject.SetActive(true); //enable monitor UI
                 }
                 break;
             }
@@ -146,7 +174,7 @@ public class DeskManager : MonoBehaviour
         {
             _backgroundAkte.SetActive(false);
             closedFolder.SetActive(true);
-            foldersGameobjects[GetIndexOfActiveAkte()].SetActive(false);
+            currentFolder.SetActive(false);
             deskCamera.gameObject.SetActive(true);
             folderCamera.gameObject.SetActive(false);
             folderOpened = false;
@@ -155,7 +183,6 @@ public class DeskManager : MonoBehaviour
         if (currentState == state.monitor)
         {
             deskCamera.gameObject.SetActive(true);
-            monitorCamera.gameObject.SetActive(false);
         }
         currentState = state.desk;
     }
@@ -173,27 +200,42 @@ public class DeskManager : MonoBehaviour
     }
 
     #region every function only folder related
-        int GetIndexOfActiveAkte()
+
+    
+    /*
+    public void FindAkteByName(string name)
+    {
+        GetAktenFromFolderGameObjects();
+
+        foreach (var akte in akten)
         {
-            foreach (Akte akte in akten)
+            if (akte.GetName().Contains(name))
             {
-                if (!akte.isFinished)
-                {
-                    return akten.IndexOf(akte);
-                }
+                currentAkte = akte;
+                return;
             }
-            return -1;
         }
+    }
         
+    
         private void GetAktenFromFolderGameObjects()
         {
-            foreach (var currentAkte in foldersGameobjects)
+            foreach (var currAkte in foldersGameobjects)
             {
-                Akte tmpakte = new Akte(currentAkte);
+                Akte tmpakte = new Akte(currAkte);
                 akten.Add(tmpakte);
             }
         }
 
+*/
+        
+
         
     #endregion
+
+    public void EnableFolderGameObject()
+    {
+        
+    }
+    
 }

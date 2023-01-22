@@ -24,16 +24,26 @@ public class Person
     private Jobs _job;
     private Bildungsstand _bildungsstand;
 
-    private bool death;
+    private bool isDead;
 
 
-    private Akte _akte;
+    
 
     #region GetterSetter
-        public Akte GetAkte()
+    public bool IsDead()
         {
-            return _akte;
+            return isDead;
         }
+
+    public string GetName()
+    {
+        return _name;
+    }
+
+    public string GetIdentifikation()
+    {
+        return _identifikation;
+    }
 
         #endregion
     
@@ -47,7 +57,7 @@ public class Person
         _bildungsstand = bildungsstand;
 
         //_akte = new Akte(akte);
-        death = false;
+        isDead = false;
     }
     
     public static List<Person> InstantiatePersons()

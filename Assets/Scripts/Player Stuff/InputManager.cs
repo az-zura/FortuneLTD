@@ -107,9 +107,6 @@ public class InputManager : MonoBehaviour
             case 1:
                 return folderCamera;
                 break;
-            case 2:
-                return monitorCamera;
-                break;
         }
         return Camera.current;
     }

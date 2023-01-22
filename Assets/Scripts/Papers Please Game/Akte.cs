@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class Akte
 {
-    public bool isFinished;
     public bool isConfidential;
     private GameObject parent;
     private GameObject image;
@@ -16,12 +15,11 @@ public class Akte
     private bool secondPageOpened; //first page and image are on the left side
     private bool thirdPageOpened; //second page is on the left
 
-    private int aktenNr;
+    private string name;
 
     public Akte(GameObject gameObject)
     {
         parent = gameObject;
-        isFinished = false;
         secondPageOpened = false; 
         thirdPageOpened = false;
         isConfidential = true;
@@ -55,19 +53,7 @@ public class Akte
             }
         }
 
-        switch (parent.name)
-        {
-            case "Akte Seth Steinsburgh":
-                aktenNr = 0;
-                Debug.Log(parent.name);
-                break;
-            
-        }
-    }
-
-    public Akte(int test)
-    {
-        aktenNr = test;
+        name = parent.name.ToLower();
     }
 
     public void DisableFirstPageAndImage()
@@ -98,8 +84,9 @@ public class Akte
         }
     }
 
-    public void FinishAkte()
+    public string GetName()
     {
-        isFinished = true;
+        return name;
     }
+    
 }

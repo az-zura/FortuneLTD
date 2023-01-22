@@ -4,41 +4,20 @@ using UnityEngine;
 
 public class MiniGameLoop : MonoBehaviour
 {
+    private List<Person> allPersons;
+    [SerializeField] private DeskManager _deskManager;
+    private Person toworkon;
 
-    /*
-
-    private Jobs jobOTDOne;
-    private Jobs jobOTDTwo;
-    private Jobs jobOTDThree;
-    
-
-    private void StartWorkDay()
-    {
-        jobOTDOne = GetRandomJob();
-        do
-        {
-            jobOTDTwo = GetRandomJob();
-        } while (jobOTDOne.Equals(jobOTDTwo));
-
-        do
-        {
-            jobOTDThree = GetRandomJob();
-        } while (jobOTDOne.Equals(jobOTDThree) || jobOTDTwo.Equals(jobOTDThree));
-        
-         
-
-
-    }
-
-    private Jobs GetRandomJob()
-    {
-        return (Jobs)Random.Range(0, 17);
-    }
-    
     // Start is called before the first frame update
     void Start()
     {
+        allPersons = Person.InstantiatePersons();
         StartWorkDay();
+    }
+
+    private void StartWorkDay()
+    {
+        toworkon = getRandomPerson();
     }
 
     // Update is called once per frame
@@ -46,5 +25,27 @@ public class MiniGameLoop : MonoBehaviour
     {
         
     }
-    */
+    
+    /*
+     * todo:
+     * -get current person to do
+     * 
+     */
+
+    private Person getRandomPerson()
+    {
+        int randomInt;
+        do
+        {
+            randomInt = (int)Random.Range(0, 1);
+        } while (allPersons[randomInt].IsDead());
+
+        return allPersons[randomInt];
+    }
+
+    public Person GetPersonToWorkOn()
+    {
+        return toworkon;
+    }
+    
 }
