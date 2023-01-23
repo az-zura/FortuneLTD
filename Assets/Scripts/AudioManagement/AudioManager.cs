@@ -22,6 +22,7 @@ public class AudioManager : MonoBehaviour
     [HideInInspector] public Sound currentTheme;
 
     public static AudioManager instance;
+    private Transform camera;
 
     private void Awake()
     {
@@ -70,11 +71,17 @@ public class AudioManager : MonoBehaviour
 
     private void Start()
     {
+        camera = Camera.main.transform;
         currentTheme = themes[0];
         SetMusicVol(PlayerPrefs.GetFloat("musicVol", defaultMusicVol));
         SetSoundVol(PlayerPrefs.GetFloat("soundVol", defaultSoundVol));
 
         PlayTheme();
+    }
+
+    private void LateUpdate()
+    {
+        transform.position = camera.position;
     }
 
     /// <summary>
@@ -97,7 +104,14 @@ public class AudioManager : MonoBehaviour
         soundMixer.audioMixer.SetFloat("soundVol", Mathf.Log10(vol) * 20);
     }
 
-    public void PlaySound(string soundName, GameObject onObject = null, GameObject replaceOnGO = null)
+    /// <summary>
+    /// Plays the sound with the name "soundName" and places its AudioSource on the GameObject "onObject".
+    /// </summary>
+    /// <param name="soundName"> Name of the sound that should be played. </param>
+    /// <param name="onObject"> GameObject with the AudioSource. If null then onObject is set to the gameObject, the AudioManager is on. </param>
+    /// <param name="replaceOnGO"> GameObject on which the sound with "soundName" should be replaced. If null, a new AudioSource is created on onObject. </param>
+    /// /// <param name="fade"> Should the music fade in / out? </param>
+    public void PlaySound(string soundName, GameObject onObject = null, GameObject replaceOnGO = null, bool fade = true)
     {
         Sound[] snds = Array.FindAll(sounds.ToArray(), sound => sound.name == soundName);
         Debug.Log(snds[0].name);
@@ -117,16 +131,35 @@ public class AudioManager : MonoBehaviour
         bool replace = replaceOnGO != null;
         if (replace && s != null)
         {
-            Destroy(s.source);
-            s.source = replaceOnGO.AddComponent<AudioSource>();
+            if (replace != onObject)
+            {
+                Debug.Log("AudioLog 1");
+                Destroy(s.source);
+                s.source = replaceOnGO.AddComponent<AudioSource>();
+            }
         } else if (replace && s == null)
         {
+            Debug.Log("AudioLog 2");
             // Add new sound on replace
             s = new Sound(snds[0].name, snds[0].clip, snds[0].volume, snds[0].pitch,
                 replaceOnGO.AddComponent<AudioSource>(), snds[0].loop, replaceOnGO);
             sounds.Add(s);
+            
+            if (!s.attachedToGameObject)
+            {
+                s.attachedToGameObject = gameObject;
+            }
+            s.source = s.attachedToGameObject.AddComponent<AudioSource>();
+            s.source.clip = s.clip;
+            s.source.outputAudioMixerGroup = soundMixer;
+
+            s.source.volume = s.volume;
+            s.source.pitch = s.pitch;
+
+            s.source.loop = s.loop;
         } else if (!replace)
         {
+            Debug.Log("AudioLog 3");
             if (s == null)
             {
                 s = new Sound(snds[0].name, snds[0].clip, snds[0].volume, snds[0].pitch, onObject.AddComponent<AudioSource>(), snds[0].loop, onObject);
@@ -149,14 +182,85 @@ public class AudioManager : MonoBehaviour
 
         if (PlayerPrefs.GetInt("sound", 1) != 0)
         {
-            s.source.Play();
+            if (fade && !currentTheme.currentlyFading)
+            {
+                StartCoroutine(FadeMusic(s, fadeIn: true, duration: 1f, delay: 0));
+            } else
+            {
+                s.source.Play();
+            }
         }
         else
+        {
+            if (fade && !currentTheme.currentlyFading)
+            {
+                StartCoroutine(FadeMusic(s, fadeIn: false, duration: 1f, delay: 0));
+            } else
+            {
+                s.source.Stop();
+            }
+        }
+    }
+
+    /// <summary>
+    /// Sops playing the sound with name soundName on the GameObject onObject.
+    /// </summary>
+    /// <param name="soundName"> Name of the SOund that should stop playing. </param>
+    /// <param name="onObject"> GameObject on which the sound is. If onObject is null, the GameObject is the gameObject of the AudioManager. </param>
+    /// <param name="fade"> Should the music fadeOut? </param>
+    public void StopSound(string soundName, GameObject onObject = null, bool fade = true)
+    {
+        Sound[] snds = Array.FindAll(sounds.ToArray(), sound => sound.name == soundName);
+        
+        if (snds.Length == 0)
+        {
+            Debug.LogWarning("Sound called \"" + soundName + "\" not found.");
+            return;
+        }
+        
+        if (!onObject)
+        {
+            onObject = gameObject;
+        }
+
+        Sound s = Array.Find(snds, sound => sound.attachedToGameObject == onObject); // Sound on the onObject
+
+        if (s != null)
+        {
+            if (fade && !currentTheme.currentlyFading)
+            {
+                StartCoroutine(FadeMusic(s, fadeIn: false, duration: 1f, delay: 0));
+            } else
+            {
+                s.source.Stop();
+            }
+        }
+    }
+    
+    /// <summary>
+    /// Stops playing all sounds with name "soundName".
+    /// </summary>
+    /// <param name="soundName"> Name of the sounds that should be stopped. </param>
+    public void StopAllSoundsWithNAme(string soundName)
+    {
+        Sound[] snds = Array.FindAll(sounds.ToArray(), sound => sound.name == soundName);
+        Debug.Log(snds[0].name);
+        if (snds.Length == 0)
+        {
+            Debug.LogWarning("Sound called \"" + soundName + "\" not found.");
+            return;
+        }
+
+        foreach (Sound s in snds)
         {
             s.source.Stop();
         }
     }
 
+    /// <summary>
+    /// Plays the Theme with the name soundName. If no soundName is given, it just plays whatever is stored in currentTheme.
+    /// </summary>
+    /// <param name="soundName"> Name of the theme that should be played. </param>
     public void PlayTheme(string soundName = "")
     {
         bool musicOn = PlayerPrefs.GetInt("music", 1) != 0;
@@ -195,7 +299,7 @@ public class AudioManager : MonoBehaviour
         else
         {
             //Turn off music
-            if (s.source.isPlaying)
+            if (s.source.isPlaying && !currentTheme.currentlyFading)
             {
                 StartCoroutine(FadeMusic(s, fadeIn: false, duration: 1f, delay: 0));
             }
@@ -206,7 +310,7 @@ public class AudioManager : MonoBehaviour
 
             if (themeChanged)
             {
-                if (currentTheme.source.isPlaying)
+                if (currentTheme.source.isPlaying && !currentTheme.currentlyFading)
                 {
                     StartCoroutine(FadeMusic(currentTheme, fadeIn: false, duration: 1f, delay: 0));
                 }
@@ -222,6 +326,7 @@ public class AudioManager : MonoBehaviour
 
     IEnumerator FadeMusic(Sound m, float duration, float delay, bool fadeIn = true)
     {
+        m.currentlyFading = true;
         float time = 0;
         float from = fadeIn ? 0 : m.volume;
         float to = fadeIn ? m.volume : 0;
@@ -254,6 +359,8 @@ public class AudioManager : MonoBehaviour
         {
             m.source.Stop();
         }
+
+        m.currentlyFading = false;
     }
 
     public void PlayTestSound(GameObject onObject)

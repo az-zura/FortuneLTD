@@ -39,11 +39,19 @@ public class PlayerMovement : MonoBehaviour
         direction = Vector3.Lerp(direction,  normalizedDirection , directionInterpolation).normalized;
         if (normalizedDirection.magnitude >= 0.1f)
         {
+            if (!isMoving)
+            {
+                AudioManager.instance.PlaySound("Ghost", gameObject);
+            }
             controller.Move(direction * (speed * Time.deltaTime));
             isMoving = true;
         }
         else
         {
+            if (isMoving)
+            {
+                AudioManager.instance.StopSound("Ghost", gameObject);
+            }
             isMoving = false;
         }
 

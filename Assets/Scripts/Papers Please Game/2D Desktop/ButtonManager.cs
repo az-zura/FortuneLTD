@@ -11,26 +11,31 @@ public class ButtonManager : MonoBehaviour
 
     public void OpenFamilyPic()
     {
+        AudioManager.instance.PlaySound("Click");
         _monitorManager.OpenImage();
     }
 
     public void CloseFamilyPic()
     {
+        AudioManager.instance.PlaySound("Click");
         _monitorManager.CloseImage();
     }
 
     public void OpenDeathxcel()
     {
+        AudioManager.instance.PlaySound("Click");
         _monitorManager.OpenDeathxcel();
     }
 
     public void CloseDeathxcel()
     {
+        AudioManager.instance.PlaySound("Click");
         _monitorManager.CloseDeathxcel();
     }
 
     public void AddPerson(TMP_InputField identificationNr)
     {
+        AudioManager.instance.PlaySound("Click");
         if (!(identificationNr.text == String.Empty))
         {
             if (_monitorManager.AddPersonToDataBase(new PersonForm(identificationNr.text)))

@@ -31,4 +31,6 @@ public class Sound
     public bool loop;
 
     public GameObject attachedToGameObject;
+
+    [HideInInspector] public bool currentlyFading = false;
 }
