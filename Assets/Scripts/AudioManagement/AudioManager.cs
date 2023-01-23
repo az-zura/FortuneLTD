@@ -97,6 +97,12 @@ public class AudioManager : MonoBehaviour
         soundMixer.audioMixer.SetFloat("soundVol", Mathf.Log10(vol) * 20);
     }
 
+    /// <summary>
+    /// Plays the sound with the name "soundName" and places its AudioSource on the GameObject "onObject".
+    /// </summary>
+    /// <param name="soundName"> Name of the sound that should be played. </param>
+    /// <param name="onObject"> GameObject with the AudioSource. </param>
+    /// <param name="replaceOnGO"> GameObject on which the sound with "soundName" should be replaced. If null, a new AudioSource is created on onObject. </param>
     public void PlaySound(string soundName, GameObject onObject = null, GameObject replaceOnGO = null)
     {
         Sound[] snds = Array.FindAll(sounds.ToArray(), sound => sound.name == soundName);
@@ -157,6 +163,10 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Plays the Theme with the name soundName. If no soundName is given, it just plays whatever is stored in currentTheme.
+    /// </summary>
+    /// <param name="soundName"> Name of the theme that should be played. </param>
     public void PlayTheme(string soundName = "")
     {
         bool musicOn = PlayerPrefs.GetInt("music", 1) != 0;
