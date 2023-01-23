@@ -17,17 +17,18 @@ public class Akte
 
     private string name;
 
-    public Akte(GameObject gameObject)
+    public Akte()
     {
-        parent = gameObject;
         secondPageOpened = false; 
         thirdPageOpened = false;
         isConfidential = true;
-        name = parent.name.ToLower();
     }
 
     public void InstantiateAkte(GameObject folderGameobject)
     {
+        parent = folderGameobject;
+        name = parent.name.ToLower();
+
         Transform _parent = folderGameobject.transform;
         foreach (Transform child in _parent)
         {

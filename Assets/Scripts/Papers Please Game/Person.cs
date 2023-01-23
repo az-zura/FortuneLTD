@@ -61,7 +61,7 @@ public class Person
         _job = job;
         _bildungsstand = bildungsstand;
 
-        //_akte = new Akte(akte);
+        _akte = new Akte();
         isDead = false;
     }
     

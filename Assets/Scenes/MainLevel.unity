@@ -9459,6 +9459,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1882931152}
     - target: {fileID: 1102896049371242391, guid: 849b53c4415c4474288649924173c171, type: 3}
+      propertyPath: _miniGameLoop
+      value: 
+      objectReference: {fileID: 1724725303}
+    - target: {fileID: 1102896049371242391, guid: 849b53c4415c4474288649924173c171, type: 3}
       propertyPath: monitorCamera
       value: 
       objectReference: {fileID: 1554105864}
@@ -9556,15 +9560,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8426568046994400224, guid: 849b53c4415c4474288649924173c171, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -56.5
+      value: 277.5
       objectReference: {fileID: 0}
     - target: {fileID: 8426568046994400224, guid: 849b53c4415c4474288649924173c171, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.3200073
+      value: 37.36
       objectReference: {fileID: 0}
     - target: {fileID: 8426568046994400224, guid: 849b53c4415c4474288649924173c171, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 21.3
+      value: -320.85
       objectReference: {fileID: 0}
     - target: {fileID: 8426568046994400224, guid: 849b53c4415c4474288649924173c171, type: 3}
       propertyPath: m_LocalRotation.w
@@ -35248,7 +35252,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 942910958}
   m_LocalRotation: {x: 0.27984813, y: -0.36470523, z: 0.11591689, w: 0.8804763}
-  m_LocalPosition: {x: -46.5, y: 11.320007, z: 11.299999}
+  m_LocalPosition: {x: 287.5, y: 47.36, z: -330.85}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -39910,7 +39914,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1070462247}
   m_LocalRotation: {x: 0.27984813, y: -0.36470523, z: 0.11591689, w: 0.8804763}
-  m_LocalPosition: {x: -46.5, y: 11.320007, z: 11.299999}
+  m_LocalPosition: {x: 287.5, y: 47.36, z: -330.85}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -58363,11 +58367,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 476138, guid: c838be5f7abd9c64db9643ebadf0c932, type: 3}
   m_PrefabInstance: {fileID: 1638169310}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1638734353 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2129463021134421072, guid: f8a24b81ffc2d3d4a9d46792581e9a93, type: 3}
-  m_PrefabInstance: {fileID: 1833162007}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1641352006
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -61865,13 +61864,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edd2bbc87da67354abf7eef4313d316f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  folderTray: {fileID: 0}
-  closedFolderOnDesk: {fileID: 0}
-  openedFolderOnDesk: {fileID: 0}
-  foldersGameobjects: []
-  deskCamera: {fileID: 0}
-  folderCamera: {fileID: 0}
-  rulesheetCamera: {fileID: 0}
+  _gameLoop: {fileID: 113349035}
+  folderTray: {fileID: 1833162012}
+  closedFolderOnDesk: {fileID: 1663143486}
+  openedFolderOnDesk: {fileID: 631016796}
+  foldersGameobjects:
+  - {fileID: 1025567253}
+  - {fileID: 1468054145}
+  - {fileID: 1833162014}
+  - {fileID: 1165225310}
+  - {fileID: 507804114}
+  - {fileID: 519471705}
+  - {fileID: 1417863607}
+  - {fileID: 72726485}
+  - {fileID: 338965902}
+  - {fileID: 1585039171}
+  - {fileID: 1931367080}
+  - {fileID: 2101675457}
+  - {fileID: 277983925}
+  - {fileID: 513918392}
+  - {fileID: 1907074103}
+  - {fileID: 886482561}
+  - {fileID: 1625105550}
+  - {fileID: 1736647494}
+  - {fileID: 2058039355}
+  - {fileID: 1406496850}
+  monitorUI: {fileID: 151982210}
+  deskCamera: {fileID: 1833162009}
+  folderCamera: {fileID: 1882931152}
+  rulesheetCamera: {fileID: 2078927996}
 --- !u!4 &1724725304
 Transform:
   m_ObjectHideFlags: 0
@@ -61885,7 +61906,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1725611910
 PrefabInstance:
@@ -65072,59 +65093,6 @@ Transform:
   m_Father: {fileID: 853027746}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1802200446
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1802200448}
-  - component: {fileID: 1802200447}
-  m_Layer: 0
-  m_Name: DeskManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1802200447
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1802200446}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0591a41324ba017458b5039b29bf2dfa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _miniGameLoop: {fileID: 1724725303}
-  deskCamera: {fileID: 1833162009}
-  folderCamera: {fileID: 1882931152}
-  rulesheetCamera: {fileID: 2078927996}
-  folderTray: {fileID: 1833162012}
-  _backgroundAkte: {fileID: 631016796}
-  closedFolder: {fileID: 1638734353}
-  folderOnDesk: {fileID: 1663143486}
-  monitor: {fileID: 151982210}
---- !u!4 &1802200448
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1802200446}
-  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0.00000032782552}
-  m_LocalPosition: {x: 269.0964, y: 0, z: -318.7271}
-  m_LocalScale: {x: 1.6999999, y: 1.6999999, z: 1.6999999}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 16
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1803620635
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -66338,6 +66306,10 @@ PrefabInstance:
     - target: {fileID: 5835073919303472223, guid: f8a24b81ffc2d3d4a9d46792581e9a93, type: 3}
       propertyPath: m_Name
       value: FolderUnopened
+      objectReference: {fileID: 0}
+    - target: {fileID: 5835073919303472223, guid: f8a24b81ffc2d3d4a9d46792581e9a93, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5971670034302436793, guid: f8a24b81ffc2d3d4a9d46792581e9a93, type: 3}
       propertyPath: m_RootOrder

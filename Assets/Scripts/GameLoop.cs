@@ -16,7 +16,6 @@ public class GameLoop : MonoBehaviour
     private void Start()
     {
         currentDay = 0;
-        
     }
 
     private void Update()

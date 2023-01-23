@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class MiniGameLoop : MonoBehaviour
 {
@@ -10,6 +12,9 @@ public class MiniGameLoop : MonoBehaviour
     private state currentState;
     private List<Akte> akten;
 
+    private int currentDay = 0;
+
+    [SerializeField] private GameLoop _gameLoop;
     private enum state
     {
         desk, folder, rulesheet, monitor, pen
@@ -49,6 +54,12 @@ public class MiniGameLoop : MonoBehaviour
         GetAktenFromFolderGameObjects();
         StartWorkDay();
     }
+    
+
+    private void UpdateDay()
+    {
+        currentDay++;
+    }
 
     private void StartWorkDay()
     {
@@ -66,15 +77,10 @@ public class MiniGameLoop : MonoBehaviour
         int randomInt;
         do
         {
-            randomInt = (int)Random.Range(0, 1);
+            randomInt = Random.Range(0, 20);
         } while (allPersons[randomInt].IsDead());
 
         return allPersons[randomInt];
-    }
-
-    public Person GetPersonToWorkOn()
-    {
-        return toworkon;
     }
 
     public void ObjectHit(string objectName)
@@ -83,46 +89,61 @@ public class MiniGameLoop : MonoBehaviour
         {
             case "FolderTray":
             {
-                if (!closedFolderOnDesk.activeSelf && !folderTrayEmpty)
+                if (currentState == state.desk)
                 {
-                    closedFolderOnDesk.gameObject.SetActive(true);
+                    if (!closedFolderOnDesk.activeSelf && !folderTrayEmpty)
+                    {
+                        closedFolderOnDesk.gameObject.SetActive(true);
+                    }
                 }
                 break;
             }
             case "FolderUnopened":
             {
-                openedFolderOnDesk.SetActive(true);
-                closedFolderOnDesk.SetActive(false);
-                //problem
-                GetCurrentFolderGameObjectToPerson().SetActive(true);
-                toworkon.GetAkte().InstantiateAkte(GetCurrentFolderGameObjectToPerson());
-                //folder0.setActive(true);
-                deskCamera.gameObject.SetActive(false);
-                folderCamera.gameObject.SetActive(true);
-                currentState = state.folder;
+                if (currentState == state.desk)
+                {
+                    openedFolderOnDesk.SetActive(true);
+                    closedFolderOnDesk.SetActive(false);
+                    //problem
+                    GetCurrentFolderGameObjectToPerson().SetActive(true);
+                    toworkon.GetAkte().InstantiateAkte(GetCurrentFolderGameObjectToPerson());
+                    Debug.Log(toworkon.GetAkte().GetName());
+                    deskCamera.gameObject.SetActive(false);
+                    folderCamera.gameObject.SetActive(true);
+                    currentState = state.folder;
+                }
                 break;
             }
             case "FirstPage":
             {
-                toworkon.GetAkte().DisableFirstPageAndImage();
+                if (currentState == state.folder)
+                {
+                    toworkon.GetAkte().DisableFirstPageAndImage();
+                }
                 break;
             }
             case "SecondPage":
             {
-                if (secondPageJustOpened)
+                if (currentState == state.folder)
                 {
-                    toworkon.GetAkte().DisableSecondPage();
+                    if (secondPageJustOpened)
+                    {
+                        toworkon.GetAkte().DisableSecondPage();
+                    }
+                    else
+                    {
+                        toworkon.GetAkte().EnableFirstPageAndImage();
+                    }
+                    secondPageJustOpened = !secondPageJustOpened;
                 }
-                else
-                {
-                    toworkon.GetAkte().EnableFirstPageAndImage();
-                }
-                secondPageJustOpened = !secondPageJustOpened;
                 break;
             }
             case "ThirdPage":
             {
-                toworkon.GetAkte().EnableSecondPage();
+                if (currentState == state.folder)
+                {
+                    toworkon.GetAkte().EnableSecondPage();
+                }
                 break;
             }
             case "Monitor":
@@ -151,6 +172,7 @@ public class MiniGameLoop : MonoBehaviour
         {
             case state.desk:
                 return deskCamera;
+                Debug.Log("Yes");
                 break;
             case state.folder:
                 return folderCamera;
@@ -166,7 +188,7 @@ public class MiniGameLoop : MonoBehaviour
     {
         foreach (var currAkte in foldersGameobjects)
         {
-            Akte tmpakte = new Akte(currAkte);
+            Akte tmpakte = new Akte();
             akten.Add(tmpakte);
         }
     }

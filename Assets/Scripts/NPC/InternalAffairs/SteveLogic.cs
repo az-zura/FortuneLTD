@@ -98,7 +98,7 @@ public class SteveLogic : MonoBehaviour
         //random search 
         if (Vector3.Distance(moveToPos, locomotion.getNavMeshDestination()) < 3 || locomotion.navigationState == NPC_Locomotion.NPCNavigationState.idle)
         {
-            Debug.Log("random search");
+            //Debug.Log("random search");
             if (locomotion.MoveTo(gameObject.transform.position, 10, 20))
             {
                 moveToPos = locomotion.getNavMeshDestination();
