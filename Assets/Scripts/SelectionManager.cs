@@ -7,19 +7,25 @@ using UnityEngine;
 
 public class SelectionManager : MonoBehaviour
 {
+    /// <summary>
+    /// THe SelectionManager needs to be n the Main Camera in the Scene.
+    /// Exactly one Selection Manager needs to be in every Scene with InteractableObjects to mak them work.
+    /// </summary>
+    
     public static SelectionManager instance; //Singleton --> there is only one Selection Manager in each Scene!
     public static string selectableTag = "Selectable";
-    [SerializeField] private Material selectionMaterial;
-    [SerializeField] private Material highlightMaterial; //highlights ALL selectable Objects
-    [SerializeField] private Transform player;
-    [SerializeField] private float radius = 5;
+    [Tooltip("Highlights the InteractableObject, which the mouse is currently on.")][SerializeField] private Material selectionMaterial;
+    [Tooltip("Highlights all InteractableObjects in a radius around the player.")][SerializeField] private Material highlightMaterial; //highlights ALL selectable Objects
+    [Tooltip("The player Transform.")][SerializeField] private Transform player;
+    [Tooltip("The radius around the player in which InteractableObjects should be highlighted.")][SerializeField] private float radius = 5;
 
-    [HideInInspector] public List<Transform> interactableObjs = new List<Transform>();
-    private Material defaultMaterial;
-    private Transform _selection;
+    [HideInInspector] public List<Transform> interactableObjs = new List<Transform>(); // filled automatically -- contains all InteractableObjects in the Scene
+    private Material defaultMaterial; // default material of the current selection
+    private Transform _selection; // current selection
 
     private void Awake()
     {
+        // There should only be one SelectionManager in each Scene
         if (instance)
         {
             Destroy(gameObject);

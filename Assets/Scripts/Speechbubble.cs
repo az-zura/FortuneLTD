@@ -22,7 +22,7 @@ public class Speechbubble : MonoBehaviour
     [SerializeField] private BubbleType bubbleType = BubbleType.Speech;
     [SerializeField] [Tooltip("[0]: speech, [1]: thought")] private Sprite[] typeSprites; 
     [SerializeField] private Transform speaker; // the game object currently that talks
-    [SerializeField] private bool scaleWithSpeaker;
+    [Tooltip("If the bubble scales with the speaker, it gets smaller as the speaker moves away. Else it always stays the same size.")][SerializeField] private bool scaleWithSpeaker;
     [SerializeField] private float minScale = 0.1f;
     [SerializeField] private float scaleFactor = 10f;
     
@@ -107,6 +107,10 @@ public class Speechbubble : MonoBehaviour
         canvasGroup.alpha = (talkIndicator.transform.position.x >= rectTrans.position.x-rectTrans.sizeDelta.x * 0.5f && talkIndicator.transform.position.x <= rectTrans.position.x+rectTrans.sizeDelta.x * 0.5f) ? alpha : 0;
     }
 
+    /// <summary>
+    /// Changes the Transform which the indicator of the bubble points to.
+    /// </summary>
+    /// <param name="speaker"> The Transform which the indicator of the bubble points to. </param>
     public void ChangeSpeaker(Transform speaker)
     {
         this.speaker = speaker;
@@ -130,13 +134,20 @@ public class Speechbubble : MonoBehaviour
             default:
                 Debug.LogError($"Bubble type {type} does not exist.");
                 break;
-        }    }
+        }    
+    }
 
     public void SetBubbleText(string text)
     {
         bubbleText.text = text;
     }
 
+    /// <summary>
+    /// Sets the SpeechBubble to display the "text", be of type "type" and have "speaker"
+    /// </summary>
+    /// <param name="text"> The text that is displayed in the Bubble. </param>
+    /// <param name="type"> The type of the SpeechBubble. (Speech, Thought, ...) </param>
+    /// <param name="speaker"> The Transform which the indicator points to. </param>
     public void SetBubble(string text, BubbleType type, Transform speaker)
     {
         SetBubbleText(text);

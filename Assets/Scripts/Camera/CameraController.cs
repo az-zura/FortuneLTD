@@ -7,6 +7,10 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    /// <summary>
+    /// The CameraController should be on the Main Camera in the Scene.
+    /// </summary>
+    
     [SerializeField] private CinemachineVirtualCamera[] cameras;
     [SerializeField] private int currentCam = 0;
 
@@ -63,6 +67,10 @@ public class CameraController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Switches the current camera to the camera at index camNum in the cameras-Array.
+    /// </summary>
+    /// <param name="camNum"> The index of the desired camera in the cameras-Array. </param>
     public void SwitchToCamera(int camNum)
     {
         cameras[currentCam].Priority = 0;
@@ -70,12 +78,18 @@ public class CameraController : MonoBehaviour
         cameras[camNum].Priority = 10;
     }
 
+    /// <summary>
+    /// Switches the current camera to the next camera in the cameras-Array.
+    /// </summary>
     public void SwitchToNextCamera()
     {
         int camNum = (currentCam + 1) % cameras.Length;
         SwitchToCamera(camNum);
     }
 
+    /// <summary>
+    /// Checks if the view on the player is obstructed and makes the obstructions on the Layer "Walls" invisible.
+    /// </summary>
     void ViewObstructed()
     {
         float characterDistance = Vector3.Distance(transform.position, player.transform.position);
@@ -178,7 +192,13 @@ public class CameraController : MonoBehaviour
     }
 
     private Dictionary<Material, float> currentlyFading = new Dictionary<Material, float>();
-
+    /// <summary>
+    /// Fades the material to a given alpha with a certain speed.
+    /// </summary>
+    /// <param name="material"> The Material that should fade. </param>
+    /// <param name="toalpha"> The alpha, the material should fade to. </param>
+    /// <param name="fadeSpeed"> The speed in which the material should fade to toalpha. </param>
+    /// <returns></returns>
     private IEnumerator FadeMaterial(Material material, float toalpha, float fadeSpeed = 1f)
     {
         if (!currentlyFading.ContainsKey(material))
