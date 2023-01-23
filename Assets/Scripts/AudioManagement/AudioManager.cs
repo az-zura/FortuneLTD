@@ -101,7 +101,7 @@ public class AudioManager : MonoBehaviour
     /// Plays the sound with the name "soundName" and places its AudioSource on the GameObject "onObject".
     /// </summary>
     /// <param name="soundName"> Name of the sound that should be played. </param>
-    /// <param name="onObject"> GameObject with the AudioSource. </param>
+    /// <param name="onObject"> GameObject with the AudioSource. If null then onObject is set to the gameObject, the AudioManager is on. </param>
     /// <param name="replaceOnGO"> GameObject on which the sound with "soundName" should be replaced. If null, a new AudioSource is created on onObject. </param>
     public void PlaySound(string soundName, GameObject onObject = null, GameObject replaceOnGO = null)
     {
@@ -158,6 +158,54 @@ public class AudioManager : MonoBehaviour
             s.source.Play();
         }
         else
+        {
+            s.source.Stop();
+        }
+    }
+
+    /// <summary>
+    /// Sops playing the sound with name soundName on the GameObject onObject.
+    /// </summary>
+    /// <param name="soundName"> Name of the SOund that should stop playing. </param>
+    /// <param name="onObject"> GameObject on which the sound is. If onObject is null, the GameObject is the gameObject of the AudioManager. </param>
+    public void StopSound(string soundName, GameObject onObject = null)
+    {
+        Sound[] snds = Array.FindAll(sounds.ToArray(), sound => sound.name == soundName);
+        Debug.Log(snds[0].name);
+        if (snds.Length == 0)
+        {
+            Debug.LogWarning("Sound called \"" + soundName + "\" not found.");
+            return;
+        }
+        
+        if (!onObject)
+        {
+            onObject = gameObject;
+        }
+
+        Sound s = Array.Find(snds, sound => sound.attachedToGameObject == onObject); // Sound on the onObject
+
+        if (s != null)
+        {
+            s.source.Stop();
+        }
+    }
+    
+    /// <summary>
+    /// Stops playing all sounds with name "soundName".
+    /// </summary>
+    /// <param name="soundName"> Name of the sounds that should be stopped. </param>
+    public void StopAllSoundsWithNAme(string soundName)
+    {
+        Sound[] snds = Array.FindAll(sounds.ToArray(), sound => sound.name == soundName);
+        Debug.Log(snds[0].name);
+        if (snds.Length == 0)
+        {
+            Debug.LogWarning("Sound called \"" + soundName + "\" not found.");
+            return;
+        }
+
+        foreach (Sound s in snds)
         {
             s.source.Stop();
         }
