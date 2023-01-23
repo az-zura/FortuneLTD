@@ -94,7 +94,6 @@ public class PopulateCity : MonoBehaviour
     {
         if (Vector3.Distance(player.transform.position, ghost.transform.position) > npcDespawnRange)
         {
-            Debug.Log("removing ghost because of distance");
             removeNPC(ghost);
         }
     }
@@ -144,7 +143,6 @@ public class PopulateCity : MonoBehaviour
 
     private void reachedPathEnd(object sender, EventArgs e)
     {
-        Debug.Log("object " + sender + " reached path end");
         NPC_Locomotion l = sender as NPC_Locomotion;
         if (l)
         {

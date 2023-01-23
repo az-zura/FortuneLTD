@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using EventSystem;
+using EventSystem.Base;
 using UnityEngine;
 
 public class TestAction : ActionBase
@@ -15,10 +16,10 @@ public class TestAction : ActionBase
 
     public override void OnResumeExecution()
     {
-        EndAction();
+        EndEventItem();
     }
     
-    public override void OnActionStart()
+    public override void OnItemStart()
     {
         Debug.Log("Ran test action " + name);
         SuspendAction(1);

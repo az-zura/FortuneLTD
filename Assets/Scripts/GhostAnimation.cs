@@ -10,7 +10,7 @@ public class GhostAnimation : MonoBehaviour
 
     private Animator animator;
 
-    public Transform lookAt;
+    private Transform lookAtTransform;
 
     public enum Emotion
     {
@@ -40,9 +40,9 @@ public class GhostAnimation : MonoBehaviour
         }
         else
         {
-            if (lookAt)
+            if (lookAtTransform)
             {
-                Vector3 v = (lookAt.position - transform.position);
+                Vector3 v = (lookAtTransform.position - transform.position);
                 v.y = 0;
                 v = -v.normalized;
                 gameObject.transform.forward = Vector3.Lerp(gameObject.transform.forward, v, 0.8f);
@@ -56,12 +56,20 @@ public class GhostAnimation : MonoBehaviour
         o.transform.localPosition = localPosition;
     }
 
-    public Transform LookAt
+
+
+    public void startLookAt(Transform lookAt)
     {
-        get => lookAt;
-        set => lookAt = value;
+        this.lookAtTransform = lookAt;
+        
     }
 
+    public void stopLookAt()
+    {
+        this.lookAtTransform = null;
+        gameObject.transform.forward = Vector3.forward;
+    }
+    
     public void setMoving(bool isMoving)
     {
         animator.SetBool("IsFloating", isMoving);

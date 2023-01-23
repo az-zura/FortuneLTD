@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using EventSystem;
+using EventSystem.Base;
 using UnityEngine;
 
 public class SpeakAction : ActionBase
@@ -32,10 +33,10 @@ public class SpeakAction : ActionBase
     public override void OnResumeExecution()
     {
         speechBubble.ChangeBubbleType(Speechbubble.BubbleType.Dismissed);
-        EndAction();
+        EndEventItem();
     }
 
-    public override void OnActionStart()
+    public override void OnItemStart()
     {
         speechBubble.SetBubble(text,Speechbubble.BubbleType.Speech,speaker.transform);
         speechBubble.btn.onClick.AddListener(() => { 

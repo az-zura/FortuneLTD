@@ -10,10 +10,15 @@ public class InteractableObject : MonoBehaviour
 {
     public UnityEvent onClick;
 
-    private void Start()
+    public void Start()
     {
         transform.tag = SelectionManager.selectableTag;
         SelectionManager.instance.interactableObjs.Add(transform);
+    }
+
+    private void OnDestroy()
+    {
+        SelectionManager.instance.interactableObjs.Remove(transform);
     }
 
     public void Test()

@@ -94,6 +94,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ghost
       objectReference: {fileID: 0}
+    - target: {fileID: 765993733960563324, guid: fc402e53ef1b2ea4c8621e30a647d562, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 1145961984398258472, guid: fc402e53ef1b2ea4c8621e30a647d562, type: 3}
       propertyPath: m_IsActive
       value: 1

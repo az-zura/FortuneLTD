@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using EventSystem;
+using EventSystem.Base;
 using UnityEngine;
 
 public class EmotionAction : ActionBase
@@ -21,10 +22,10 @@ public class EmotionAction : ActionBase
         throw new System.NotImplementedException();
     }
 
-    public override void OnActionStart()
+    public override void OnItemStart()
     {
         DispatchCoroutine(animate(ghostAnimation,emotion,defferTime));
-        EndAction();
+        EndEventItem();
     }
 
     private static IEnumerator animate(GhostAnimation ghostAnimation, GhostAnimation.Emotion emotion, float defferTime)

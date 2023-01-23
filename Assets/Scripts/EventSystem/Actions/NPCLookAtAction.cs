@@ -1,23 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using EventSystem;
+using EventSystem.Base;
 using UnityEngine;
 
 public class NPCLookAtAction : ActionBase
 {
     private GhostAnimation ghostAnimation;
-    private Transform looktAt;
+    private Transform lookAt;
 
     public NPCLookAtAction(GhostAnimation ghostAnimation)
     {
         this.ghostAnimation = ghostAnimation;
-        this.looktAt = null;
+        this.lookAt = null;
     }
 
     public NPCLookAtAction(GhostAnimation ghostAnimation, Transform looktAt)
     {
         this.ghostAnimation = ghostAnimation;
-        this.looktAt = looktAt;
+        this.lookAt = looktAt;
     }
 
     public override void OnResumeExecution()
@@ -25,9 +26,16 @@ public class NPCLookAtAction : ActionBase
         throw new System.NotImplementedException();
     }
 
-    public override void OnActionStart()
+    public override void OnItemStart()
     {
-        ghostAnimation.lookAt = looktAt;
-        EndAction();
+        if (this.lookAt)
+        {
+            ghostAnimation.startLookAt(this.lookAt);
+        }
+        else
+        {
+            ghostAnimation.stopLookAt();
+        }
+        EndEventItem();
     }
 }

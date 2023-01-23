@@ -1,51 +1,72 @@
+using System;
 using System.Collections.Generic;
+using EventSystem;
+using EventSystem.Base;
 using UnityEngine;
 
 namespace EventSystem
 {
     public abstract class SequentialEvent : EventBase
     {
-        private List<ActionBase> actions = new List<ActionBase>();
+        private List<EventItem> eventItems = new List<EventItem>();
         private int currentAction = 0;
 
-        public void AddAction(ActionBase action)
+        public void AddEventItem(EventItem eventItem)
         {
-            this.actions.Add(action);
+            this.eventItems.Add(eventItem);
         }
-    
-        public void SetActions(List<ActionBase> actions)
-        {
-            this.actions = actions;
-        }
-
-
+        
         public void StartSequentialEvent()
         {
-            if (this.actions.Count <= 0)
+            if (this.eventItems.Count <= 0)
             {
                 Debug.LogError("Trying to start sequential event, but action array is empty");
             }
             else
             {
-                DispatchAction(this.actions[0]);
+                DispatchEventItem(this.eventItems[0]);
             }
         }
-        public override void ActionRanCallback(ActionBase action)
+        public override void EventItemRanCallback(EventItem eventItem)
         {
-            NextAction();
+            if (eventItem == eventItems[currentAction])
+            {
+                NextEventItem();
+            }
+            else
+            {
+                Debug.LogWarning("Received ActionRanCallback but the action isn't the current action");
+            }
+            
         }
 
-        public void NextAction()
+        public void NextEventItem()
         {
             currentAction++;
-            if (currentAction >= actions.Count)
+            if (currentAction >= eventItems.Count)
             {
                 finalizeEvent();
             }
             else
             {
-                DispatchAction(actions[currentAction]);
+                DispatchEventItem(eventItems[currentAction]);
             }
         }
+    }
+}
+
+public class DispatchEventArgs : EventArgs
+{
+    public DispatchEventArgs(ActionBase actionBase)
+    {
+        this.actionBase = actionBase;
+    }
+
+    private ActionBase actionBase;
+
+    public ActionBase ActionBase
+    {
+        get => actionBase;
+        set => actionBase = value;
     }
 }

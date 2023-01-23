@@ -24,7 +24,7 @@ public class NPC_Locomotion : MonoBehaviour
         waiting
     }
 
-    private NPCNavigationState navigationState = NPCNavigationState.idle;
+    public NPCNavigationState navigationState = NPCNavigationState.idle;
     
     
     void Start()
@@ -32,8 +32,7 @@ public class NPC_Locomotion : MonoBehaviour
         navMeshAgent = gameObject.GetComponent<NavMeshAgent>();
         controller = gameObject.GetComponent<CharacterController>();
         ghostAnimation = gameObject.GetComponentInChildren<GhostAnimation>();
-        if (!navMeshAgent) Debug.Log("navMeshAgent is not :(");
-        Debug.Log("navMeshAgent is asfsd");
+        if (!navMeshAgent) Debug.LogError("navMeshAgent is not initialized");
 
     }
 
@@ -104,5 +103,10 @@ public class NPC_Locomotion : MonoBehaviour
         if (!navMeshAgent) navMeshAgent = gameObject.GetComponent<NavMeshAgent>();
 
         return navMeshAgent.SetDestination(currentDestination);
+    }
+
+    public Vector3 getNavMeshDestination()
+    {
+        return navMeshAgent.destination;
     }
 }

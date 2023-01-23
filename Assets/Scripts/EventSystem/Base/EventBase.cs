@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
+using EventSystem.Base;
 using UnityEngine;
+using Object = System.Object;
 
 namespace EventSystem
 {
@@ -13,7 +15,6 @@ namespace EventSystem
         }
 
         private EventStatus status = EventStatus.EventNew;
-        public float cyclicWaitInterval = 1f;
         public abstract void OnEventInitialized();
 
         //called by the event trigger when event starts
@@ -37,22 +38,16 @@ namespace EventSystem
             this.status = EventStatus.EventPlayed;
         }
         
-        public void DispatchAction(ActionBase action)
+        public void DispatchEventItem(EventItem eventItem)
         {
-            if (action.CanActionRun())
-            {
-                action.DispatchAction(this);
-            }
-            else
-            {
-                StartCoroutine(CyclicWait(action));
-            }
+            eventItem.DispatchItem(this);
         }
-        public abstract void ActionRanCallback(ActionBase action);
+        
+        public abstract void EventItemRanCallback(EventItem eventItem);
 
-        public void SuspendAction(ActionBase action, float timeInSeconds)
+        public void SuspendEventItem(EventItem eventItem, float timeInSeconds)
         {
-            StartCoroutine(Suspend(action, timeInSeconds));
+            StartCoroutine(Suspend(eventItem, timeInSeconds));
         }
         
         //can be called by action
@@ -61,17 +56,21 @@ namespace EventSystem
             StartCoroutine(coroutine);
         }
         
-        IEnumerator Suspend(ActionBase action,float timeInSeconds)
+        IEnumerator Suspend(EventItem eventItem,float timeInSeconds)
         {
             yield return new WaitForSeconds(timeInSeconds);
-            action.OnResumeExecution();
+            eventItem.OnResumeExecution();
         }
 
-        IEnumerator CyclicWait(ActionBase action)
+        public void InstantiateActor(GameObject gameObject, Vector3 position, Quaternion rotation)
         {
-            yield return new WaitForSeconds(cyclicWaitInterval);
-            DispatchAction(action);
-
+            Instantiate(gameObject,position,rotation);
         }
+
+        public void DestroyActor(GameObject gameObject)
+        {
+            Destroy(gameObject);
+        }
+
     }
 }
