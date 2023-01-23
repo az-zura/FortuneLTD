@@ -33,12 +33,15 @@ public class SpeakAction : ActionBase
     public override void OnResumeExecution()
     {
         speechBubble.ChangeBubbleType(Speechbubble.BubbleType.Dismissed);
+        AudioManager.instance.StopSound($"Voice{Random.Range(0,4)}");
         EndEventItem();
     }
 
     public override void OnItemStart()
     {
         speechBubble.SetBubble(text,Speechbubble.BubbleType.Speech,speaker.transform);
+        AudioManager.instance.PlaySound($"Voice{Random.Range(0,4)}");
+        
         speechBubble.btn.onClick.AddListener(() => { 
             dismissAfterTime = false;
             OnResumeExecution();

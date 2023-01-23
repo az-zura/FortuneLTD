@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2235073799219944210}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.000000029802322, y: 1.495, z: 0.119999886}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -47,16 +47,44 @@ MonoBehaviour:
   sounds:
   - name: Ghost
     clip: {fileID: 8300000, guid: 82860d58bf262453d8f051e281a97527, type: 3}
-    volume: 1
+    volume: 0.1
     pitch: 1
     source: {fileID: 0}
     loop: 1
-  - name: Motor
+    attachedToGameObject: {fileID: 0}
+    currentlyFading: 0
+  - name: Car
     clip: {fileID: 8300000, guid: f02dfa965dbb8426d91dea3d5cdb25a9, type: 3}
-    volume: 1
+    volume: 0.2
     pitch: 1
     source: {fileID: 0}
     loop: 0
+    attachedToGameObject: {fileID: 0}
+    currentlyFading: 0
+  - name: Voice0
+    clip: {fileID: 8300000, guid: 8c100e089d4d2438a91dfa6be63d715c, type: 3}
+    volume: 0.2
+    pitch: 1
+    source: {fileID: 0}
+    loop: 1
+    attachedToGameObject: {fileID: 0}
+    currentlyFading: 0
+  - name: Voice1
+    clip: {fileID: 8300000, guid: 8a9255bfd8d954d82b7df185fcd83f4e, type: 3}
+    volume: 0.2
+    pitch: 1
+    source: {fileID: 0}
+    loop: 1
+    attachedToGameObject: {fileID: 0}
+    currentlyFading: 0
+  - name: Voice2
+    clip: {fileID: 8300000, guid: b82081aaf5ee947c49614c8b1480773f, type: 3}
+    volume: 0.2
+    pitch: 1
+    source: {fileID: 0}
+    loop: 1
+    attachedToGameObject: {fileID: 0}
+    currentlyFading: 0
   themes:
   - name: MainTheme
     clip: {fileID: 8300000, guid: ce81e90ea919649679bdbb1aa463c558, type: 3}
@@ -64,6 +92,8 @@ MonoBehaviour:
     pitch: 1
     source: {fileID: 0}
     loop: 1
+    attachedToGameObject: {fileID: 0}
+    currentlyFading: 0
   defaultMusicVol: 0.1
   defaultSoundVol: 0.5
   musicMixer: {fileID: 5077121189189135526, guid: 098f3adf91a5640a0b063770e2ab761c, type: 2}
@@ -75,3 +105,5 @@ MonoBehaviour:
     pitch: 0
     source: {fileID: 0}
     loop: 0
+    attachedToGameObject: {fileID: 0}
+    currentlyFading: 0
