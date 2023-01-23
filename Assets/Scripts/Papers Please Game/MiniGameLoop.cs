@@ -51,16 +51,16 @@ public class MiniGameLoop : MonoBehaviour
         folderTrayEmpty = false;
         secondPageJustOpened = true;
         akten = new List<Akte>();
+        _gameLoop.DayUpdated += UpdateCurrentDay;
         GetAktenFromFolderGameObjects();
         StartWorkDay();
     }
-    
 
-    private void UpdateDay()
+    private void UpdateCurrentDay(object sender, EventArgs eventArgs)
     {
         currentDay++;
     }
-
+    
     private void StartWorkDay()
     {
         toworkon = getRandomPerson();
@@ -69,7 +69,6 @@ public class MiniGameLoop : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
     }
 
     private Person getRandomPerson()
@@ -172,7 +171,6 @@ public class MiniGameLoop : MonoBehaviour
         {
             case state.desk:
                 return deskCamera;
-                Debug.Log("Yes");
                 break;
             case state.folder:
                 return folderCamera;
