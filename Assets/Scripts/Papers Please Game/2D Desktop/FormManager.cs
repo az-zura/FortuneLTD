@@ -19,8 +19,7 @@ public class FormManager : MonoBehaviour
         {
             return;
         }
-        _manager.AddDataToPerson(name.text,  Int32.Parse(lifetime.text), education.text, job.text);
-        _manager.SwitchToCalculator();
+        _manager.SwitchToThirdWindow();
     }
     
 }

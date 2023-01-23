@@ -8,7 +8,7 @@ using UnityEngine;
 
 public class MonitorManager : MonoBehaviour
 {
-    private Monitor _monitor;
+    
     [SerializeField] private GameObject desktop;
     [SerializeField] private GameObject deathxcel;
     [SerializeField] private GameObject image;
@@ -17,70 +17,60 @@ public class MonitorManager : MonoBehaviour
     [SerializeField] private GameObject calculatorWindow;
 
     [SerializeField] private TextMeshProUGUI idText;
-    
-    private PersonForm currentPerson;
+    [SerializeField] private TextMeshProUGUI error;
 
+    [SerializeField] private MiniGameLoop _miniGameLoop;
+    
     //mouse click sounds
     private void Start()
     {
-        _monitor = new Monitor();
     }
 
+    #region Navigation
     public void OpenImage()
-    {
-        desktop.SetActive(false);
-        image.SetActive(true);
-    }
-    public void CloseImage()
-    {
-        image.SetActive(false);
-        desktop.SetActive(true);
-    }
-    public void OpenDeathxcel()
-    {
-        deathxcel.SetActive(true);
-        desktop.SetActive(false);
-    }
-    public void CloseDeathxcel()
-    {
-        deathxcel.SetActive(false);
-        desktop.SetActive(true);
-    }
-    
-    public bool AddPersonToDataBase(PersonForm personForm)
-    {
-        if (_monitor.AddPerson(personForm))
         {
-            currentPerson = personForm;
-            return true;
+            desktop.SetActive(false);
+            image.SetActive(true);
+        }
+        public void CloseImage()
+        {
+            image.SetActive(false);
+            desktop.SetActive(true);
+        }
+        public void OpenDeathxcel()
+        {
+            deathxcel.SetActive(true);
+            desktop.SetActive(false);
+        }
+        public void CloseDeathxcel()
+        {
+            deathxcel.SetActive(false);
+            desktop.SetActive(true);
+        }
+        
+        public void SwitchToSecondWindow(string ID)
+        {
+            if (ID.Equals(_miniGameLoop.GetCurrentPerson().GetIdentifikation()))
+            {
+                formWindow.SetActive(true);
+                firstWindow.SetActive(false);
+            }
+            else
+            {
+                error.gameObject.SetActive(true);
+            }
+        }
+        
+        public void SwitchToThirdWindow()
+        {
+            formWindow.SetActive(false);
+            calculatorWindow.SetActive(true);
+            Debug.Log(_miniGameLoop.GetCurrentPerson().GetName());
         }
 
-        return false;
-    }
-
-    public void SwitchToFormWindow()
-    {
-        formWindow.SetActive(true);
-        firstWindow.SetActive(false);
-        //Debug.Log(currentPerson.GetID());
-        string toAdd = "    " + currentPerson.GetID();
-        idText.text += toAdd;
-    }
-
-    public void SwitchToCalculator()
-    {
-        formWindow.SetActive(false);
-        calculatorWindow.SetActive(true);
-        Debug.Log(currentPerson.GetName());
-    }
-
-    public void AddDataToPerson(string name, int lifeExpectancy, string education, string job)
-    {
-        currentPerson.SetName(name);
-        currentPerson.SetLifeExpectancy(lifeExpectancy);
-        currentPerson.SetSchulabschluss(education);
-        currentPerson.SetSchulabschluss(education);
         
-    }
-    //add rest of data to person via second window:
+
+    #endregion
+    
+    
 }

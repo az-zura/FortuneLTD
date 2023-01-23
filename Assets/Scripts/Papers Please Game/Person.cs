@@ -50,6 +50,11 @@ public class Person
         return _akte;
     }
 
+    public static Jobs GetRandomJob()
+    {
+        return (Jobs)Random.Range(0, 17);
+    }
+
         #endregion
     
     public Person(string name, string identifikation, int derzeitigesAlter, int erwartetesAlter, Jobs job, Bildungsstand bildungsstand) //GameObject akte
