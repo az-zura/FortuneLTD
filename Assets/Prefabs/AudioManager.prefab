@@ -85,10 +85,18 @@ MonoBehaviour:
     loop: 1
     attachedToGameObject: {fileID: 0}
     currentlyFading: 0
+  - name: Click
+    clip: {fileID: 8300000, guid: 6fb31b8818959401ab6da481e2a6bbc3, type: 3}
+    volume: 0.5
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+    attachedToGameObject: {fileID: 0}
+    currentlyFading: 0
   themes:
   - name: MainTheme
     clip: {fileID: 8300000, guid: ce81e90ea919649679bdbb1aa463c558, type: 3}
-    volume: 0.5
+    volume: 1
     pitch: 1
     source: {fileID: 0}
     loop: 1

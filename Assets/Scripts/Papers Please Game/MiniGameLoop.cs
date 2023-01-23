@@ -85,6 +85,7 @@ public class MiniGameLoop : MonoBehaviour
 
     public void ObjectHit(string objectName)
     {
+        AudioManager.instance.PlaySound("Click");
         switch (objectName)
         {
             case "FolderTray":

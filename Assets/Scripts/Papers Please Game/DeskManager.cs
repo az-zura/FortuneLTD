@@ -75,7 +75,7 @@ public class DeskManager : MonoBehaviour
     
     public void ObjectHit(string hitObject)
     {
-
+        AudioManager.instance.PlaySound("Click");
         switch (hitObject)
         {
             case "FolderTray":
