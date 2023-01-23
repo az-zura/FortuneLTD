@@ -22,6 +22,8 @@ public class MiniGameLoop : MonoBehaviour
         [SerializeField] private GameObject openedFolderOnDesk;
 
         [SerializeField] private List<GameObject> foldersGameobjects;
+
+        [SerializeField] private Canvas monitorUI;
     #endregion
 
     #region Cameras
@@ -30,12 +32,19 @@ public class MiniGameLoop : MonoBehaviour
         [SerializeField] private Camera rulesheetCamera;
         #endregion
 
+    #region  bools
+
+        private bool secondPageJustOpened;
+
+    #endregion
+
     // Start is called before the first frame update
     void Start()
     {
         currentState = state.desk;
         allPersons = Person.InstantiatePersons();
         folderTrayEmpty = false;
+        secondPageJustOpened = true;
         akten = new List<Akte>();
         GetAktenFromFolderGameObjects();
         StartWorkDay();
@@ -86,45 +95,41 @@ public class MiniGameLoop : MonoBehaviour
                 closedFolderOnDesk.SetActive(false);
                 //problem
                 GetCurrentFolderGameObjectToPerson().SetActive(true);
+                toworkon.GetAkte().InstantiateAkte(GetCurrentFolderGameObjectToPerson());
                 //folder0.setActive(true);
                 deskCamera.gameObject.SetActive(false);
                 folderCamera.gameObject.SetActive(true);
                 currentState = state.folder;
                 break;
             }
-            /*
             case "FirstPage":
             {
-                currentAkte.DisableFirstPageAndImage();
+                toworkon.GetAkte().DisableFirstPageAndImage();
                 break;
             }
             case "SecondPage":
             {
                 if (secondPageJustOpened)
                 {
-                    currentAkte.DisableSecondPage();
+                    toworkon.GetAkte().DisableSecondPage();
                 }
                 else
                 {
-                    currentAkte.EnableFirstPageAndImage();
+                    toworkon.GetAkte().EnableFirstPageAndImage();
                 }
                 secondPageJustOpened = !secondPageJustOpened;
                 break;
             }
             case "ThirdPage":
             {
-                currentAkte.EnableSecondPage();
+                toworkon.GetAkte().EnableSecondPage();
                 break;
             }
             case "Monitor":
             {
                 if (currentState == state.desk)
                 {
-                    /*deskCamera.gameObject.SetActive(false);
-                    monitorCamera.gameObject.SetActive(true);
-                    currentState = state.monitor;
-                    
-                    monitor.gameObject.SetActive(true); //enable monitor UI
+                    monitorUI.gameObject.SetActive(true); //enable monitor UI
                 }
                 break;
             }
@@ -136,7 +141,7 @@ public class MiniGameLoop : MonoBehaviour
                 }
                 break;
             }
-    */
+    
         }
     }
 

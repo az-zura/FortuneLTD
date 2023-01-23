@@ -25,7 +25,7 @@ public class Person
     private Bildungsstand _bildungsstand;
 
     private bool isDead;
-
+    private Akte _akte;
 
     
 
@@ -43,6 +43,11 @@ public class Person
     public string GetIdentifikation()
     {
         return _identifikation;
+    }
+
+    public Akte GetAkte()
+    {
+        return _akte;
     }
 
         #endregion

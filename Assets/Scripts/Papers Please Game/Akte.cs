@@ -23,7 +23,12 @@ public class Akte
         secondPageOpened = false; 
         thirdPageOpened = false;
         isConfidential = true;
-        Transform _parent = gameObject.transform;
+        name = parent.name.ToLower();
+    }
+
+    public void InstantiateAkte(GameObject folderGameobject)
+    {
+        Transform _parent = folderGameobject.transform;
         foreach (Transform child in _parent)
         {
             switch (child.name)
@@ -49,11 +54,8 @@ public class Akte
                     thirdPage = child.gameObject;
                     break;
                 }
-
             }
         }
-
-        name = parent.name.ToLower();
     }
 
     public void DisableFirstPageAndImage()

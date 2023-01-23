@@ -58,7 +58,6 @@ public class InputManager : MonoBehaviour
     {
         _playerInput.Player.Click.started += _ => ClickStarted();
         _playerInput.Player.Click.performed += _ => ClickPerformed();
-        //_deskManager = deskGameobject.GetComponent<DeskManager>();
     }
 
     private void ClickStarted()
@@ -93,11 +92,6 @@ public class InputManager : MonoBehaviour
                 }
             }
         }
-
         return false;
     }
-
-    
-    
-    
 }
