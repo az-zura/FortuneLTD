@@ -24,7 +24,7 @@ public class NPC_Locomotion : MonoBehaviour
         waiting
     }
 
-    private NPCNavigationState navigationState = NPCNavigationState.idle;
+    public NPCNavigationState navigationState = NPCNavigationState.idle;
     
     
     void Start()
@@ -103,5 +103,10 @@ public class NPC_Locomotion : MonoBehaviour
         if (!navMeshAgent) navMeshAgent = gameObject.GetComponent<NavMeshAgent>();
 
         return navMeshAgent.SetDestination(currentDestination);
+    }
+
+    public Vector3 getNavMeshDestination()
+    {
+        return navMeshAgent.destination;
     }
 }

@@ -101,7 +101,7 @@ public class SelectionManager : MonoBehaviour
                 _selection = selection;
             }
 
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && _selection)
             {
                 InteractableObject iObj = _selection.GetComponent<InteractableObject>();
                 if (iObj)
