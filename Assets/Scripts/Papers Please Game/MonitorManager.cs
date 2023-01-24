@@ -5,6 +5,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using FixedUpdate = UnityEngine.PlayerLoop.FixedUpdate;
 
 public class MonitorManager : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class MonitorManager : MonoBehaviour
     [SerializeField] private GameObject firstWindow;
     [SerializeField] private GameObject formWindow;
     [SerializeField] private GameObject calculatorWindow;
+    [SerializeField] private GameObject doYouWantToCloseMessage;
 
     [SerializeField] private TextMeshProUGUI idText;
     [SerializeField] private TextMeshProUGUI error;
@@ -47,6 +49,31 @@ public class MonitorManager : MonoBehaviour
             deathxcel.SetActive(false);
             desktop.SetActive(true);
         }
+
+        public void BackToDesktop()
+        {
+            doYouWantToCloseMessage.SetActive(false);
+        }
+
+        public void CloseMonitor()
+        {
+            doYouWantToCloseMessage.SetActive(false);
+            deathxcel.SetActive(false);
+            image.SetActive(false);
+            firstWindow.SetActive(false);
+            formWindow.SetActive(false);
+            calculatorWindow.SetActive(false);
+            idText.gameObject.SetActive(false);
+            error.gameObject.SetActive(false);
+            desktop.SetActive(true);
+            _miniGameLoop.CloseMonitor();
+        }
+
+        public void OpenDoYouReallyWantToCloseMessage()
+        {
+            doYouWantToCloseMessage.SetActive(true);
+        }
+        
         
         public void SwitchToSecondWindow(string ID)
         {

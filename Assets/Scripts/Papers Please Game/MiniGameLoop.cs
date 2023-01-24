@@ -41,6 +41,7 @@ public class MiniGameLoop : MonoBehaviour
     #region  bools
 
         private bool secondPageJustOpened;
+        private bool hasRulesheet;
 
     #endregion
 
@@ -49,11 +50,16 @@ public class MiniGameLoop : MonoBehaviour
     {
         currentState = state.desk;
         allPersons = Person.InstantiatePersons();
+        
         folderTrayEmpty = false;
         secondPageJustOpened = true;
+        hasRulesheet = false;
+        
         akten = new List<Akte>();
         dailyJobs = new List<Person.Jobs>();
+        
         _gameLoop.DayUpdated += UpdateCurrentDay;
+        
         GetAktenFromFolderGameObjects();
         StartWorkDay();
     }
@@ -190,6 +196,12 @@ public class MiniGameLoop : MonoBehaviour
         }
     }
 
+    public void CloseMonitor()
+    {
+        monitorUI.gameObject.SetActive(false);
+    }
+    
+
     public Camera GetCurrentCamera()
     {
         switch (currentState)
@@ -252,5 +264,14 @@ public class MiniGameLoop : MonoBehaviour
         return toworkon;
     }
 
+    public bool HasRuleSheet()
+    {
+        return hasRulesheet;
+    }
+
+    public void SetHasRuleSheet(bool hasrulesheet)
+    {
+        hasRulesheet = hasrulesheet;
+    }
     #endregion
 }

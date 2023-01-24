@@ -38,6 +38,24 @@ public class ButtonManager : MonoBehaviour
         {
             if(idInput.text != string.Empty) _monitorManager.SwitchToSecondWindow(idInput.text);
         }
+
+        public void DoYouReallyWantToCloseMonitor()
+        { 
+            AudioManager.instance.PlaySound("Click");
+            _monitorManager.OpenDoYouReallyWantToCloseMessage();
+        }
+
+        public void CloseMonitor()
+        {
+            AudioManager.instance.PlaySound("Click");
+            _monitorManager.CloseMonitor();
+        }
+
+        public void BackToDesktop()
+        {
+            AudioManager.instance.PlaySound("Click");
+            _monitorManager.BackToDesktop();
+        }
         
         #endregion
 }
