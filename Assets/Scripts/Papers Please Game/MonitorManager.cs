@@ -5,6 +5,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.UIElements;
 using FixedUpdate = UnityEngine.PlayerLoop.FixedUpdate;
 
 public class MonitorManager : MonoBehaviour
@@ -48,6 +49,7 @@ public class MonitorManager : MonoBehaviour
         {
             deathxcel.SetActive(false);
             desktop.SetActive(true);
+            _miniGameLoop.SetFirstPageInactive();
         }
 
         public void BackToDesktop()
@@ -67,6 +69,7 @@ public class MonitorManager : MonoBehaviour
             error.gameObject.SetActive(false);
             desktop.SetActive(true);
             _miniGameLoop.CloseMonitor();
+            _miniGameLoop.SetFirstPageInactive();
         }
 
         public void OpenDoYouReallyWantToCloseMessage()
@@ -81,6 +84,7 @@ public class MonitorManager : MonoBehaviour
             {
                 formWindow.SetActive(true);
                 firstWindow.SetActive(false);
+                _miniGameLoop.SetFirstPageActive();
             }
             else
             {
@@ -92,6 +96,7 @@ public class MonitorManager : MonoBehaviour
         {
             formWindow.SetActive(false);
             calculatorWindow.SetActive(true);
+            _miniGameLoop.SetFirstPageInactive();
             Debug.Log(_miniGameLoop.GetCurrentPerson().GetName());
         }
 

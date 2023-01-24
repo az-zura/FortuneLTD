@@ -3,11 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Sprites;
+using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 
 public class MiniGameLoop : MonoBehaviour
 {
     private List<Person> allPersons;
+    private List<Person> dailyPersons;
+    private int numberOfPersons;
     private Person toworkon;
     private GameObject currentFolderGameObject;
     private state currentState;
@@ -28,8 +31,10 @@ public class MiniGameLoop : MonoBehaviour
         [SerializeField] private GameObject openedFolderOnDesk;
 
         [SerializeField] private List<GameObject> foldersGameobjects;
-
+        
         [SerializeField] private Canvas monitorUI;
+        [SerializeField] private List<GameObject> firstPages;
+
     #endregion
 
     #region Cameras
@@ -50,14 +55,15 @@ public class MiniGameLoop : MonoBehaviour
     {
         currentState = state.desk;
         allPersons = Person.InstantiatePersons();
-        
+
         folderTrayEmpty = false;
         secondPageJustOpened = true;
         hasRulesheet = false;
         
         akten = new List<Akte>();
         dailyJobs = new List<Person.Jobs>();
-        
+        dailyPersons = new List<Person>();
+
         _gameLoop.DayUpdated += UpdateCurrentDay;
         
         GetAktenFromFolderGameObjects();
@@ -67,40 +73,48 @@ public class MiniGameLoop : MonoBehaviour
     private void UpdateCurrentDay(object sender, EventArgs eventArgs)
     {
         currentDay++;
+        EndWorkDay();
     }
     
     private void StartWorkDay()
     {
-        toworkon = getRandomPerson();
+        numberOfPersons = Random.Range(4, 7);
+        for (int i = 0; i < numberOfPersons; i++)
+        {
+            dailyPersons.Add(GetRandomPerson());
+        }
+
+        int personToWorkOn = Random.Range(0, numberOfPersons - 1);
+        toworkon = dailyPersons[personToWorkOn];
+        
         GetDailyJobs();
+    }
+
+    private void EndWorkDay()
+    {
+        dailyPersons.Clear();
+        dailyJobs.Clear();
+    }
+
+    private void PersonFinished()
+    {
+        dailyPersons.Remove(toworkon);
     }
 
     private void GetDailyJobs()
     {
         Person.Jobs firstJob = Person.GetRandomJob();
         Person.Jobs secondJob;
-        Person.Jobs thirdJob;
         do
         {
             secondJob = Person.GetRandomJob();
         } while (firstJob.Equals(secondJob));
-
-        do
-        {
-            thirdJob = Person.GetRandomJob();
-        } while (thirdJob.Equals(firstJob) || thirdJob.Equals(secondJob));
         
         dailyJobs.Add(firstJob);
         dailyJobs.Add(secondJob);
-        dailyJobs.Add(thirdJob);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
-
-    private Person getRandomPerson()
+    private Person GetRandomPerson()
     {
         int randomInt;
         do
@@ -201,7 +215,6 @@ public class MiniGameLoop : MonoBehaviour
         monitorUI.gameObject.SetActive(false);
     }
     
-
     public Camera GetCurrentCamera()
     {
         switch (currentState)
@@ -255,6 +268,24 @@ public class MiniGameLoop : MonoBehaviour
             if (fld.name.ToLower().Contains(name)) return fld;
         }
         return null;
+    }
+
+    public void SetFirstPageActive()
+    {
+        string name = toworkon.GetName().ToLower();
+        foreach (var fp in firstPages)
+        {
+            if (fp.name.ToLower().Contains(name)) fp.gameObject.SetActive(true);
+        }
+    }
+    
+    public void SetFirstPageInactive()
+    {
+        string name = toworkon.GetName().ToLower();
+        foreach (var fp in firstPages)
+        {
+            if (fp.name.ToLower().Contains(name)) fp.gameObject.SetActive(false);
+        }
     }
 
     #region gettersetter
