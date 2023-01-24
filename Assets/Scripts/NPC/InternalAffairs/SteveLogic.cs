@@ -26,12 +26,25 @@ public class SteveLogic : MonoBehaviour
     private Vector3 flowerPos;
     private Vector3 lastKnownPlayerPos;
     
-    private bool hasReachedLastPlayerPos = true;
-
     private PlayerVegitationSpawner vegetationSpawner;
 
     private Vector3 moveToPos;
 
+    private bool hasTarget = false;
+
+    private enum steveState
+    {
+        Waiting,
+        RandomSearch,
+        GotoLastPlayerPos,
+        GotoFlower,
+        WaitForNextUpdate
+
+    }
+
+    private float waitTime;
+
+    private steveState currentState = steveState.Waiting;
     
 
     void Start()
@@ -48,11 +61,36 @@ public class SteveLogic : MonoBehaviour
         
         layerMaskVisiblePlayer  = LayerMask.GetMask("Default","Player","OnlyClickable");
         layerMaskVisiblePlant  = LayerMask.GetMask("Default","OnlyClickable");
+
+        locomotion.PathEndReached += OnReachedPathEnd;
+    }
+
+    private void OnReachedPathEnd(object sender, EventArgs args)
+    {
+        Debug.Log("lijhsdafkjhsfdafdsajkhb");
+        if (currentState == steveState.GotoFlower)
+        {
+            Debug.Log("reached last know pos -> start search");
+            currentState = steveState.RandomSearch;
+
+        }
+
+        if (currentState == steveState.RandomSearch)
+        {
+            waitTime = Random.Range(0.5f, 1.3f);
+            currentState = steveState.Waiting;
+            return;
+        }
+
+        currentState = steveState.Waiting;
+
     }
     
     
     void Update()
     {
+        Debug.DrawRay(locomotion.getNavMeshDestination(),Vector3.up*10,Color.yellow,0.1f);
+        Debug.Log("current steve state : " + currentState);
         //remove close flowers
         var flowerSorted = vegetationSpawner.getSortetFlowerPos(transform.position);
         foreach (var flower in flowerSorted)
@@ -63,58 +101,65 @@ public class SteveLogic : MonoBehaviour
             }
             vegetationSpawner.removeFlower(flower);
         }
-        
+
         //1. sees player?
         if (hasLoSToPlayer())
         {
-            hasReachedLastPlayerPos = false;
-            lastKnownPlayerPos = player.transform.position;
+            this.lastKnownPlayerPos = player.transform.position;
             moveSteveToPos(lastKnownPlayerPos);
-            Debug.DrawRay(lastKnownPlayerPos,Vector3.up*5,Color.green,0.1f);
-
+            
+            currentState = steveState.GotoLastPlayerPos;
             return;   
         }
-
         //2. has reached last known player pos? 
-        if (!hasReachedLastPlayerPos && Vector3.Distance(lastKnownPlayerPos, this.transform.position) > 3)
-        {
-            hasReachedLastPlayerPos = false;
-            moveSteveToPos(lastKnownPlayerPos);
-            Debug.DrawRay(lastKnownPlayerPos,Vector3.up*5,Color.green,0.1f);
-            return;
-        }
-        hasReachedLastPlayerPos = true;
+        //if (Vector3.Distance(lastKnownPlayerPos, this.transform.position) > 3)
+        //{
+        //    Debug.Log("move to last knows player pos");
+//
+        //    moveSteveToPos(lastKnownPlayerPos);
+        //    Debug.DrawRay(lastKnownPlayerPos,Vector3.up*5,Color.green,0.1f);
+        //    return;
+        //}
+        
+        if (currentState == steveState.GotoLastPlayerPos) return;
+        
         
         //sees flower?
         var closestFlower = hasLoSToFlower(flowerSorted);
         if (closestFlower)
         {
-
+            Debug.Log("move to flower");
             moveSteveToPos(closestFlower.transform.position);
+            currentState = steveState.GotoFlower;
             return;
         }
-        
-        
-        //random search 
-        if (Vector3.Distance(moveToPos, locomotion.getNavMeshDestination()) < 3 || locomotion.navigationState == NPC_Locomotion.NPCNavigationState.idle)
-        {
-            //Debug.Log("random search");
-            if (locomotion.MoveTo(gameObject.transform.position, 10, 20))
-            {
-                moveToPos = locomotion.getNavMeshDestination();
-            }
-            
-        }
 
+        if (currentState == steveState.Waiting)
+        {
+            waitTime -= Time.deltaTime;
+            if (waitTime <= 0)
+            {
+                currentState = steveState.RandomSearch;
+                moveToRandomPos();
+            } 
+        }
+    }
+
+    private void moveToRandomPos()
+    {
+        Debug.Log("random search");
+        if (locomotion.MoveTo(gameObject.transform.position, 10, 20))
+        {
+            moveToPos = locomotion.getNavMeshDestination();
+            Debug.DrawRay(moveToPos,Vector3.up*20,Color.red,5.1f);
+
+        }
     }
 
     private void moveSteveToPos(Vector3 pos)
-    {
-        if (Vector3.Distance(pos, moveToPos) > 0.2f)
-        {
-            moveToPos = pos;
-            locomotion.MoveTo(pos);
-        }
+    {Debug.DrawRay(pos,Vector3.up*5,Color.green,0.1f);
+        locomotion.MoveTo(pos);
+        
     }
 
     private bool hasLoSToPlayer()

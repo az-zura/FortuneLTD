@@ -20,7 +20,10 @@ public class PlayerVegitationSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        //if (Random.Range(0, 100) <= 1)
+        //{
+        //    PlaceVegetationBeneathPlayer();
+        //}
     }
 
     public GameObject[] getSortetFlowerPos(Vector3 pos)

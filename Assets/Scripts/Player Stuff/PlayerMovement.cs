@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -17,19 +18,37 @@ public class PlayerMovement : MonoBehaviour
     private bool isMoving;
     
     [SerializeField] private float speed = 4f;
+    [SerializeField] private float roadSpeed = 8f;
+    [SerializeField] private float acceleration = 1f;
+
     public event EventHandler UpdateMoving;
     private GhostAnimation _ghostAnimation;
+    private float currentSpeed;
+    private float currentAcceleration;
+    
+    private int onRoadTriggerBoxCount;
 
     private void Awake()
     {
         _inputManager = GetComponent<InputManager>();
         controller = GetComponent<CharacterController>();
         _ghostAnimation = GetComponentInChildren<GhostAnimation>();
+
+        currentSpeed = speed;
     }
 
     public void HandleAllMovement() //also floating but not implemented yet
     {
         HandleMovement();
+    }
+
+    private void Update()
+    {
+        var newSpeed = currentSpeed + currentAcceleration * Time.deltaTime;
+        if (newSpeed >= speed && newSpeed <= roadSpeed)
+        {
+            currentSpeed = newSpeed;
+        }
     }
 
     private void HandleMovement()
@@ -43,7 +62,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 AudioManager.instance.PlaySound("Ghost", gameObject);
             }
-            controller.Move(direction * (speed * Time.deltaTime));
+            controller.Move(direction * (currentSpeed * Time.deltaTime));
             isMoving = true;
         }
         else
@@ -60,6 +79,26 @@ public class PlayerMovement : MonoBehaviour
             _ghostAnimation.setMoving(isMoving);
         }
     }
+
+    public void IncrementRoadTriggerCount()
+    {
+        onRoadTriggerBoxCount++;
+        if (onRoadTriggerBoxCount > 0)
+        {
+            currentAcceleration = acceleration;
+        }
+    }    
+    public void DecrementRoadTriggerCount()
+    {
+        onRoadTriggerBoxCount--;
+
+        if (onRoadTriggerBoxCount <= 0)
+        {
+            currentAcceleration = -acceleration;
+        }
+    }
+    
+    
     
 
 
