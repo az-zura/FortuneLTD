@@ -147,7 +147,7 @@ public class CameraController : MonoBehaviour
                     if (rend != null)
                     {
                         rend.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
-                        StartCoroutine(FadeMaterial(rend.materials[0], 1f));
+                        StartCoroutine(FadeMaterials(rend, 1f));
                     }
                 }
 
@@ -162,7 +162,7 @@ public class CameraController : MonoBehaviour
                 if (rend != null)
                 {
                     rend.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;
-                    StartCoroutine(FadeMaterial( rend.materials[0], 0f));
+                    StartCoroutine(FadeMaterials( rend, 0f));
                 }
 
                 obstructions.Add(obstruction);
@@ -181,7 +181,7 @@ public class CameraController : MonoBehaviour
                     if (rend != null)
                     {
                         rend.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
-                        StartCoroutine(FadeMaterial(rend.materials[0], 1f));
+                        StartCoroutine(FadeMaterials(rend, 1f));
                     }
                 }
 
@@ -191,37 +191,24 @@ public class CameraController : MonoBehaviour
         }
     }
 
-    private Dictionary<Material, float> currentlyFading = new Dictionary<Material, float>();
+    private Dictionary<Renderer, float> currentlyFading = new Dictionary<Renderer, float>();
     /// <summary>
     /// Fades the material to a given alpha with a certain speed.
     /// </summary>
+    /// <param name="renderer"> Renderer of the material (must be a Key in currentlyFading-Dictionary). </param>
     /// <param name="material"> The Material that should fade. </param>
-    /// <param name="toalpha"> The alpha, the material should fade to. </param>
     /// <param name="fadeSpeed"> The speed in which the material should fade to toalpha. </param>
     /// <returns></returns>
-    private IEnumerator FadeMaterial(Material material, float toalpha, float fadeSpeed = 1f)
+    private IEnumerator FadeMaterial(Renderer renderer, Material material, float fadeSpeed = 1f)
     {
-        if (!currentlyFading.ContainsKey(material))
+        while (currentlyFading.ContainsKey(renderer) && Math.Abs(material.color.a - currentlyFading[renderer]) > 0.01f)
         {
-            MaterialExtensions.ToFadeMode(material);
-            material.renderQueue = (int) UnityEngine.Rendering.RenderQueue.Transparent;
-            currentlyFading.Add(material, toalpha);
-        }
-        else
-        {
-            // material is already fading
-            currentlyFading[material] = toalpha;
-            yield break;
-        }
-
-        while (Math.Abs(material.color.a - currentlyFading[material]) > 0.01f)
-        {
-            if (material.color.a < currentlyFading[material])
+            if (material.color.a < currentlyFading[renderer])
             {
                 // increase alpha
                 material.color += new Color(0, 0, 0, fadeSpeed * Time.deltaTime);
             }
-            else if (material.color.a > currentlyFading[material])
+            else if (material.color.a > currentlyFading[renderer])
             {
                 // decrease alpha
                 material.color -= new Color(0, 0, 0, fadeSpeed * Time.deltaTime);
@@ -231,7 +218,38 @@ public class CameraController : MonoBehaviour
         }
 
         //fading done
-        material.color = new Color(material.color.r, material.color.g, material.color.b, currentlyFading[material]);
-        currentlyFading.Remove(material);
+        material.color = new Color(material.color.r, material.color.g, material.color.b, currentlyFading[renderer]);
+    }
+
+    /// <summary>
+    /// Fades all materials of a given renderer to a given alpha with a certain speed.
+    /// </summary>
+    /// <param name="renderer"> Renderer of the material (must be a Key in currentlyFading-Dictionary). </param>
+    /// <param name="toalpha"> The alpha, the material should fade to. </param>
+    /// <param name="fadeSpeed"> The speed in which the material should fade to toalpha. </param>
+    /// <returns></returns>
+    private IEnumerator FadeMaterials(Renderer renderer, float toalpha, float fadeSpeed = 1f)
+    {
+        if (!currentlyFading.ContainsKey(renderer))
+        {
+            currentlyFading.Add(renderer, toalpha);
+        }
+        else
+        {
+            // material is already fading
+            currentlyFading[renderer] = toalpha;
+            yield break;
+        }
+        
+        float buffer = 0.05f;
+        foreach (var material in renderer.materials)
+        {
+            StartCoroutine(FadeMaterial(renderer, material, fadeSpeed));
+        }
+
+        yield return new WaitUntil(() => Math.Abs(renderer.material.color.a - toalpha) <= 0.01f);
+        yield return new WaitForSeconds(buffer);
+            
+        currentlyFading.Remove(renderer);
     }
 }
