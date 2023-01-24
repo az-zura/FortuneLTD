@@ -50,6 +50,11 @@ public class Person
         return _akte;
     }
 
+    public static Jobs GetRandomJob()
+    {
+        return (Jobs)Random.Range(0, 17);
+    }
+
         #endregion
     
     public Person(string name, string identifikation, int derzeitigesAlter, int erwartetesAlter, Jobs job, Bildungsstand bildungsstand) //GameObject akte
@@ -88,7 +93,7 @@ public class Person
         persons.Add(new Person("Jack Russ", "GBD-2103J", 55, 67, Jobs.fliessbandarbeiter, Bildungsstand.hauptschule)); //bild fertig
         persons.Add(new Person("Hannelore Hugh", "MXR-1037U", 85, 87, Jobs.rente, Bildungsstand.studium)); //bild fertig
         persons.Add(new Person("Bernd Frueh", "LJY-6583I", 68, 71, Jobs.strassenkehrer, Bildungsstand.studium)); //bild fertig
-        persons.Add(new Person("Ella Lou", "ITR-9435O", 23, 75, Jobs.student, Bildungsstand.gymnasium)); //bild fertig
+        persons.Add(new Person("Ella Lou", "ITR-9435P", 23, 75, Jobs.student, Bildungsstand.gymnasium)); //bild fertig
         
         return persons;
     }

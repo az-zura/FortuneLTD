@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Sprites;
 using Random = UnityEngine.Random;
 
 public class MiniGameLoop : MonoBehaviour
@@ -11,7 +12,7 @@ public class MiniGameLoop : MonoBehaviour
     private GameObject currentFolderGameObject;
     private state currentState;
     private List<Akte> akten;
-
+    private List<Person.Jobs> dailyJobs;
     private int currentDay = 0;
 
     [SerializeField] private GameLoop _gameLoop;
@@ -51,25 +52,46 @@ public class MiniGameLoop : MonoBehaviour
         folderTrayEmpty = false;
         secondPageJustOpened = true;
         akten = new List<Akte>();
+        dailyJobs = new List<Person.Jobs>();
+        _gameLoop.DayUpdated += UpdateCurrentDay;
         GetAktenFromFolderGameObjects();
         StartWorkDay();
     }
-    
 
-    private void UpdateDay()
+    private void UpdateCurrentDay(object sender, EventArgs eventArgs)
     {
         currentDay++;
     }
-
+    
     private void StartWorkDay()
     {
         toworkon = getRandomPerson();
+        GetDailyJobs();
+    }
+
+    private void GetDailyJobs()
+    {
+        Person.Jobs firstJob = Person.GetRandomJob();
+        Person.Jobs secondJob;
+        Person.Jobs thirdJob;
+        do
+        {
+            secondJob = Person.GetRandomJob();
+        } while (firstJob.Equals(secondJob));
+
+        do
+        {
+            thirdJob = Person.GetRandomJob();
+        } while (thirdJob.Equals(firstJob) || thirdJob.Equals(secondJob));
+        
+        dailyJobs.Add(firstJob);
+        dailyJobs.Add(secondJob);
+        dailyJobs.Add(thirdJob);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
     }
 
     private Person getRandomPerson()
@@ -127,13 +149,14 @@ public class MiniGameLoop : MonoBehaviour
             {
                 if (currentState == state.folder)
                 {
-                    if (secondPageJustOpened)
+                    
+                    if (!secondPageJustOpened || toworkon.GetAkte().isConfidential)
                     {
-                        toworkon.GetAkte().DisableSecondPage();
+                        toworkon.GetAkte().EnableFirstPageAndImage();
                     }
                     else
                     {
-                        toworkon.GetAkte().EnableFirstPageAndImage();
+                        toworkon.GetAkte().DisableSecondPage();
                     }
                     secondPageJustOpened = !secondPageJustOpened;
                 }
@@ -173,7 +196,6 @@ public class MiniGameLoop : MonoBehaviour
         {
             case state.desk:
                 return deskCamera;
-                Debug.Log("Yes");
                 break;
             case state.folder:
                 return folderCamera;
@@ -222,5 +244,13 @@ public class MiniGameLoop : MonoBehaviour
         }
         return null;
     }
-    
+
+    #region gettersetter
+
+    public Person GetCurrentPerson()
+    {
+        return toworkon;
+    }
+
+    #endregion
 }

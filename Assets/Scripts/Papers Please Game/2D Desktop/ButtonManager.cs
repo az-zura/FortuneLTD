@@ -9,39 +9,35 @@ public class ButtonManager : MonoBehaviour
 {
     [SerializeField] private MonitorManager _monitorManager;
 
-    public void OpenFamilyPic()
-    {
-        AudioManager.instance.PlaySound("Click");
-        _monitorManager.OpenImage();
-    }
-
-    public void CloseFamilyPic()
-    {
-        AudioManager.instance.PlaySound("Click");
-        _monitorManager.CloseImage();
-    }
-
-    public void OpenDeathxcel()
-    {
-        AudioManager.instance.PlaySound("Click");
-        _monitorManager.OpenDeathxcel();
-    }
-
-    public void CloseDeathxcel()
-    {
-        AudioManager.instance.PlaySound("Click");
-        _monitorManager.CloseDeathxcel();
-    }
-
-    public void AddPerson(TMP_InputField identificationNr)
-    {
-        AudioManager.instance.PlaySound("Click");
-        if (!(identificationNr.text == String.Empty))
+    #region Navigation
+        public void OpenFamilyPic()
         {
-            if (_monitorManager.AddPersonToDataBase(new PersonForm(identificationNr.text)))
-            {
-                _monitorManager.SwitchToFormWindow();
-            }
-        }      
-    }
+            AudioManager.instance.PlaySound("Click");
+            _monitorManager.OpenImage();
+        }
+
+        public void CloseFamilyPic()
+        {
+            AudioManager.instance.PlaySound("Click");
+            _monitorManager.CloseImage();
+        }
+
+        public void OpenDeathxcel()
+        {
+            AudioManager.instance.PlaySound("Click");
+            _monitorManager.OpenDeathxcel();
+        }
+
+        public void CloseDeathxcel()
+        {
+            AudioManager.instance.PlaySound("Click");
+            _monitorManager.CloseDeathxcel();
+        }
+
+        public void AddPersonToDeathxcel(TMP_InputField idInput)
+        {
+            if(idInput.text != string.Empty) _monitorManager.SwitchToSecondWindow(idInput.text);
+        }
+        
+        #endregion
 }

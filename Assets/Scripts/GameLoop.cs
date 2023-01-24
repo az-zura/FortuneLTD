@@ -45,7 +45,7 @@ public class GameLoop : MonoBehaviour
     {
         currentDay++;
         timePassedToday = 0;
-        
+        OnDayUpdated();
         Debug.Log("Day Nr "+currentDay+" has begun");
     }
 
