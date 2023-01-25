@@ -19,6 +19,7 @@ namespace EventSystem.Actions
         public override void OnItemStart()
         {
             eventBase.InstantiateActor(gameObject,position,rotation);
+            EndEventItem();
         }
 
         public override void OnResumeExecution()

@@ -45,9 +45,21 @@ namespace EventSystem
             AddEventItem(new NPCGotoAction(ghost.GetComponentInChildren<NPC_Locomotion>(),player,1,3));
             AddEventItem(new NPCLookAtAction(ghost.GetComponentInChildren<GhostAnimation>(), player.transform));
             AddEventItem(new SpeakAction(Speechbubble,player,"Hello"));
-            AddEventItem(new TimerCondition(1));
-            AddEventItem(new SpeakAction(Speechbubble,ghost,"Hi"));
+            //AddEventItem(new TimerCondition(1));
+            AddEventItem(new SpeakAction(Speechbubble,ghost,"Könntest du den Schwebenden Würfel wegmachen?"));
+            AddEventItem(new NPCLookAtAction(ghost.GetComponentInChildren<GhostAnimation>(),clickOnCube.transform));
+            AddEventItem(new EventBasedCondition(clickOnCube.TriggerCondition));
+            AddEventItem(new DestroyAction(clickOnCube.gameObject));
+            AddEventItem(new TestAction("okijhsfasjadfa"));
+            AddEventItem(new NPCLookAtAction(ghost.GetComponentInChildren<GhostAnimation>(), player.transform));
+            AddEventItem(new SpeakAction(Speechbubble,ghost,"Danke"));
+            AddEventItem(new TestAction("dismissed"));
+
+            AddEventItem(new EmotionAction(ghost.GetComponentInChildren<GhostAnimation>(),GhostAnimation.Emotion.Happy));
+            AddEventItem(new EmotionAction(ghost.GetComponentInChildren<GhostAnimation>(),GhostAnimation.Emotion.Default,1.0f));
             AddEventItem(new NPCLookAtAction(ghost.GetComponentInChildren<GhostAnimation>()));
+            
+
             AddEventItem(new NPCGotoAction(ghost.GetComponentInChildren<NPC_Locomotion>(),NPC_leaveStagePosition.position));
             AddEventItem(new DestroyAction(ghost));
             StartSequentialEvent();

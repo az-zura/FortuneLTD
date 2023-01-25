@@ -17,6 +17,7 @@ namespace EventSystem.Actions
         public override void OnItemStart()
         {
             eventBase.DestroyActor(gameObject);
+            EndEventItem();
         }
 
         public override void OnResumeExecution()

@@ -1,4 +1,6 @@
-﻿namespace EventSystem.Base
+﻿using UnityEngine;
+
+namespace EventSystem.Base
 {
     public abstract class EventItem
     {
@@ -9,7 +11,9 @@
             action,
             condition
         }
-        
+
+        private bool HasBeenExecuted = false;
+
         //returns if the items is an action or a condition
         protected abstract EventItemType OfType();
         
@@ -17,6 +21,15 @@
         //has to be called by the script to hand control over to the event System
         public void EndEventItem()
         {
+            if (HasBeenExecuted)
+            {
+                Debug.LogWarning("ended event item that was already executed");
+                return;
+            }
+
+            Debug.Log("end execution");
+
+            HasBeenExecuted = true;
             eventBase.EventItemRanCallback(this);
         }
         

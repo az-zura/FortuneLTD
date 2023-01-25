@@ -30,10 +30,7 @@ public class EmotionAction : ActionBase
 
     private static IEnumerator animate(GhostAnimation ghostAnimation, GhostAnimation.Emotion emotion, float defferTime)
     {
-        Debug.Log("iouihsadfiudhf");
         yield return new WaitForSeconds(defferTime);
-        Debug.Log("iouihsadfiudhf2");
-
         ghostAnimation.setEmotion(emotion);
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using EventSystem;
 using EventSystem.Base;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class SpeakAction : ActionBase
 {
@@ -11,6 +12,10 @@ public class SpeakAction : ActionBase
     private string text;
     private bool dismissAfterTime;
     private float time;
+
+    private int voiceType;
+
+    private UnityAction action;
 
     public SpeakAction(Speechbubble speechBubble, GameObject speaker , string text, float time = default)
     {
@@ -33,23 +38,28 @@ public class SpeakAction : ActionBase
     public override void OnResumeExecution()
     {
         speechBubble.ChangeBubbleType(Speechbubble.BubbleType.Dismissed);
-        AudioManager.instance.StopSound($"Voice{Random.Range(0,4)}");
+        AudioManager.instance.StopSound($"Voice{voiceType}");
+        speechBubble.btn.onClick.RemoveListener(Action);
         EndEventItem();
     }
-
+    
     public override void OnItemStart()
     {
         speechBubble.SetBubble(text,Speechbubble.BubbleType.Speech,speaker.transform);
-        AudioManager.instance.PlaySound($"Voice{Random.Range(0,4)}");
-        
-        speechBubble.btn.onClick.AddListener(() => { 
-            dismissAfterTime = false;
-            OnResumeExecution();
-        });
-        
+        voiceType = Random.Range(0, 4);
+        AudioManager.instance.PlaySound($"Voice{voiceType}");
+        speechBubble.btn.onClick.AddListener(Action);
         if (dismissAfterTime)
         {
+            Debug.Log("dismissed after time ");
             SuspendAction(time);
         }
+    }
+
+    private void Action()
+    {
+        Debug.Log("register click");
+        dismissAfterTime = false;
+        OnResumeExecution();
     }
 }

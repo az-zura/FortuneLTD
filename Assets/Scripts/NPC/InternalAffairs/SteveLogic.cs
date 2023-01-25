@@ -67,7 +67,6 @@ public class SteveLogic : MonoBehaviour
 
     private void OnReachedPathEnd(object sender, EventArgs args)
     {
-        Debug.Log("lijhsdafkjhsfdafdsajkhb");
         if (currentState == steveState.GotoFlower)
         {
             Debug.Log("reached last know pos -> start search");
@@ -90,7 +89,6 @@ public class SteveLogic : MonoBehaviour
     void Update()
     {
         Debug.DrawRay(locomotion.getNavMeshDestination(),Vector3.up*10,Color.yellow,0.1f);
-        Debug.Log("current steve state : " + currentState);
         //remove close flowers
         var flowerSorted = vegetationSpawner.getSortetFlowerPos(transform.position);
         foreach (var flower in flowerSorted)
@@ -107,7 +105,6 @@ public class SteveLogic : MonoBehaviour
         {
             this.lastKnownPlayerPos = player.transform.position;
             moveSteveToPos(lastKnownPlayerPos);
-            
             currentState = steveState.GotoLastPlayerPos;
             return;   
         }
@@ -128,7 +125,6 @@ public class SteveLogic : MonoBehaviour
         var closestFlower = hasLoSToFlower(flowerSorted);
         if (closestFlower)
         {
-            Debug.Log("move to flower");
             moveSteveToPos(closestFlower.transform.position);
             currentState = steveState.GotoFlower;
             return;

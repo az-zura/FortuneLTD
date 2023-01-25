@@ -9,16 +9,16 @@ public class ClickableItemCondition : InteractableObject
 {
 
     public readonly TriggerCondition TriggerCondition = new();
-    
-    
-    void Start()
+
+
+    new void Start()
     {
+        base.Start();
         onClick.AddListener(clicked);
     }
 
     private void clicked()
     {
-        Debug.Log("oisdfa");
         TriggerCondition.OnEventConditionMet();
     }
 

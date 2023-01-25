@@ -29,15 +29,7 @@ namespace EventSystem
         }
         public override void EventItemRanCallback(EventItem eventItem)
         {
-            if (eventItem == eventItems[currentAction])
-            {
-                NextEventItem();
-            }
-            else
-            {
-                Debug.LogWarning("Received ActionRanCallback but the action isn't the current action");
-            }
-            
+            NextEventItem();
         }
 
         public void NextEventItem()
