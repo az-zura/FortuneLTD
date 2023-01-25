@@ -18,8 +18,11 @@ public class MonitorManager : MonoBehaviour
     [SerializeField] private GameObject formWindow;
     [SerializeField] private GameObject calculatorWindow;
     [SerializeField] private GameObject doYouWantToCloseMessage;
+    [SerializeField] private GameObject BerufButtonUnchecked;
+    [SerializeField] private GameObject BerufButtonChecked;
 
-    [SerializeField] private TextMeshProUGUI idText;
+
+        [SerializeField] private TextMeshProUGUI idText;
     [SerializeField] private TextMeshProUGUI error;
 
     [SerializeField] private MiniGameLoop _miniGameLoop;
@@ -98,6 +101,18 @@ public class MonitorManager : MonoBehaviour
             calculatorWindow.SetActive(true);
             _miniGameLoop.SetFirstPageInactive();
             Debug.Log(_miniGameLoop.GetCurrentPerson().GetName());
+        }
+
+        public void CheckBox()
+        {
+            BerufButtonUnchecked.SetActive(false);
+            BerufButtonChecked.SetActive(true);
+        }
+
+        public void UncheckBox()
+        {
+            BerufButtonUnchecked.SetActive(true);
+            BerufButtonChecked.SetActive(false);
         }
 
         

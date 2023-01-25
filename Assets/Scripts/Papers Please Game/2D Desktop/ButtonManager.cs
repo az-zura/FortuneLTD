@@ -56,6 +56,19 @@ public class ButtonManager : MonoBehaviour
             AudioManager.instance.PlaySound("Click");
             _monitorManager.BackToDesktop();
         }
+
+        public void CheckBox()
+        {
+            _monitorManager.CheckBox();
+        }
+
+        public void UncheckBox()
+        {
+            _monitorManager.UncheckBox();
+        }
+        
+        
+        
         
         #endregion
 }
