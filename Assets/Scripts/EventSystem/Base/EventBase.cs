@@ -62,9 +62,9 @@ namespace EventSystem
             eventItem.OnResumeExecution();
         }
 
-        public void InstantiateActor(GameObject gameObject, Vector3 position, Quaternion rotation)
+        public GameObject InstantiateActor(GameObject gameObject, Vector3 position, Quaternion rotation)
         {
-            Instantiate(gameObject,position,rotation);
+            return Instantiate(gameObject,position,rotation);
         }
 
         public void DestroyActor(GameObject gameObject)

@@ -27,7 +27,7 @@ public class NPC_Locomotion : MonoBehaviour
     public NPCNavigationState navigationState = NPCNavigationState.idle;
     
     
-    void Start()
+    void Awake()
     {
         navMeshAgent = gameObject.GetComponent<NavMeshAgent>();
         controller = gameObject.GetComponent<CharacterController>();

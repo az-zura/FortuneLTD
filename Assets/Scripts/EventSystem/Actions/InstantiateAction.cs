@@ -8,6 +8,7 @@ namespace EventSystem.Actions
         private readonly GameObject gameObject;
         private readonly Vector3 position;
         private readonly Quaternion rotation;
+        private GameObject instantiated;
 
         public InstantiateAction(GameObject gameObject, Vector3 position, Quaternion rotation = default)
         {
@@ -18,8 +19,15 @@ namespace EventSystem.Actions
 
         public override void OnItemStart()
         {
-            eventBase.InstantiateActor(gameObject,position,rotation);
+            instantiated = eventBase.InstantiateActor(gameObject,position,rotation);
             EndEventItem();
+        }
+
+        public GameObject GetInstantiated()
+        {
+            if (instantiated) return instantiated;
+            Debug.LogWarning("Game object hasn't been instantiated yet");
+            return null;
         }
 
         public override void OnResumeExecution()
