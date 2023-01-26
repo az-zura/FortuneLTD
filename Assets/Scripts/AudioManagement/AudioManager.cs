@@ -114,7 +114,7 @@ public class AudioManager : MonoBehaviour
     public void PlaySound(string soundName, GameObject onObject = null, GameObject replaceOnGO = null, bool fade = true)
     {
         Sound[] snds = Array.FindAll(sounds.ToArray(), sound => sound.name == soundName);
-        Debug.Log(snds[0].name);
+        //Debug.Log(snds[0].name);
         if (snds.Length == 0)
         {
             Debug.LogWarning("Sound called \"" + soundName + "\" not found.");
@@ -159,7 +159,7 @@ public class AudioManager : MonoBehaviour
             s.source.loop = s.loop;
         } else if (!replace)
         {
-            Debug.Log("AudioLog 3");
+            //Debug.Log("AudioLog 3");
             if (s == null)
             {
                 s = new Sound(snds[0].name, snds[0].clip, snds[0].volume, snds[0].pitch, onObject.AddComponent<AudioSource>(), snds[0].loop, onObject);
