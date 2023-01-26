@@ -21,7 +21,7 @@ public class AudioEventTrigger : MonoBehaviour
         {
             if (stopAfterExit)
             {
-                AudioManager.instance.StopSound(soundName, gameObject);
+                AudioManager.instance.StopSound(soundName, onThisGO ? gameObject : null);
             }
         }
     }
