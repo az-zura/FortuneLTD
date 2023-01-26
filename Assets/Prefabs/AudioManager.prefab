@@ -93,6 +93,14 @@ MonoBehaviour:
     loop: 0
     attachedToGameObject: {fileID: 0}
     currentlyFading: 0
+  - name: Office
+    clip: {fileID: 8300000, guid: a8df412e4875f42aa968b5142c4693c4, type: 3}
+    volume: 0.5
+    pitch: 1
+    source: {fileID: 0}
+    loop: 1
+    attachedToGameObject: {fileID: 0}
+    currentlyFading: 0
   themes:
   - name: MainTheme
     clip: {fileID: 8300000, guid: ce81e90ea919649679bdbb1aa463c558, type: 3}
