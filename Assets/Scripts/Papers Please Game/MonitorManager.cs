@@ -26,11 +26,7 @@ public class MonitorManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI error;
 
     [SerializeField] private MiniGameLoop _miniGameLoop;
-    
-    //mouse click sounds
-    private void Start()
-    {
-    }
+ 
 
     #region Navigation
     public void OpenImage()
@@ -65,15 +61,17 @@ public class MonitorManager : MonoBehaviour
             doYouWantToCloseMessage.SetActive(false);
             deathxcel.SetActive(false);
             image.SetActive(false);
-            firstWindow.SetActive(false);
+            //firstWindow.SetActive(false);
             formWindow.SetActive(false);
             calculatorWindow.SetActive(false);
-            idText.gameObject.SetActive(false);
+            //idText.gameObject.SetActive(false);
             error.gameObject.SetActive(false);
             desktop.SetActive(true);
             _miniGameLoop.CloseMonitor();
             _miniGameLoop.SetFirstPageInactive();
         }
+
+       
 
         public void OpenDoYouReallyWantToCloseMessage()
         {
@@ -88,11 +86,13 @@ public class MonitorManager : MonoBehaviour
                 formWindow.SetActive(true);
                 firstWindow.SetActive(false);
                 _miniGameLoop.SetFirstPageActive();
+                idText.text += ID;
             }
             else
             {
                 error.gameObject.SetActive(true);
             }
+            
         }
         
         public void SwitchToThirdWindow()
