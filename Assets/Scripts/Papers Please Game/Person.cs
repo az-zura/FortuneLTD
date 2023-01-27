@@ -8,7 +8,7 @@ public class Person
     public enum Jobs
     {
         bauingenieur, sekretaer, anwalt, kunstlehrer, musiklehrer, 
-        politiker, krankenpfleger, gaertner, farmer, kunststudent, 
+        politiker, krankenpfleger, gaertner, farmer, 
         fliessbandarbeiter,  kanzleiangestellter, grafikdesigner,  
         strassenkehrer, 
         schueler, student, rente, arbeitslos

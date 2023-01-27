@@ -5,6 +5,11 @@ using UnityEngine;
 using UnityEngine.Sprites;
 using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
+using TMPro;
+using UnityEditor;
+using UnityEngine.UI;
+using Image = UnityEngine.UI.Image;
+
 
 public class MiniGameLoop : MonoBehaviour
 {
@@ -34,6 +39,13 @@ public class MiniGameLoop : MonoBehaviour
         
         [SerializeField] private Canvas monitorUI;
         [SerializeField] private List<GameObject> firstPages;
+
+        [SerializeField] private GameObject rulesheetui;
+        [SerializeField] private TextMeshProUGUI job1text;
+        [SerializeField] private TextMeshProUGUI job2text;
+        [SerializeField] private List<GameObject> imagesJob1;
+        [SerializeField] private List<GameObject> imagesJob2;
+
 
     #endregion
 
@@ -65,7 +77,6 @@ public class MiniGameLoop : MonoBehaviour
         dailyPersons = new List<Person>();
 
         _gameLoop.DayUpdated += UpdateCurrentDay;
-        
         GetAktenFromFolderGameObjects();
         StartWorkDay();
     }
@@ -203,10 +214,54 @@ public class MiniGameLoop : MonoBehaviour
                 if (currentState == state.desk)
                 {
                     currentState = state.rulesheet;
+                    rulesheetui.SetActive(true);
+                    job1text.text = dailyJobs[0].ToString();
+                    job2text.text = dailyJobs[1].ToString();
+                    GetImageToJob(dailyJobs[0], true);
+                    GetImageToJob(dailyJobs[1], false);
+
+                    rulesheetCamera.gameObject.SetActive(true);
                 }
                 break;
             }
-    
+        }
+    }
+
+    private void GetImageToJob(Person.Jobs jobname, bool job1)
+    {
+        if (job1)
+        {
+            switch (jobname)
+            {
+                case Person.Jobs.strassenkehrer : imagesJob1[0].SetActive(true); break;
+                case Person.Jobs.grafikdesigner : imagesJob1[1].SetActive(true); break;
+                case Person.Jobs.bauingenieur : imagesJob1[2].SetActive(true); break;
+                case Person.Jobs.farmer : imagesJob1[3].SetActive(true); break;
+                case Person.Jobs.gaertner : imagesJob1[4].SetActive(true); break;
+                case Person.Jobs.anwalt : imagesJob1[5].SetActive(true); break;
+                case Person.Jobs.krankenpfleger : imagesJob1[6].SetActive(true); break;
+                case Person.Jobs.politiker : imagesJob1[7].SetActive(true); break;
+                case Person.Jobs.kunstlehrer : imagesJob1[8].SetActive(true); break;
+                case Person.Jobs.musiklehrer : imagesJob1[8].SetActive(true); break;
+                case Person.Jobs.fliessbandarbeiter: imagesJob1[9].SetActive(true); break;
+            }
+        }
+        else
+        {
+            switch (jobname)
+            {
+                case Person.Jobs.strassenkehrer : imagesJob2[0].SetActive(true); break;
+                case Person.Jobs.grafikdesigner : imagesJob2[1].SetActive(true); break;
+                case Person.Jobs.bauingenieur : imagesJob2[2].SetActive(true); break;
+                case Person.Jobs.farmer : imagesJob2[3].SetActive(true); break;
+                case Person.Jobs.gaertner : imagesJob2[4].SetActive(true); break;
+                case Person.Jobs.anwalt : imagesJob2[5].SetActive(true); break;
+                case Person.Jobs.krankenpfleger : imagesJob2[6].SetActive(true); break;
+                case Person.Jobs.politiker : imagesJob2[7].SetActive(true); break;
+                case Person.Jobs.kunstlehrer : imagesJob2[8].SetActive(true); break;
+                case Person.Jobs.musiklehrer : imagesJob2[8].SetActive(true); break;
+                case Person.Jobs.fliessbandarbeiter: imagesJob2[9].SetActive(true); break;
+            }
         }
     }
 
@@ -255,6 +310,13 @@ public class MiniGameLoop : MonoBehaviour
 
         if (currentState == state.monitor)
         {
+            deskCamera.gameObject.SetActive(true);
+        }
+
+        if (currentState == state.rulesheet)
+        {
+            rulesheetui.SetActive(false);
+            rulesheetCamera.gameObject.SetActive(false);
             deskCamera.gameObject.SetActive(true);
         }
         currentState = state.desk;

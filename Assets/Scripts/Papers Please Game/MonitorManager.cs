@@ -22,7 +22,7 @@ public class MonitorManager : MonoBehaviour
     [SerializeField] private GameObject BerufButtonChecked;
 
 
-        [SerializeField] private TextMeshProUGUI idText;
+    [SerializeField] private TextMeshProUGUI idText;
     [SerializeField] private TextMeshProUGUI error;
 
     [SerializeField] private MiniGameLoop _miniGameLoop;
