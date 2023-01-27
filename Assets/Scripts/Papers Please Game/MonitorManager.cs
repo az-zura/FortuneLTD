@@ -16,7 +16,7 @@ public class MonitorManager : MonoBehaviour
     [SerializeField] private GameObject image;
     [SerializeField] private GameObject firstWindow;
     [SerializeField] private GameObject formWindow;
-    [SerializeField] private GameObject calculatorWindow;
+    [SerializeField] private GameObject thirdWindow;
     [SerializeField] private GameObject doYouWantToCloseMessage;
     [SerializeField] private GameObject BerufButtonUnchecked;
     [SerializeField] private GameObject BerufButtonChecked;
@@ -24,7 +24,9 @@ public class MonitorManager : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI idText;
     [SerializeField] private TextMeshProUGUI error;
-
+    [SerializeField] private TextMeshProUGUI currentAge;
+    [SerializeField] private TextMeshProUGUI expectedAge;
+    
     [SerializeField] private MiniGameLoop _miniGameLoop;
  
 
@@ -63,7 +65,7 @@ public class MonitorManager : MonoBehaviour
             image.SetActive(false);
             //firstWindow.SetActive(false);
             formWindow.SetActive(false);
-            calculatorWindow.SetActive(false);
+            thirdWindow.SetActive(false);
             //idText.gameObject.SetActive(false);
             error.gameObject.SetActive(false);
             desktop.SetActive(true);
@@ -71,8 +73,7 @@ public class MonitorManager : MonoBehaviour
             _miniGameLoop.SetFirstPageInactive();
         }
 
-       
-
+    
         public void OpenDoYouReallyWantToCloseMessage()
         {
             doYouWantToCloseMessage.SetActive(true);
@@ -98,9 +99,11 @@ public class MonitorManager : MonoBehaviour
         public void SwitchToThirdWindow()
         {
             formWindow.SetActive(false);
-            calculatorWindow.SetActive(true);
+            thirdWindow.SetActive(true);
             _miniGameLoop.SetFirstPageInactive();
-            Debug.Log(_miniGameLoop.GetCurrentPerson().GetName());
+            expectedAge.text = _miniGameLoop.GetCurrentPerson().GetErwartetesAlter().ToString();
+            currentAge.text = _miniGameLoop.GetCurrentPerson().GetDerzeitigesAlter().ToString();
+            
         }
 
         public void CheckBox()
