@@ -57,15 +57,26 @@ public class ButtonManager : MonoBehaviour
             _monitorManager.BackToDesktop();
         }
 
-        public void CheckBox()
+        public void DropDownJobsClicked()
         {
-            _monitorManager.CheckBox();
+            _monitorManager.ActivateDropDownJobs();
         }
 
-        public void UncheckBox()
+        public void DropDownAbschlussClicked()
         {
-            _monitorManager.UncheckBox();
+            _monitorManager.ActivateDropDownAbschluss();
         }
+
+        public void JobClicked()
+        {
+            _monitorManager.DeactivateDropDownJobs();
+        }
+
+        public void AbschlussClicked()
+        {
+            _monitorManager.DeactivateDropDownAbschluss();
+        }
+        
         
         
         

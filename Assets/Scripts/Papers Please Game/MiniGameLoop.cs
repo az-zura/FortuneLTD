@@ -6,6 +6,7 @@ using UnityEngine.Sprites;
 using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine.UI;
 using Image = UnityEngine.UI.Image;
@@ -206,6 +207,7 @@ public class MiniGameLoop : MonoBehaviour
                 if (currentState == state.desk)
                 {
                     monitorUI.gameObject.SetActive(true); //enable monitor UI
+                    currentState = state.monitor;
                 }
                 break;
             }
@@ -215,12 +217,13 @@ public class MiniGameLoop : MonoBehaviour
                 {
                     currentState = state.rulesheet;
                     rulesheetui.SetActive(true);
-                    job1text.text = dailyJobs[0].ToString();
+                    job1text.text =  dailyJobs[0].ToString();
                     job2text.text = dailyJobs[1].ToString();
                     GetImageToJob(dailyJobs[0], true);
                     GetImageToJob(dailyJobs[1], false);
 
                     rulesheetCamera.gameObject.SetActive(true);
+                    currentState = state.rulesheet;
                 }
                 break;
             }

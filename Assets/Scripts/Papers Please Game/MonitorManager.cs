@@ -18,14 +18,22 @@ public class MonitorManager : MonoBehaviour
     [SerializeField] private GameObject formWindow;
     [SerializeField] private GameObject thirdWindow;
     [SerializeField] private GameObject doYouWantToCloseMessage;
-    [SerializeField] private GameObject BerufButtonUnchecked;
-    [SerializeField] private GameObject BerufButtonChecked;
-
 
     [SerializeField] private TextMeshProUGUI idText;
     [SerializeField] private TextMeshProUGUI error;
     [SerializeField] private TextMeshProUGUI currentAge;
     [SerializeField] private TextMeshProUGUI expectedAge;
+    
+    //Dropdown jobs
+    [SerializeField] private GameObject jobGesucht;
+    [SerializeField] private GameObject jobNeutral;
+    [SerializeField] private GameObject jobUeberschuessig;
+    //Dropdown Abschluss
+    [SerializeField] private GameObject keinAbschluss;
+    [SerializeField] private GameObject schulabschluss;
+    [SerializeField] private GameObject ausbildung;
+    [SerializeField] private GameObject studium;
+
     
     [SerializeField] private MiniGameLoop _miniGameLoop;
  
@@ -106,18 +114,35 @@ public class MonitorManager : MonoBehaviour
             
         }
 
-        public void CheckBox()
+        public void ActivateDropDownJobs()
         {
-            BerufButtonUnchecked.SetActive(false);
-            BerufButtonChecked.SetActive(true);
+            jobGesucht.SetActive(true);
+            jobNeutral.SetActive(true);
+            jobUeberschuessig.SetActive(true);
         }
 
-        public void UncheckBox()
+        public void ActivateDropDownAbschluss()
         {
-            BerufButtonUnchecked.SetActive(true);
-            BerufButtonChecked.SetActive(false);
+            keinAbschluss.SetActive(true);
+            schulabschluss.SetActive(true);
+            ausbildung.SetActive(true);
+            studium.SetActive(true);
+        }
+        
+        public void DeactivateDropDownJobs()
+        {
+            jobGesucht.SetActive(false);
+            jobNeutral.SetActive(false);
+            jobUeberschuessig.SetActive(false);
         }
 
+        public void DeactivateDropDownAbschluss()
+        {
+            keinAbschluss.SetActive(false);
+            schulabschluss.SetActive(false);
+            ausbildung.SetActive(false);
+            studium.SetActive(false);
+        }
         
 
     #endregion
