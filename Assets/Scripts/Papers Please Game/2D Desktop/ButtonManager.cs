@@ -71,15 +71,38 @@ public class ButtonManager : MonoBehaviour
         {
             _monitorManager.DeactivateDropDownJobs();
         }
-
         public void AbschlussClicked()
         {
             _monitorManager.DeactivateDropDownAbschluss();
         }
-        
-        
-        
-        
-        
+        public void JobGesucht()
+        {
+            _monitorManager.JobGesucht();
+        }
+        public void JobNeutral()
+        {
+            _monitorManager.JobNeutral();
+        }
+        public void JobUeberschuessig()
+        {
+            _monitorManager.JobUeberschuessig();
+        }
+        public void AbschlussKeiner()
+        {
+            _monitorManager.AbschlussKeiner();
+        }
+        public void AbschlussSchule()
+        {
+            _monitorManager.AbschlussSchule();
+        }
+        public void AbschlussAusbildung()
+        {
+            _monitorManager.AbschlussAusbildung();
+        }
+        public void AbschlussStudium()
+        {
+            _monitorManager.AbschlussStudium();
+        }
+
         #endregion
 }

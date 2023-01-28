@@ -28,13 +28,15 @@ public class MonitorManager : MonoBehaviour
     [SerializeField] private GameObject jobGesucht;
     [SerializeField] private GameObject jobNeutral;
     [SerializeField] private GameObject jobUeberschuessig;
+    [SerializeField] private TextMeshProUGUI jobText;
+
     //Dropdown Abschluss
     [SerializeField] private GameObject keinAbschluss;
     [SerializeField] private GameObject schulabschluss;
     [SerializeField] private GameObject ausbildung;
     [SerializeField] private GameObject studium;
+    [SerializeField] private TextMeshProUGUI abschlussText;
 
-    
     [SerializeField] private MiniGameLoop _miniGameLoop;
  
 
@@ -92,10 +94,10 @@ public class MonitorManager : MonoBehaviour
         {
             if (ID.Equals(_miniGameLoop.GetCurrentPerson().GetIdentifikation()))
             {
-                formWindow.SetActive(true);
+                thirdWindow.SetActive(true);
                 firstWindow.SetActive(false);
-                _miniGameLoop.SetFirstPageActive();
-                idText.text += ID;
+                //_miniGameLoop.SetFirstPageActive();
+                //idText.text += ID;
             }
             else
             {
@@ -142,6 +144,40 @@ public class MonitorManager : MonoBehaviour
             schulabschluss.SetActive(false);
             ausbildung.SetActive(false);
             studium.SetActive(false);
+        }
+
+        public void JobGesucht()
+        {
+            jobText.text = "Gesucht";
+        }
+
+        public void JobNeutral()
+        {
+            jobText.text = "Neutral";
+
+        }
+
+        public void JobUeberschuessig()
+        {
+            jobText.text = "Überschüssig";
+
+        }
+
+        public void AbschlussKeiner()
+        {
+            abschlussText.text = "Keine Abschluss";
+        }
+        public void AbschlussSchule()
+        {
+            abschlussText.text = "Schule";
+        }
+        public void AbschlussAusbildung()
+        {
+            abschlussText.text = "Ausbildung";
+        }
+        public void AbschlussStudium()
+        {
+            abschlussText.text = "Studium";
         }
         
 
