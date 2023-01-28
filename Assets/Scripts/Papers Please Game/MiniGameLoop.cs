@@ -8,6 +8,7 @@ using Random = UnityEngine.Random;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEditor;
+using UnityEditorInternal;
 using UnityEngine.UI;
 using Image = UnityEngine.UI.Image;
 
@@ -353,9 +354,42 @@ public class MiniGameLoop : MonoBehaviour
         }
     }
 
-    public void CalculateScore(int years, string job, string abschluss)
+    public bool InputAbschlussStimmt(int score)
     {
-        
+        switch (toworkon.GetAusbildung())
+        {
+            case Person.Bildungsstand.keinAbschluss:
+            {
+                if (score == 10) return true;
+                break;
+            }
+            case Person.Bildungsstand.schule:
+            {
+                if (score == 20) return true;
+                break;
+            }
+            case Person.Bildungsstand.ausbildung:
+            {
+                if (score == 35) return true;
+                break;
+            }
+            case Person.Bildungsstand.studium:
+            {
+                if (score == 50) return true;
+                break;
+            }
+        }
+        return false;
+    }
+
+    public bool InputJobStimmt(int score)
+    {
+        if ((dailyJobs[0].Equals(toworkon.GetJob()) && score == 30) ||
+            (dailyJobs[1].Equals(toworkon.GetJob()) && score == -10) || (!dailyJobs[0].Equals(toworkon.GetJob()) && !dailyJobs[1].Equals(toworkon.GetJob()) && score == 10))
+        {
+            return true;
+        }
+        return false;
     }
     
 

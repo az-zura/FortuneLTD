@@ -178,7 +178,15 @@ public class MonitorManager : MonoBehaviour
 
         public void CalculateScore()
         {
-            _miniGameLoop.CalculateScore(Int32.Parse(years.text), jobText.text, abschlussText.text);
+            int restlicheJahre = Int32.Parse(years.text);
+            int jobScore = Int32.Parse(jobText.text);
+            int abschlussScore = Int32.Parse(abschlussText.text);
+            if (restlicheJahre.Equals(_miniGameLoop.GetCurrentPerson().CalculateRestlichesAlter()) &&
+                _miniGameLoop.InputJobStimmt(jobScore) &&
+                _miniGameLoop.InputAbschlussStimmt(abschlussScore))
+            {
+                _miniGameLoop.GetCurrentPerson().SetScore(restlicheJahre + jobScore * abschlussScore);
+            }
         }
 
     #endregion
