@@ -353,6 +353,12 @@ public class MiniGameLoop : MonoBehaviour
         }
     }
 
+    public void CalculateScore(int years, string job, string abschluss)
+    {
+        
+    }
+    
+
     #region gettersetter
 
     public Person GetCurrentPerson()

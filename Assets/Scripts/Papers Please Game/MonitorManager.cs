@@ -21,9 +21,8 @@ public class MonitorManager : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI idText;
     [SerializeField] private TextMeshProUGUI error;
-    [SerializeField] private TextMeshProUGUI currentAge;
-    [SerializeField] private TextMeshProUGUI expectedAge;
-    
+
+    [SerializeField] private TMP_InputField years;
     //Dropdown jobs
     [SerializeField] private GameObject jobGesucht;
     [SerializeField] private GameObject jobNeutral;
@@ -111,9 +110,6 @@ public class MonitorManager : MonoBehaviour
             formWindow.SetActive(false);
             thirdWindow.SetActive(true);
             _miniGameLoop.SetFirstPageInactive();
-            expectedAge.text = _miniGameLoop.GetCurrentPerson().GetErwartetesAlter().ToString();
-            currentAge.text = _miniGameLoop.GetCurrentPerson().GetDerzeitigesAlter().ToString();
-            
         }
 
         public void ActivateDropDownJobs()
@@ -148,38 +144,42 @@ public class MonitorManager : MonoBehaviour
 
         public void JobGesucht()
         {
-            jobText.text = "Gesucht";
+            jobText.text = "30";
         }
 
         public void JobNeutral()
         {
-            jobText.text = "Neutral";
+            jobText.text = "10";
 
         }
 
         public void JobUeberschuessig()
         {
-            jobText.text = "Überschüssig";
+            jobText.text = "-10";
 
         }
 
         public void AbschlussKeiner()
         {
-            abschlussText.text = "Keine Abschluss";
+            abschlussText.text = "10";
         }
         public void AbschlussSchule()
         {
-            abschlussText.text = "Schule";
+            abschlussText.text = "20";
         }
         public void AbschlussAusbildung()
         {
-            abschlussText.text = "Ausbildung";
+            abschlussText.text = "35";
         }
         public void AbschlussStudium()
         {
-            abschlussText.text = "Studium";
+            abschlussText.text = "50";
         }
-        
+
+        public void CalculateScore()
+        {
+            _miniGameLoop.CalculateScore(Int32.Parse(years.text), jobText.text, abschlussText.text);
+        }
 
     #endregion
     
