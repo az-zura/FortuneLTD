@@ -9,7 +9,7 @@ using UnityEngine.EventSystems;
 public class InteractableObject : MonoBehaviour
 {
     public UnityEvent onClick;
-    public bool highlightWhenSelected = true;
+    [Tooltip("Please set to false if more than one material is attached to the interactable Object.")] public bool highlightWhenSelected = true; //TODO maybe find a better fix for objects with more than one material
 
     public void Start()
     {
