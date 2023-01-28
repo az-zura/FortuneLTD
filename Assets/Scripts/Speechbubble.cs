@@ -36,17 +36,13 @@ public class Speechbubble : MonoBehaviour
     private Vector2 initialSize; // Initial size of the bubble
     private Vector2 initialSizeIndicator; // Initial size of the position indicator
 
-    private void Start()
+    private void Awake()
     {
         btn = GetComponent<Button>();
-        if (speaker)
-        {
-            ChangeSpeaker(speaker);
-        }
-        camera = Camera.main;
-
         rectTrans = GetComponent<RectTransform>();
         canvasGroup = GetComponent<CanvasGroup>();
+        
+        camera = Camera.main;
 
         initialPos = rectTrans.position;
         initialSize = rectTrans.sizeDelta;
@@ -54,6 +50,14 @@ public class Speechbubble : MonoBehaviour
 
         talkIndicator.sprite =
             typeSprites[(bubbleType.GetHashCode() < typeSprites.Length) ? bubbleType.GetHashCode() : 0];
+    }
+
+    private void Start()
+    {
+        if (speaker)
+        {
+            ChangeSpeaker(speaker);
+        }
         //StartCoroutine(Test());
     }
 
