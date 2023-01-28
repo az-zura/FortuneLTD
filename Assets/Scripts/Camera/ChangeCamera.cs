@@ -24,6 +24,7 @@ public class ChangeCamera : MonoBehaviour
         disableCamera.gameObject.SetActive(false);
         enableCamera.gameObject.SetActive(true);
         if(changeToDesk) {
+            _miniGameLoop.ActivateRulesheet();
             decke.SetActive(true);
             vents.SetActive(true);
             ruleSheetAccessoire.SetActive(false);

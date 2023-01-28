@@ -86,6 +86,17 @@ public class Person
         return _bildungsstand;
     }
 
+    public int GetScore()
+    {
+        return score;
+    }
+
+    public void Umbringen()
+    {
+        isDead = true;
+    }
+    
+
         #endregion
     
     public Person(string name, string identifikation, int derzeitigesAlter, int erwartetesAlter, Jobs job, Bildungsstand bildungsstand) //GameObject akte

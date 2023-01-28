@@ -103,10 +103,18 @@ public class ButtonManager : MonoBehaviour
         {
             _monitorManager.AbschlussStudium();
         }
-
         public void CalculateScore()
         {
             _monitorManager.CalculateScore();
+            _monitorManager.SwitchToScoreWindow();
+        }
+        public void Umbringen()
+        {
+            _monitorManager.Umbringen();
+        }
+        public void LebenLassen()
+        {
+            _monitorManager.LebenLassen();
         }
 
         #endregion

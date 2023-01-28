@@ -11,10 +11,6 @@ public class InputManager : MonoBehaviour
     private Vector2 movementInput;
     public float verticalInput;
     public float horizontalInput;
-    [SerializeField] private Camera deskCamera;
-    [SerializeField] private Camera folderCamera;
-    [SerializeField] private Camera rulesheetCamera;
-    //[SerializeField] private GameObject deskGameobject;
     [SerializeField] private MiniGameLoop _miniGameLoop;
 
     //private DeskManager _deskManager;
@@ -66,7 +62,7 @@ public class InputManager : MonoBehaviour
 
     private void ClickPerformed()
     {
-        if (!DetectObject())
+        if (!DetectObject() && !_miniGameLoop.GetCurrentState().Equals(MiniGameLoop.State.monitor))
         {
             CloseCurrentAction();
         }
@@ -79,6 +75,10 @@ public class InputManager : MonoBehaviour
 
     private bool DetectObject()
     {
+        if (_miniGameLoop.GetCurrentState() == MiniGameLoop.State.monitor)
+        {
+            return false;
+        }
         Ray ray = _miniGameLoop.GetCurrentCamera().ScreenPointToRay(_playerInput.Player.MousePosition.ReadValue<Vector2>());
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit))

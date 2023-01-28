@@ -15,7 +15,6 @@ public class MonitorManager : MonoBehaviour
     [SerializeField] private GameObject deathxcel;
     [SerializeField] private GameObject image;
     [SerializeField] private GameObject firstWindow;
-    [SerializeField] private GameObject formWindow;
     [SerializeField] private GameObject thirdWindow;
     [SerializeField] private GameObject doYouWantToCloseMessage;
 
@@ -35,6 +34,10 @@ public class MonitorManager : MonoBehaviour
     [SerializeField] private GameObject ausbildung;
     [SerializeField] private GameObject studium;
     [SerializeField] private TextMeshProUGUI abschlussText;
+
+    [SerializeField] private GameObject scoreWindow;
+    [SerializeField] private TextMeshProUGUI scoreText;
+    [SerializeField] private TextMeshProUGUI dailyScoreText;
 
     [SerializeField] private MiniGameLoop _miniGameLoop;
  
@@ -73,7 +76,7 @@ public class MonitorManager : MonoBehaviour
             deathxcel.SetActive(false);
             image.SetActive(false);
             //firstWindow.SetActive(false);
-            formWindow.SetActive(false);
+            scoreWindow.SetActive(false);
             thirdWindow.SetActive(false);
             //idText.gameObject.SetActive(false);
             error.gameObject.SetActive(false);
@@ -103,13 +106,6 @@ public class MonitorManager : MonoBehaviour
                 error.gameObject.SetActive(true);
             }
             
-        }
-        
-        public void SwitchToThirdWindow()
-        {
-            formWindow.SetActive(false);
-            thirdWindow.SetActive(true);
-            _miniGameLoop.SetFirstPageInactive();
         }
 
         public void ActivateDropDownJobs()
@@ -186,8 +182,23 @@ public class MonitorManager : MonoBehaviour
                 _miniGameLoop.InputAbschlussStimmt(abschlussScore))
             {
                 _miniGameLoop.GetCurrentPerson().SetScore(restlicheJahre + jobScore * abschlussScore);
+                Debug.Log(_miniGameLoop.GetCurrentPerson().GetScore());
             }
         }
+
+        public void SwitchToScoreWindow()
+        {
+            scoreWindow.SetActive(true);
+            scoreText.text = _miniGameLoop.GetCurrentPerson().GetScore().ToString();
+            dailyScoreText.text = _miniGameLoop.GetDailyScore().ToString();
+        }
+
+        public void Umbringen()
+        {
+            _miniGameLoop.GetCurrentPerson().Umbringen();
+        } 
+        public void LebenLassen() {}
+        
 
     #endregion
     

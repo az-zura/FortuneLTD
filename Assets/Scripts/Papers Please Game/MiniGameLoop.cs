@@ -10,6 +10,7 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine.UI;
+using UnityEngine.XR;
 using Image = UnityEngine.UI.Image;
 
 
@@ -20,13 +21,13 @@ public class MiniGameLoop : MonoBehaviour
     private int numberOfPersons;
     private Person toworkon;
     private GameObject currentFolderGameObject;
-    private state currentState;
+    private State currentState;
     private List<Akte> akten;
     private List<Person.Jobs> dailyJobs;
     private int currentDay = 0;
 
     [SerializeField] private GameLoop _gameLoop;
-    private enum state
+    public enum State
     {
         desk, folder, rulesheet, monitor, pen
     }
@@ -42,6 +43,7 @@ public class MiniGameLoop : MonoBehaviour
         [SerializeField] private Canvas monitorUI;
         [SerializeField] private List<GameObject> firstPages;
 
+        [SerializeField] private GameObject rulesheet;
         [SerializeField] private GameObject rulesheetui;
         [SerializeField] private TextMeshProUGUI job1text;
         [SerializeField] private TextMeshProUGUI job2text;
@@ -67,7 +69,7 @@ public class MiniGameLoop : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        currentState = state.desk;
+        currentState = State.desk;
         allPersons = Person.InstantiatePersons();
 
         folderTrayEmpty = false;
@@ -145,7 +147,7 @@ public class MiniGameLoop : MonoBehaviour
         {
             case "FolderTray":
             {
-                if (currentState == state.desk)
+                if (currentState == State.desk)
                 {
                     if (!closedFolderOnDesk.activeSelf && !folderTrayEmpty)
                     {
@@ -156,7 +158,7 @@ public class MiniGameLoop : MonoBehaviour
             }
             case "FolderUnopened":
             {
-                if (currentState == state.desk)
+                if (currentState == State.desk)
                 {
                     openedFolderOnDesk.SetActive(true);
                     closedFolderOnDesk.SetActive(false);
@@ -166,13 +168,13 @@ public class MiniGameLoop : MonoBehaviour
                     Debug.Log(toworkon.GetAkte().GetName());
                     deskCamera.gameObject.SetActive(false);
                     folderCamera.gameObject.SetActive(true);
-                    currentState = state.folder;
+                    currentState = State.folder;
                 }
                 break;
             }
             case "FirstPage":
             {
-                if (currentState == state.folder)
+                if (currentState == State.folder)
                 {
                     toworkon.GetAkte().DisableFirstPageAndImage();
                 }
@@ -180,7 +182,7 @@ public class MiniGameLoop : MonoBehaviour
             }
             case "SecondPage":
             {
-                if (currentState == state.folder)
+                if (currentState == State.folder)
                 {
                     
                     if (!secondPageJustOpened || toworkon.GetAkte().isConfidential)
@@ -197,7 +199,7 @@ public class MiniGameLoop : MonoBehaviour
             }
             case "ThirdPage":
             {
-                if (currentState == state.folder)
+                if (currentState == State.folder)
                 {
                     toworkon.GetAkte().EnableSecondPage();
                 }
@@ -205,18 +207,18 @@ public class MiniGameLoop : MonoBehaviour
             }
             case "Monitor":
             {
-                if (currentState == state.desk)
+                if (currentState == State.desk)
                 {
                     monitorUI.gameObject.SetActive(true); //enable monitor UI
-                    currentState = state.monitor;
+                    currentState = State.monitor;
                 }
                 break;
             }
             case "RuleSheet":
             {
-                if (currentState == state.desk)
+                if (currentState == State.desk)
                 {
-                    currentState = state.rulesheet;
+                    currentState = State.rulesheet;
                     rulesheetui.SetActive(true);
                     job1text.text =  dailyJobs[0].ToString();
                     job2text.text = dailyJobs[1].ToString();
@@ -224,7 +226,6 @@ public class MiniGameLoop : MonoBehaviour
                     GetImageToJob(dailyJobs[1], false);
 
                     rulesheetCamera.gameObject.SetActive(true);
-                    currentState = state.rulesheet;
                 }
                 break;
             }
@@ -272,21 +273,21 @@ public class MiniGameLoop : MonoBehaviour
     public void CloseMonitor()
     {
         monitorUI.gameObject.SetActive(false);
+        currentState = State.desk;
     }
     
     public Camera GetCurrentCamera()
     {
         switch (currentState)
         {
-            case state.desk:
+            case State.desk:
                 return deskCamera;
-                break;
-            case state.folder:
+            case State.folder:
                 return folderCamera;
-                break;
-            case state.rulesheet:
+            case State.rulesheet:
                 return rulesheetCamera;
-                break;
+            case State.monitor:
+                return null;
         }
         return Camera.current;
     }
@@ -302,7 +303,7 @@ public class MiniGameLoop : MonoBehaviour
     
     public void CloseCurrentAction()
     {
-        if (currentState == state.folder)
+        if (currentState == State.folder)
         {
             openedFolderOnDesk.SetActive(false);
             closedFolderOnDesk.SetActive(true);
@@ -312,18 +313,18 @@ public class MiniGameLoop : MonoBehaviour
             //folderOpened = false; //todo
         }
 
-        if (currentState == state.monitor)
+        if (currentState == State.monitor)
         {
             deskCamera.gameObject.SetActive(true);
         }
 
-        if (currentState == state.rulesheet)
+        if (currentState == State.rulesheet)
         {
             rulesheetui.SetActive(false);
             rulesheetCamera.gameObject.SetActive(false);
             deskCamera.gameObject.SetActive(true);
         }
-        currentState = state.desk;
+        currentState = State.desk;
     }
 
     private GameObject GetCurrentFolderGameObjectToPerson()
@@ -391,6 +392,17 @@ public class MiniGameLoop : MonoBehaviour
         }
         return false;
     }
+
+    public void ActivateRulesheet()
+    {
+        rulesheet.SetActive(true);
+    }
+
+    public int GetDailyScore()
+    {
+        return Random.Range(150, 300);
+    }
+    
     
 
     #region gettersetter
@@ -408,6 +420,11 @@ public class MiniGameLoop : MonoBehaviour
     public void SetHasRuleSheet(bool hasrulesheet)
     {
         hasRulesheet = hasrulesheet;
+    }
+
+    public MiniGameLoop.State GetCurrentState()
+    {
+        return currentState;
     }
     #endregion
 }
