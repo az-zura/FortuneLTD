@@ -11,17 +11,28 @@ public class SelectionManager : MonoBehaviour
     /// THe SelectionManager needs to be n the Main Camera in the Scene.
     /// Exactly one Selection Manager needs to be in every Scene with InteractableObjects to mak them work.
     /// </summary>
-    
     public static SelectionManager instance; //Singleton --> there is only one Selection Manager in each Scene!
-    public static string selectableTag = "Selectable";
-    [Tooltip("Highlights the InteractableObject, which the mouse is currently on.")][SerializeField] private Material selectionMaterial;
-    [Tooltip("Highlights all InteractableObjects in a radius around the player.")][SerializeField] private Material highlightMaterial; //highlights ALL selectable Objects
-    [Tooltip("The player Transform.")][SerializeField] private Transform player;
-    [Tooltip("The radius around the player in which InteractableObjects should be highlighted.")][SerializeField] private float radius = 5;
 
-    [HideInInspector] public List<Transform> interactableObjs = new List<Transform>(); // filled automatically -- contains all InteractableObjects in the Scene
-    private Material defaultMaterial; // default material of the current selection
-    private Transform _selection; // current selection
+    public static string selectableTag = "Selectable";
+
+    [Tooltip("Highlights the InteractableObject, which the mouse is currently on.")] [SerializeField]
+    private Material selectionMaterial;
+
+    [Tooltip("Highlights all InteractableObjects in a radius around the player.")] [SerializeField]
+    private Material highlightMaterial; //highlights ALL selectable Objects
+
+    [Tooltip("The player Transform.")] [SerializeField]
+    private Transform player;
+
+    [Tooltip("The radius around the player in which InteractableObjects should be highlighted.")] [SerializeField]
+    private float radius = 5;
+
+    [HideInInspector] public List<InteractableObject>
+        interactableObjs =
+            new List<InteractableObject>(); // filled automatically -- contains all InteractableObjects in the Scene
+
+    //private Material[] defaultMaterials; // default material of the current selection
+    private InteractableObject _selection; // current selection
 
     private void Awake()
     {
@@ -40,32 +51,24 @@ public class SelectionManager : MonoBehaviour
     {
         foreach (var iobj in interactableObjs)
         {
-            if (iobj.GetComponent<InteractableObject>().highlightWhenSelected)
+            if (Vector3.Distance(player.position, iobj.transform.position) <= radius && iobj != _selection)
             {
-                Renderer r = iobj.GetComponent<Renderer>();
-                if (r)
-                {
-                    Material m = r.material;
-                    if (Vector3.Distance(player.position, iobj.position) <= radius && iobj != _selection)
-                    {
-                        r.materials = new[] {m, highlightMaterial};
-                    }
-                    else
-                    {
-                        r.materials = new[] {m};
-                    }
-                }
+                List<Material> ms = iobj.initialMaterials.ToList();
+                ms.Add(highlightMaterial);
+                iobj.renderer.materials = ms.ToArray();
+            }
+            else
+            {
+                iobj.renderer.materials = iobj.initialMaterials;
             }
         }
-        
-        if (_selection != null && _selection.GetComponent<InteractableObject>().highlightWhenSelected)
+
+        if (_selection != null)
         {
-            var selectionRenderer = _selection.GetComponent<Renderer>();
-            //selectionRenderer.material = defaultMaterial;
-            selectionRenderer.materials = new[] {defaultMaterial};
+            _selection.renderer.materials = _selection.initialMaterials;
             _selection = null;
         }
-        
+
         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         //RaycastHit hit;
         //if (Physics.Raycast(ray, out hit))
@@ -83,7 +86,7 @@ public class SelectionManager : MonoBehaviour
                     {
                         selection = hits[i].transform;
                     }
-                    
+
                     if (rend.materials[0].color.a > 0.01f)
                     {
                         float dist1 = Vector3.Distance(hits[i].transform.position, Camera.main.transform.position);
@@ -95,20 +98,13 @@ public class SelectionManager : MonoBehaviour
                     }
                 }
             }
-                 
+
             if (selection.CompareTag(selectableTag))
             {
-                if (selection.GetComponent<InteractableObject>().highlightWhenSelected)
-                {
-                    var selectionRenderer = selection.GetComponent<Renderer>();
-                    if (selectionRenderer)
-                    {
-                        defaultMaterial = selectionRenderer.material;
-                        selectionRenderer.materials = new[] {defaultMaterial, selectionMaterial};
-                    }
-                }
-
-                _selection = selection;
+                _selection = selection.GetComponent<InteractableObject>();
+                List<Material> ms = _selection.initialMaterials.ToList();
+                ms.Add(selectionMaterial);
+                _selection.renderer.materials = ms.ToArray();
             }
 
             if (Input.GetMouseButtonDown(0) && _selection)

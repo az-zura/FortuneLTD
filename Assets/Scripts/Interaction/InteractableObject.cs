@@ -9,17 +9,21 @@ using UnityEngine.EventSystems;
 public class InteractableObject : MonoBehaviour
 {
     public UnityEvent onClick;
-    [Tooltip("Please set to false if more than one material is attached to the interactable Object.")] public bool highlightWhenSelected = true; //TODO maybe find a better fix for objects with more than one material
-
+    //[Tooltip("Please set to false if more than one material is attached to the interactable Object.")] public bool highlightWhenSelected = true; //TODO maybe find a better fix for objects with more than one material
+    [HideInInspector] public Material[] initialMaterials;
+    [HideInInspector] public Renderer renderer;
+    
     public void Start()
     {
         transform.tag = SelectionManager.selectableTag;
-        SelectionManager.instance.interactableObjs.Add(transform);
+        renderer = GetComponent<Renderer>();
+        initialMaterials = renderer.materials;
+        SelectionManager.instance.interactableObjs.Add(this);
     }
 
     private void OnDestroy()
     {
-        SelectionManager.instance.interactableObjs.Remove(transform);
+        SelectionManager.instance.interactableObjs.Remove(this);
     }
 
     public void Test()

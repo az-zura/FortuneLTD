@@ -14,10 +14,17 @@ public class InteractableSpeaker : InteractableObject
     void Start()
     {
         transform.tag = SelectionManager.selectableTag;
-        SelectionManager.instance.interactableObjs.Add(transform);
+        renderer = GetComponent<Renderer>();
+        initialMaterials = renderer.materials;
+        SelectionManager.instance.interactableObjs.Add(this);
 
         onClick.AddListener(() => DisplayText());
         speechBubble.btn.onClick.AddListener(() => DisplayText());
+    }
+    
+    private void OnDestroy()
+    {
+        SelectionManager.instance.interactableObjs.Remove(this);
     }
 
     public void DisplayText()
@@ -32,6 +39,7 @@ public class InteractableSpeaker : InteractableObject
         }
         else
         {
+            speechBubble.btn.onClick.RemoveListener(() => DisplayText());
             speechBubble.gameObject.SetActive(false);
             if (loop)
             {
