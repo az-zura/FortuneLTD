@@ -9,6 +9,7 @@ using UnityEngine.Serialization;
 public class PlayerMovement : MonoBehaviour
 {
     private InputManager _inputManager;
+    private MainMenuInputManager _mainMenuInputManager;
     
     private Vector3 moveDirection;
     [SerializeField] private float directionInterpolation;
@@ -21,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float roadSpeed = 8f;
     [SerializeField] private float acceleration = 1f;
 
+    [SerializeField] private bool isMainMenu;
     public event EventHandler UpdateMoving;
     private GhostAnimation _ghostAnimation;
     private float currentSpeed;
@@ -30,14 +32,21 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
-        _inputManager = GetComponent<InputManager>();
+        if (isMainMenu)
+        {
+            _mainMenuInputManager = GetComponent<MainMenuInputManager>();
+        }
+        else
+        {
+            _inputManager = GetComponent<InputManager>();
+        }
         controller = GetComponent<CharacterController>();
         _ghostAnimation = GetComponentInChildren<GhostAnimation>();
 
         currentSpeed = speed;
     }
 
-    public void HandleAllMovement() //also floating but not implemented yet
+    public void HandleAllMovement() 
     {
         HandleMovement();
     }
@@ -54,7 +63,15 @@ public class PlayerMovement : MonoBehaviour
     private void HandleMovement()
     {
         bool currentMovingState = isMoving;
-        var normalizedDirection = new Vector3(_inputManager.horizontalInput, 0, _inputManager.verticalInput).normalized;
+        Vector3 normalizedDirection;
+        if (isMainMenu)
+        {
+            normalizedDirection = new Vector3(_mainMenuInputManager.horizontalInput, 0, _mainMenuInputManager.verticalInput).normalized;
+        }
+        else
+        {
+            normalizedDirection = new Vector3(_inputManager.horizontalInput, 0, _inputManager.verticalInput).normalized;
+        }
         direction = Vector3.Lerp(direction,  normalizedDirection , directionInterpolation).normalized;
         if (normalizedDirection.magnitude >= 0.1f)
         {

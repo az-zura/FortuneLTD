@@ -11,7 +11,6 @@ public class RuleSheetTrigger : MonoBehaviour
     [SerializeField] private GameObject rulesheet;
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("WTF");
         _miniGameLoop.SetHasRuleSheet(true);
         rulesheet.SetActive(true);
     }

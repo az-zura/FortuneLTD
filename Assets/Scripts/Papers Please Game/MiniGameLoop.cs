@@ -75,7 +75,8 @@ public class MiniGameLoop : MonoBehaviour
         //setup for first time
         currentState = State.desk;
         allPersons = Person.InstantiatePersons();
-        
+        hasRulesheet = false;
+
         akten = new List<Akte>();
         dailyJobs = new List<Person.Jobs>();
         dailyPersons = new List<Person>();
@@ -90,7 +91,6 @@ public class MiniGameLoop : MonoBehaviour
     {
         folderTrayEmpty = false;
         secondPageJustOpened = true;
-        hasRulesheet = false;
         
         //get persons for the day as long as they are not finished yet
         numberOfPersons = Random.Range(4, 7);
