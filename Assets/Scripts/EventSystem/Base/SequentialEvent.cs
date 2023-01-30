@@ -15,7 +15,7 @@ namespace EventSystem
         {
             this.eventItems.Add(eventItem);
         }
-        
+
         public void StartSequentialEvent()
         {
             if (this.eventItems.Count <= 0)

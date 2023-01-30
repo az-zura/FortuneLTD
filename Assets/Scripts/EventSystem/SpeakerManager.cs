@@ -7,12 +7,28 @@ using NPC.NpcMovement;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class ShortConversationEvent : SequentialEvent
+public class SpeakerManager : MonoBehaviour
 {
     // short conversations are conversations that are reactions to the player being near
     // they only consist of 1 person talking to the player
+    public static SpeakerManager instance;
     public GameObject player;
     public Speechbubble speechbubble;
+    
+    [HideInInspector] public List<Speaker> speakers = new List<Speaker>();
+
+    void Start()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+    
     /*
     // for small dialogues
     public Speaker rndNeighbour1 = new Speaker(1,new string[][]{new []{
@@ -64,51 +80,4 @@ public class ShortConversationEvent : SequentialEvent
     public Speaker onStreet6 = new Speaker(15, new string[][]{new []{
         "Die Weststraße ist seit Jahren wegen Bauarbeiten gesperrt. Ich frage mich, was da los ist…","Es scheint so, als würden dort merkwürdige Gewächse die Abflüsse verstopfen."}});
     */
-    
-    public Speaker[] speakers;
-
-    public override void OnEventInitialized()
-    {
-        // Set ids
-        for (int id = 0; id < speakers.Length; id++)
-        {
-            speakers[id].SetSpeakerID(id);
-        }
-        
-        string nextText = "";
-
-        foreach (var s in speakers)
-        {
-            SpecificNpcController controller = s.gameObj.GetComponentInChildren<NpcControllerRandom>();
-            //take control of n1Controller
-            AddEventItem(new SetNpcControllerPossession(true, controller));
-            AddEventItem(new NPCLookAtAction(controller.GetAnimation, player.transform));
-        
-            // conversation
-            nextText = s.GetNextText();
-            if (nextText != "")
-            {
-                for (int i = 0; i < s.texts.Length; i++)
-                {
-                    // Loop durch Konversationen
-                    foreach (var t in s.texts[i])
-                    {
-                        // Loop durch Texte
-                        AddEventItem(new SpeakAction(speechbubble, s.gameObj, nextText));
-                    }
-                }
-                
-                // TODO question: How do I end a conversation
-                // TODO question are eventbased conditions always sequential -- probably yes...
-            }
-            else
-            {
-                //cleanup
-                AddEventItem(new NPCLookAtAction(controller.GetAnimation));
-                AddEventItem(new SetNpcControllerPossession(false, controller));
-            }
-        }
-        
-        StartSequentialEvent();
-    }
 }
