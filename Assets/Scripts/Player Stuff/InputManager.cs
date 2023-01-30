@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -12,10 +13,9 @@ public class InputManager : MonoBehaviour
     public float verticalInput;
     public float horizontalInput;
     [SerializeField] private MiniGameLoop _miniGameLoop;
-
-    //private DeskManager _deskManager;
-    
-
+    [SerializeField] private GameLoop _gameLoop;
+    [SerializeField] private Camera mainCamera;
+    [SerializeField] private GameObject player;
     public PlayerInput GetPlayerInput()
     {
         return _playerInput;
@@ -54,6 +54,20 @@ public class InputManager : MonoBehaviour
     {
         _playerInput.Player.Click.started += _ => ClickStarted();
         _playerInput.Player.Click.performed += _ => ClickPerformed();
+        _playerInput.Player.Escape.performed += _ => EscapePressed();
+    }
+
+    private void EscapePressed()
+    {
+        Debug.Log("Escape pressed");
+        if (_gameLoop.AtDesk)
+        {
+            //exit desk
+            _gameLoop.AtDesk = false;
+            _miniGameLoop.ExitDesk();
+            mainCamera.gameObject.SetActive(true);
+            player.GetComponent<CharacterController>().Move(new Vector3(0, 0, -1));
+        }
     }
 
     private void ClickStarted()

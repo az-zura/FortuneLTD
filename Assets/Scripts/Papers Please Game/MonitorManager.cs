@@ -190,17 +190,16 @@ public class MonitorManager : MonoBehaviour
         {
             scoreWindow.SetActive(true);
             scoreText.text = _miniGameLoop.GetCurrentPerson().GetScore().ToString();
-            dailyScoreText.text = _miniGameLoop.GetDailyScore().ToString();
+            dailyScoreText.text = _miniGameLoop.CalculateDailyScore().ToString();
         }
 
-        public void Umbringen()
+        public void FinishPerson(bool kill)
         {
-            _miniGameLoop.GetCurrentPerson().Umbringen();
-        } 
-        public void LebenLassen() {}
-        
+            _miniGameLoop.FinishPerson(kill);
+        }
 
-    #endregion
+
+        #endregion
     
     
 }

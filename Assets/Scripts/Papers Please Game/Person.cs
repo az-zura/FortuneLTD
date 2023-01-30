@@ -24,6 +24,7 @@ public class Person
     private Jobs _job;
     private Bildungsstand _bildungsstand;
 
+    private bool isFinished;
     private bool isDead;
     private Akte _akte;
     private int score;
@@ -91,9 +92,10 @@ public class Person
         return score;
     }
 
-    public void Umbringen()
+    public void Finish(bool kill)
     {
-        isDead = true;
+        if(kill) isDead = true;
+        isFinished = true;
     }
     
 

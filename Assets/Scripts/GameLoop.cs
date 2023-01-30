@@ -12,10 +12,17 @@ public class GameLoop : MonoBehaviour
 
     public event EventHandler HourUpdated;
     public event EventHandler DayUpdated;
+    public event EventHandler WorkdayStarted;
+    public event EventHandler WorkdayEnded;
+    public bool WorkdayEndedEarly;
+
+    public bool AtDesk;
 
     private void Start()
     {
+        WorkdayEndedEarly = false;
         currentDay = 0;
+        AtDesk = false;
     }
 
     private void Update()
@@ -35,9 +42,16 @@ public class GameLoop : MonoBehaviour
     {
         Debug.Log("current hour: [" + hour + ":00]");
         OnHourUpdated();
-        if (hour == 24)
+
+        switch (hour)
         {
-            OnNewDay();
+          case 24: OnNewDay();
+              break;
+          case 21: OnWorkdayStarted();
+              break;
+          case 5:
+              if (!WorkdayEndedEarly) OnWorkdayEnded();
+              break;
         }
     }
 
@@ -73,5 +87,15 @@ public class GameLoop : MonoBehaviour
     protected virtual void OnDayUpdated()
     {
         DayUpdated?.Invoke(this, EventArgs.Empty);
+    }
+
+    protected virtual void OnWorkdayStarted()
+    {
+        WorkdayStarted?.Invoke(this, EventArgs.Empty);
+    }
+
+    protected virtual void OnWorkdayEnded()
+    {
+        WorkdayEnded?.Invoke(this, EventArgs.Empty);
     }
 }

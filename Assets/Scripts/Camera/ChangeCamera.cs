@@ -15,6 +15,7 @@ public class ChangeCamera : MonoBehaviour
     [SerializeField] private GameObject ruleSheetAccessoire;
 
     [SerializeField] private MiniGameLoop _miniGameLoop;
+    [SerializeField] private GameLoop _gameLoop;
     private void OnTriggerEnter(Collider other)
     {
         if (changeToDesk && !_miniGameLoop.HasRuleSheet())
@@ -28,6 +29,7 @@ public class ChangeCamera : MonoBehaviour
             decke.SetActive(true);
             vents.SetActive(true);
             ruleSheetAccessoire.SetActive(false);
+            _gameLoop.AtDesk = true;
         }
        
     }

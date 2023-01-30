@@ -110,11 +110,11 @@ public class ButtonManager : MonoBehaviour
         }
         public void Umbringen()
         {
-            _monitorManager.Umbringen();
+            _monitorManager.FinishPerson(true);
         }
         public void LebenLassen()
         {
-            _monitorManager.LebenLassen();
+            _monitorManager.FinishPerson(false);
         }
 
         #endregion

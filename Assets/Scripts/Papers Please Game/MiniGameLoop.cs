@@ -26,6 +26,8 @@ public class MiniGameLoop : MonoBehaviour
     private List<Person.Jobs> dailyJobs;
     private int currentDay = 0;
 
+    public event EventHandler FileFinished;
+
     [SerializeField] private GameLoop _gameLoop;
     public enum State
     {
@@ -50,6 +52,7 @@ public class MiniGameLoop : MonoBehaviour
         [SerializeField] private List<GameObject> imagesJob1;
         [SerializeField] private List<GameObject> imagesJob2;
 
+        [SerializeField] private GameObject decke;
 
     #endregion
 
@@ -69,53 +72,51 @@ public class MiniGameLoop : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //setup for first time
         currentState = State.desk;
         allPersons = Person.InstantiatePersons();
-
-        folderTrayEmpty = false;
-        secondPageJustOpened = true;
-        hasRulesheet = false;
         
         akten = new List<Akte>();
         dailyJobs = new List<Person.Jobs>();
         dailyPersons = new List<Person>();
-
-        _gameLoop.DayUpdated += UpdateCurrentDay;
+        _gameLoop.WorkdayStarted += StartWorkDay;
+        _gameLoop.WorkdayEnded += EndWorkday;
         GetAktenFromFolderGameObjects();
-        StartWorkDay();
     }
 
-    private void UpdateCurrentDay(object sender, EventArgs eventArgs)
-    {
-        currentDay++;
-        EndWorkDay();
-    }
     
-    private void StartWorkDay()
+    #region SetupDay
+    private void StartWorkDay(object sender, EventArgs eventArgs)
     {
+        folderTrayEmpty = false;
+        secondPageJustOpened = true;
+        hasRulesheet = false;
+        
+        //get persons for the day as long as they are not finished yet
         numberOfPersons = Random.Range(4, 7);
         for (int i = 0; i < numberOfPersons; i++)
         {
             dailyPersons.Add(GetRandomPerson());
         }
 
-        int personToWorkOn = Random.Range(0, numberOfPersons - 1);
-        toworkon = dailyPersons[personToWorkOn];
-        
+        toworkon = GetRandomPersonToWorkOn();
         GetDailyJobs();
     }
 
-    private void EndWorkDay()
+    
+    public void EndWorkday(object sender, EventArgs eventArgs)
     {
         dailyPersons.Clear();
         dailyJobs.Clear();
     }
 
-    private void PersonFinished()
+    //workaround for early exit from minigame
+    public void EndWorkdayEarly()
     {
-        dailyPersons.Remove(toworkon);
+        dailyPersons.Clear();
+        dailyJobs.Clear();
     }
-
+    
     private void GetDailyJobs()
     {
         Person.Jobs firstJob = Person.GetRandomJob();
@@ -128,7 +129,7 @@ public class MiniGameLoop : MonoBehaviour
         dailyJobs.Add(firstJob);
         dailyJobs.Add(secondJob);
     }
-
+    
     private Person GetRandomPerson()
     {
         int randomInt;
@@ -139,7 +140,38 @@ public class MiniGameLoop : MonoBehaviour
 
         return allPersons[randomInt];
     }
+    
+    public Person GetRandomPersonToWorkOn()
+    {
+        int numberOfPersons = dailyPersons.Count;
+        return dailyPersons[Random.Range(0, numberOfPersons - 1)];
+    }
 
+
+    public void FinishPerson(bool kill)
+    {
+        toworkon.Finish(kill);
+        dailyPersons.Remove(toworkon);
+        if (dailyPersons.Count > 0)
+        {
+            toworkon = GetRandomPersonToWorkOn();
+        }
+        else
+        {
+            _gameLoop.WorkdayEndedEarly = true;
+            folderTrayEmpty = true;
+            EndWorkdayEarly();
+        }
+    }
+    #endregion
+
+    public void ExitDesk()
+    {
+        deskCamera.gameObject.SetActive(false);
+        decke.SetActive(false);
+        _gameLoop.AtDesk = false;
+    }
+    
     public void ObjectHit(string objectName)
     {
         AudioManager.instance.PlaySound("Click");
@@ -275,32 +307,7 @@ public class MiniGameLoop : MonoBehaviour
         monitorUI.gameObject.SetActive(false);
         currentState = State.desk;
     }
-    
-    public Camera GetCurrentCamera()
-    {
-        switch (currentState)
-        {
-            case State.desk:
-                return deskCamera;
-            case State.folder:
-                return folderCamera;
-            case State.rulesheet:
-                return rulesheetCamera;
-            case State.monitor:
-                return null;
-        }
-        return Camera.current;
-    }
-    
-    private void GetAktenFromFolderGameObjects()
-    {
-        foreach (var currAkte in foldersGameobjects)
-        {
-            Akte tmpakte = new Akte();
-            akten.Add(tmpakte);
-        }
-    }
-    
+
     public void CloseCurrentAction()
     {
         if (currentState == State.folder)
@@ -335,6 +342,15 @@ public class MiniGameLoop : MonoBehaviour
             if (fld.name.ToLower().Contains(name)) return fld;
         }
         return null;
+    }
+    
+    private void GetAktenFromFolderGameObjects()
+    {
+        foreach (var currAkte in foldersGameobjects)
+        {
+            Akte tmpakte = new Akte();
+            akten.Add(tmpakte);
+        }
     }
 
     public void SetFirstPageActive()
@@ -398,7 +414,7 @@ public class MiniGameLoop : MonoBehaviour
         rulesheet.SetActive(true);
     }
 
-    public int GetDailyScore()
+    public int CalculateDailyScore()
     {
         return Random.Range(150, 300);
     }
@@ -406,7 +422,6 @@ public class MiniGameLoop : MonoBehaviour
     
 
     #region gettersetter
-
     public Person GetCurrentPerson()
     {
         return toworkon;
@@ -425,6 +440,22 @@ public class MiniGameLoop : MonoBehaviour
     public MiniGameLoop.State GetCurrentState()
     {
         return currentState;
+    }
+    
+    public Camera GetCurrentCamera()
+    {
+        switch (currentState)
+        {
+            case State.desk:
+                return deskCamera;
+            case State.folder:
+                return folderCamera;
+            case State.rulesheet:
+                return rulesheetCamera;
+            case State.monitor:
+                return null;
+        }
+        return Camera.current;
     }
     #endregion
 }
