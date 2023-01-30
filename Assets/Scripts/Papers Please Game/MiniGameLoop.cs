@@ -119,12 +119,25 @@ public class MiniGameLoop : MonoBehaviour
     
     private void GetDailyJobs()
     {
-        Person.Jobs firstJob = Person.GetRandomJob();
+        Person.Jobs firstJob;
+        do
+        {
+            firstJob = Person.GetRandomJob();
+        } while (firstJob.Equals(Person.Jobs.schueler) 
+                 || firstJob.Equals(Person.Jobs.student) 
+                 || firstJob.Equals(Person.Jobs.rente) 
+                 || firstJob.Equals(Person.Jobs.arbeitslos));
+        
         Person.Jobs secondJob;
         do
         {
             secondJob = Person.GetRandomJob();
-        } while (firstJob.Equals(secondJob));
+        } while (firstJob.Equals(secondJob) 
+                 || secondJob.Equals(Person.Jobs.schueler) 
+                 || secondJob.Equals(Person.Jobs.student) 
+                 || secondJob.Equals(Person.Jobs.rente) 
+                 || secondJob.Equals(Person.Jobs.arbeitslos));
+        
         
         dailyJobs.Add(firstJob);
         dailyJobs.Add(secondJob);
@@ -162,6 +175,9 @@ public class MiniGameLoop : MonoBehaviour
             folderTrayEmpty = true;
             EndWorkdayEarly();
         }
+        monitorUI.gameObject.SetActive(false);
+        currentState = State.desk;
+        
     }
     #endregion
 
@@ -419,8 +435,6 @@ public class MiniGameLoop : MonoBehaviour
         return Random.Range(150, 300);
     }
     
-    
-
     #region gettersetter
     public Person GetCurrentPerson()
     {

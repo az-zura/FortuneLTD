@@ -84,13 +84,11 @@ public class MonitorManager : MonoBehaviour
             _miniGameLoop.CloseMonitor();
             _miniGameLoop.SetFirstPageInactive();
         }
-
-    
+        
         public void OpenDoYouReallyWantToCloseMessage()
         {
             doYouWantToCloseMessage.SetActive(true);
         }
-        
         
         public void SwitchToSecondWindow(string ID)
         {
@@ -98,8 +96,6 @@ public class MonitorManager : MonoBehaviour
             {
                 thirdWindow.SetActive(true);
                 firstWindow.SetActive(false);
-                //_miniGameLoop.SetFirstPageActive();
-                //idText.text += ID;
             }
             else
             {
@@ -188,6 +184,7 @@ public class MonitorManager : MonoBehaviour
 
         public void SwitchToScoreWindow()
         {
+            thirdWindow.SetActive(false);
             scoreWindow.SetActive(true);
             scoreText.text = _miniGameLoop.GetCurrentPerson().GetScore().ToString();
             dailyScoreText.text = _miniGameLoop.CalculateDailyScore().ToString();
@@ -196,6 +193,14 @@ public class MonitorManager : MonoBehaviour
         public void FinishPerson(bool kill)
         {
             _miniGameLoop.FinishPerson(kill);
+            
+            //reset monitor
+            scoreWindow.SetActive(false);
+            firstWindow.SetActive(true);
+            deathxcel.SetActive(false);
+            desktop.SetActive(true);
+            
+            
         }
 
 
