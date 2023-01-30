@@ -101,7 +101,7 @@ public class Person
 
         #endregion
     
-    public Person(string name, string identifikation, int derzeitigesAlter, int erwartetesAlter, Jobs job, Bildungsstand bildungsstand) //GameObject akte
+    public Person(string name, string identifikation, int derzeitigesAlter, int erwartetesAlter, Jobs job, Bildungsstand bildungsstand) 
     {
         _name = name;
         _identifikation = identifikation;
