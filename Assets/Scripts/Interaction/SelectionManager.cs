@@ -51,7 +51,8 @@ public class SelectionManager : MonoBehaviour
     {
         foreach (var iobj in interactableObjs)
         {
-            if (Vector3.Distance(player.position, iobj.transform.position) <= radius && iobj != _selection)
+            if (Vector3.Distance(player.position, iobj.transform.position) <= radius && iobj != _selection &&
+                iobj.showOutline)
             {
                 List<Material> ms = iobj.initialMaterials.ToList();
                 ms.Add(highlightMaterial);
@@ -102,9 +103,12 @@ public class SelectionManager : MonoBehaviour
             if (selection.CompareTag(selectableTag))
             {
                 _selection = selection.GetComponent<InteractableObject>();
-                List<Material> ms = _selection.initialMaterials.ToList();
-                ms.Add(selectionMaterial);
-                _selection.renderer.materials = ms.ToArray();
+                if (_selection.showOutline)
+                {
+                    List<Material> ms = _selection.initialMaterials.ToList();
+                    ms.Add(selectionMaterial);
+                    _selection.renderer.materials = ms.ToArray();
+                }
             }
 
             if (Input.GetMouseButtonDown(0) && _selection)

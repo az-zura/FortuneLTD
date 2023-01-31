@@ -27,7 +27,7 @@ public class Conversation : SequentialEvent
         // they are talking to each other
         //int n = speakersAndText.Length;
         List<SpecificNpcController> controllers = new List<SpecificNpcController>();
-        List<GhostAnimation> animations = new List<GhostAnimation>(); 
+        List<GhostAnimation> animations = new List<GhostAnimation>();
         List<NPC_Locomotion> locomotions = new List<NPC_Locomotion>();
         List<GameObject> activeSpeakers = new List<GameObject>();
         List<SpeakerTextManager> nextST = new List<SpeakerTextManager>();
@@ -42,7 +42,7 @@ public class Conversation : SequentialEvent
 
             currentConversation = ids.First();
             ids.RemoveAt(0);
-            
+
             nextST.Clear();
             nextST.AddRange(Array.FindAll(speakersAndText.ToArray(), s => s.id == currentConversation));
 
@@ -87,11 +87,21 @@ public class Conversation : SequentialEvent
                 AddEventItem(new NPCLookAtAction(c.GetAnimation, ConversationManager.instance.player.transform));
             }
 
+            foreach (var st in nextST)
+            {
+                ClickableItemCondition io = st.speaker.GetComponentInChildren<ClickableItemCondition>();
+                if (io)
+                    AddEventItem(new ShowOutlineAction(io, true));
+            }
 
             AddEventItem(new EventBasedCondition(clickable.TriggerCondition));
 
             foreach (var st in nextST)
             {
+                ClickableItemCondition io = st.speaker.GetComponentInChildren<ClickableItemCondition>();
+                if (io)
+                    AddEventItem(new ShowOutlineAction(io, false));
+                
                 GhostAnimation ani = st.speaker.GetComponentInChildren<GhostAnimation>();
                 if (ani != null)
                 {
@@ -100,16 +110,24 @@ public class Conversation : SequentialEvent
 
                 AddEventItem(new SpeakAction(ConversationManager.instance.speechbubble, st.speaker, st.text));
             }
-            
-            
+
+
             foreach (var c in controllers)
             {
                 AddEventItem(new NPCLookAtAction(c.GetAnimation));
-                //retrun controll to pams npc controller
+                //return control
                 AddEventItem(new SetNpcControllerPossession(false, c));
             }
-            
-            AddEventItem(new EventBasedCondition(clickable.TriggerCondition));
+
+            if (m < n - 1) // Don't add click action after last conversation
+                AddEventItem(new EventBasedCondition(clickable.TriggerCondition));
+        }
+
+        foreach (var s in activeSpeakers)
+        {
+            ClickableItemCondition io = s.GetComponentInChildren<ClickableItemCondition>();
+            if (io)
+                AddEventItem(new ShowOutlineAction(io, false));
         }
 
         StartSequentialEvent();
