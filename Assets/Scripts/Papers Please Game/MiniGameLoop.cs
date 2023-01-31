@@ -417,6 +417,13 @@ public class MiniGameLoop : MonoBehaviour
 
     public bool InputJobStimmt(int score)
     {
+        if ((toworkon.GetJob().Equals(Person.Jobs.schueler) 
+             || toworkon.GetJob().Equals(Person.Jobs.student) 
+             || toworkon.GetJob().Equals(Person.Jobs.rente) 
+             || toworkon.GetJob().Equals(Person.Jobs.arbeitslos)) && score == 10)
+        {
+            return true;
+        }
         if ((dailyJobs[0].Equals(toworkon.GetJob()) && score == 30) ||
             (dailyJobs[1].Equals(toworkon.GetJob()) && score == -10) || (!dailyJobs[0].Equals(toworkon.GetJob()) && !dailyJobs[1].Equals(toworkon.GetJob()) && score == 10))
         {

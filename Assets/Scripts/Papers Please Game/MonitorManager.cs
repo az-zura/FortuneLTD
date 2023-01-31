@@ -187,6 +187,7 @@ public class MonitorManager : MonoBehaviour
             thirdWindow.SetActive(false);
             scoreWindow.SetActive(true);
             scoreText.text = _miniGameLoop.GetCurrentPerson().GetScore().ToString();
+            Debug.Log(scoreText.text);
             dailyScoreText.text = _miniGameLoop.CalculateDailyScore().ToString();
         }
 
