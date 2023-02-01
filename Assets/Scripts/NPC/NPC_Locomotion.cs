@@ -36,6 +36,11 @@ public class NPC_Locomotion : MonoBehaviour
 
     }
 
+    public NavMeshAgent getNavmeshAgent()
+    {
+        return navMeshAgent;
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -72,6 +77,7 @@ public class NPC_Locomotion : MonoBehaviour
 
     public void OnPathEndReached()
     {
+        Debug.Log("path end reached :"+gameObject.name);
         setNPCMotionState(NPCNavigationState.idle);
         EventHandler handler = PathEndReached;
 

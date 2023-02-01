@@ -13,16 +13,17 @@ public class NPCGotoAction : ActionBase
     private float radiusMin;
     private bool waitForTargetReached = true;
     
-    public NPCGotoAction(NPC_Locomotion locomotion, GameObject targetPosition, float radiusMin = default , float radiusMax = default)
+    public NPCGotoAction(NPC_Locomotion locomotion, GameObject targetPosition, float radiusMin = default , float radiusMax = default, bool waitForTargetReached = true)
     {
         this.locomotion = locomotion;
         this.targetPosition = targetPosition.transform.position;
         this.radiusMax = radiusMax;
         this.radiusMin = radiusMin;
+        this.waitForTargetReached = waitForTargetReached;
 
     }
 
-    public NPCGotoAction(NPC_Locomotion locomotion, Vector3 targetPosition, bool waitForTargetReached = true, float radiusMin = default , float radiusMax = default)
+    public NPCGotoAction(NPC_Locomotion locomotion, Vector3 targetPosition, float radiusMin = default , float radiusMax = default , bool waitForTargetReached = true)
     {
         this.locomotion = locomotion;
         this.targetPosition = targetPosition;

@@ -151,7 +151,7 @@ public class Delivery : SequentialEvent
         
         AddEventItem(new NPCLookAtAction(neighbour2Animation));
 
-        AddEventItem(new NPCGotoAction(neighbour2Locomotion,nighoburHouseGoto.transform.position,false));
+        AddEventItem(new NPCGotoAction(neighbour2Locomotion,nighoburHouseGoto.transform.position,0,0,false));
         AddEventItem(new TimerCondition(2));
         AddEventItem(new ToggleActiveAction(boxAtNeighbourClosed,false));
         AddEventItem(new ToggleActiveAction(boxAtNeighbourOpened,true));
@@ -167,10 +167,10 @@ public class Delivery : SequentialEvent
         AddEventItem(new NPCLookAtAction(neighbourChild2Animation));
         AddEventItem(new NPCLookAtAction(neighbourChild3Animation));
 
-        AddEventItem(new NPCGotoAction(neighbourChild1NPC_Locomotion,nighoburHouseGoto.transform.position,false));
-        AddEventItem(new NPCGotoAction(neighbourChild2NPC_Locomotion,nighoburHouseGoto.transform.position,false));
-        AddEventItem(new NPCGotoAction(neighbourChild3NPC_Locomotion,nighoburHouseGoto.transform.position,false));
-        AddEventItem(new NPCGotoAction(newGhostAtNeighbourNPC_Locomotion,nighoburHouseGoto.transform.position,false));
+        AddEventItem(new NPCGotoAction(neighbourChild1NPC_Locomotion,nighoburHouseGoto.transform.position,0,0,false));
+        AddEventItem(new NPCGotoAction(neighbourChild2NPC_Locomotion,nighoburHouseGoto.transform.position,0,0,false));
+        AddEventItem(new NPCGotoAction(neighbourChild3NPC_Locomotion,nighoburHouseGoto.transform.position,0,0,false));
+        AddEventItem(new NPCGotoAction(newGhostAtNeighbourNPC_Locomotion,nighoburHouseGoto.transform.position,0,0,false));
         AddEventItem(new CyclicCondition(1).AddCondition(playerNotAtNeightbour2House));
         
         //cleanup

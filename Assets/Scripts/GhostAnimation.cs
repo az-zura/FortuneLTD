@@ -7,7 +7,7 @@ public class GhostAnimation : MonoBehaviour
 {
     public CharacterController controller;
     public float idleBobHeight = 0.4f;
-
+    private Vector3 forwardVector;
     private Animator animator;
 
     private Transform lookAtTransform;
@@ -26,6 +26,7 @@ public class GhostAnimation : MonoBehaviour
     private void Start()
     {
         animator = gameObject.GetComponent<Animator>();
+        forwardVector = gameObject.transform.forward;
     }
 
     void Update()
@@ -67,7 +68,7 @@ public class GhostAnimation : MonoBehaviour
     public void stopLookAt()
     {
         this.lookAtTransform = null;
-        gameObject.transform.forward = Vector3.forward;
+        gameObject.transform.forward = forwardVector;
     }
     
     public void setMoving(bool isMoving)

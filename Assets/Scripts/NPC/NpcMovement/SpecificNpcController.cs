@@ -8,6 +8,7 @@ namespace NPC.NpcMovement
         protected NPC_Locomotion Locomotion;
         protected GhostAnimation Animation;
         private bool isControllingNpc = false;
+        public bool isActivated;
 
         public NPC_Locomotion GetLocomotion => Locomotion;
 
@@ -21,6 +22,7 @@ namespace NPC.NpcMovement
         public void StopControllingNpc()
         {
             isControllingNpc = false;
+            Locomotion.getNavmeshAgent().ResetPath();
         }
 
         public void StartControllingNpc()
@@ -29,7 +31,7 @@ namespace NPC.NpcMovement
             OnStartControlling();
         }
 
-        void Start()
+        void Awake()
         {
             Locomotion = this.GetComponent<NPC_Locomotion>();
             Animation = this.GetComponentInChildren<GhostAnimation>();
@@ -48,6 +50,8 @@ namespace NPC.NpcMovement
             isControllingNpc = true;
             OnStartControlling();
         }
+        
+        
 
         private void OnDestroy()
         {

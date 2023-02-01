@@ -40,6 +40,7 @@ public class SpeakAction : ActionBase
         speechBubble.ChangeBubbleType(Speechbubble.BubbleType.Dismissed);
         AudioManager.instance.StopSound($"Voice{voiceType}");
         speechBubble.btn.onClick.RemoveListener(Action);
+        Debug.Log("end speek action with text : " + text);
         EndEventItem();
     }
     

@@ -38,6 +38,12 @@ public class GameLoop : MonoBehaviour
         
     }
 
+    public void setTime(int hour)
+    {
+        timePassedToday = hour;
+        OnNewHour((int)timePassedToday);
+    }
+
     private void OnNewHour(int hour)
     {
         Debug.Log("current hour: [" + hour + ":00]");
