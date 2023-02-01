@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameLoop : MonoBehaviour
@@ -17,6 +18,8 @@ public class GameLoop : MonoBehaviour
     public bool WorkdayEndedEarly;
 
     public bool AtDesk;
+
+    private bool isWorkingTime = false;
 
     private void Start()
     {
@@ -69,6 +72,11 @@ public class GameLoop : MonoBehaviour
         Debug.Log("Day Nr "+currentDay+" has begun");
     }
 
+    public bool IsWorkingTime()
+    {
+        return isWorkingTime;
+    }
+    
     public float GetTime()
     {
         return timePassedToday;
@@ -77,6 +85,11 @@ public class GameLoop : MonoBehaviour
     public int GetHour()
     {
         return (int)timePassedToday;
+    }
+    
+    public int GetMinutes()
+    {
+        return (int) ((timePassedToday - GetHour()) * 60);
     }
 
     public int GetDay()
@@ -97,11 +110,13 @@ public class GameLoop : MonoBehaviour
 
     protected virtual void OnWorkdayStarted()
     {
+        isWorkingTime = true;
         WorkdayStarted?.Invoke(this, EventArgs.Empty);
     }
 
     protected virtual void OnWorkdayEnded()
     {
+        isWorkingTime = false;
         WorkdayEnded?.Invoke(this, EventArgs.Empty);
     }
 }

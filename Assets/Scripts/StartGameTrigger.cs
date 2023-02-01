@@ -19,7 +19,7 @@ public class StartGameTrigger : MonoBehaviour
     private bool startedLoading = false;
     private void Start()
     {
-        secondsUntilMainSceneLaoded = 3f;
+        secondsUntilMainSceneLaoded = 1.5f;
         seconds = 0;
         isTriggered = false;
     }
