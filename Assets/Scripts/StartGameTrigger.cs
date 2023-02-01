@@ -16,9 +16,10 @@ public class StartGameTrigger : MonoBehaviour
     private float secondsUntilMainSceneLaoded;
 
     private bool isTriggered;
+    private bool startedLoading = false;
     private void Start()
     {
-        secondsUntilMainSceneLaoded = 5;
+        secondsUntilMainSceneLaoded = 3f;
         seconds = 0;
         isTriggered = false;
     }
@@ -30,11 +31,17 @@ public class StartGameTrigger : MonoBehaviour
             seconds += Time.deltaTime;
         }
         Debug.Log("Second MainMenu " + seconds);
-        if (seconds >= secondsUntilMainSceneLaoded)
+        if (seconds >= secondsUntilMainSceneLaoded && !startedLoading)
         {
-            SceneManager.LoadScene(1);
+            startedLoading = true;
+            LoadingScreen.instance.LoadScene(1);
         }
         //flowers
+        for (int i = 0; i < flowers.Count; i++)
+        {
+            flowers[i].SetActive(seconds > (i + 0.01f) * (secondsUntilMainSceneLaoded / flowers.Count));
+        }
+        /*
         if (seconds >= 0.5f)
         {
            flowers[0].SetActive(true);
@@ -58,7 +65,7 @@ public class StartGameTrigger : MonoBehaviour
         if (seconds >= 4.2f)
         {
             flowers[5].SetActive(true);
-        }
+        }*/
        
     }
 
