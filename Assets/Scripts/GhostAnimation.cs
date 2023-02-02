@@ -7,7 +7,7 @@ public class GhostAnimation : MonoBehaviour
 {
     public CharacterController controller;
     public float idleBobHeight = 0.4f;
-    private Vector3 forwardVector;
+    private Quaternion rotationDefault;
     private Animator animator;
 
     private Transform lookAtTransform;
@@ -25,8 +25,10 @@ public class GhostAnimation : MonoBehaviour
 
     private void Start()
     {
+        
         animator = gameObject.GetComponent<Animator>();
-        forwardVector = gameObject.transform.forward;
+        var r = gameObject.transform.localRotation;
+        rotationDefault = new Quaternion(r.x,r.y,r.z,r.w);
     }
 
     void Update()
@@ -62,13 +64,12 @@ public class GhostAnimation : MonoBehaviour
     public void startLookAt(Transform lookAt)
     {
         this.lookAtTransform = lookAt;
-        
     }
 
     public void stopLookAt()
     {
         this.lookAtTransform = null;
-        gameObject.transform.forward = forwardVector;
+        this.transform.localRotation = rotationDefault;
     }
     
     public void setMoving(bool isMoving)

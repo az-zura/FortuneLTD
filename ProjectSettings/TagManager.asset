@@ -27,7 +27,7 @@ TagManager:
   - AiAgentIgnore
   - AiTrace
   - OnlyClickable
-  - 
+  - InvisibleToPlayer
   - 
   - 
   - 

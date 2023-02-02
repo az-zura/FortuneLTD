@@ -20,6 +20,7 @@ public class MainQuest : MonoBehaviour
     
     [SerializeField] private GameLoop gameLoop;
     [SerializeField] private SequentialEvent event10;
+    [SerializeField] private GameObject event30Object;
 
     private int mainQuestState = -1;
 
@@ -37,10 +38,14 @@ public class MainQuest : MonoBehaviour
                 gameLoop.setTime(17);
                 event10.InitializeEvent();
                 break;
-            case 10:
+            case 10: break;
             case 20:
+                event30Object.SetActive(true);
                 break;
-            
+            case 30: break;
+            case 40:
+                break;
+
         }
     }
 

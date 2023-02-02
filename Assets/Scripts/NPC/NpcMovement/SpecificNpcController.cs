@@ -7,8 +7,7 @@ namespace NPC.NpcMovement
     {
         protected NPC_Locomotion Locomotion;
         protected GhostAnimation Animation;
-        private bool isControllingNpc = false;
-        public bool isActivated;
+        public bool isControllingNpc = true;
 
         public NPC_Locomotion GetLocomotion => Locomotion;
 
@@ -47,8 +46,7 @@ namespace NPC.NpcMovement
                 return;
             }
             Locomotion.PathEndReached += onPathEndHidden;
-            isControllingNpc = true;
-            OnStartControlling();
+            if(isControllingNpc) OnStartControlling();
         }
         
         
