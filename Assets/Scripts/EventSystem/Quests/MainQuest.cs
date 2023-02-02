@@ -21,6 +21,7 @@ public class MainQuest : MonoBehaviour
     [SerializeField] private GameLoop gameLoop;
     [SerializeField] private SequentialEvent event10;
     [SerializeField] private GameObject event30Object;
+    [SerializeField] private GameObject event50Object;
 
     private int mainQuestState = -1;
 
@@ -44,6 +45,9 @@ public class MainQuest : MonoBehaviour
                 break;
             case 30: break;
             case 40:
+                event50Object.SetActive(true);
+                break;
+            case 50:
                 break;
 
         }

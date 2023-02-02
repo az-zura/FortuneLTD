@@ -16,6 +16,11 @@ public class NpcControllerRandom : SpecificNpcController
         StartCoroutine(waitAndMove());
     }
 
+    protected override void OnStopControlling()
+    {
+        
+    }
+
     IEnumerator waitAndMove()
     {
         yield return new WaitForSeconds(Random.Range(2f, 10f));

@@ -23,4 +23,9 @@ public class NPCControllerFollow : SpecificNpcController
     protected override void OnPathEnd()
     {
     }
+
+    protected override void OnStopControlling()
+    {
+        
+    }
 }

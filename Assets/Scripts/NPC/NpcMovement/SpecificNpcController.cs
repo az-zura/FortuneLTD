@@ -21,6 +21,7 @@ namespace NPC.NpcMovement
         public void StopControllingNpc()
         {
             isControllingNpc = false;
+            OnStopControlling();
             Locomotion.getNavmeshAgent().ResetPath();
         }
 
@@ -64,6 +65,8 @@ namespace NPC.NpcMovement
         protected abstract void OnStartControlling();
 
         protected abstract void OnPathEnd();
-    
+
+        protected abstract void OnStopControlling();
+
     }
 }
