@@ -129,7 +129,7 @@ public class Conversation : SequentialEvent
             if (io)
                 AddEventItem(new ShowOutlineAction(io, false));
         }
-
+        
         StartSequentialEvent();
     }
 }

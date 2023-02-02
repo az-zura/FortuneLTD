@@ -6,8 +6,8 @@ using UnityEngine;
 
 public class GameLoop : MonoBehaviour
 {
-    private int currentDay;
-    private float timePassedToday = 19;
+    [HideInInspector] public int currentDay;
+    [HideInInspector] public float timePassedToday = 19;
 
     public float oneHourIsEquivalentToXSeconds = 60;
 

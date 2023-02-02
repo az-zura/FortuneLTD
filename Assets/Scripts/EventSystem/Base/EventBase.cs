@@ -8,6 +8,8 @@ namespace EventSystem
 {
     public abstract class EventBase : MonoBehaviour
     {
+        public string uniqueEventName; // IMPORTANT for saving the game
+        
         enum EventStatus {
             EventNew,
             EventPlayed,
@@ -16,6 +18,16 @@ namespace EventSystem
 
         private EventStatus status = EventStatus.EventNew;
         public abstract void OnEventInitialized();
+
+        private void Start()
+        {
+            if (uniqueEventName == "")
+                Debug.Log(gameObject.name);
+            if (SaveGameManager.instance.WasEventCompleted(uniqueEventName))
+            {
+                status = EventStatus.EventPlayed;
+            }
+        }
 
         //called by the event trigger when event starts
         public void InitializeEvent()
@@ -36,6 +48,14 @@ namespace EventSystem
         {
             Debug.Log("Finalizing event");
             this.status = EventStatus.EventPlayed;
+            if (uniqueEventName != "")
+            {
+                SaveGameManager.instance.AddCompletedEvent(uniqueEventName);
+            }
+            else
+            {
+                Debug.LogWarning("Event can not be saved because the eventName is empty.");
+            }
         }
         
         public void DispatchEventItem(EventItem eventItem)
@@ -71,6 +91,5 @@ namespace EventSystem
         {
             Destroy(gameObject);
         }
-
     }
 }
