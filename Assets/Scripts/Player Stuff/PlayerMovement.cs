@@ -60,6 +60,15 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void FixedUpdate()
+    {
+        // Check if player is on ground
+        if (!Physics.Raycast(transform.position, Vector3.down, 1.3f, Physics.AllLayers))
+        {
+            transform.position += Vector3.down * Time.fixedDeltaTime;
+        }
+    }
+
     private void HandleMovement()
     {
         bool currentMovingState = isMoving;

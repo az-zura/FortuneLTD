@@ -76,9 +76,9 @@ public class SaveGameManager : MonoBehaviour
     
     public Vector3 GetSavedPosition()
     {
-        float x = PlayerPrefs.GetFloat("posX", 0);
-        float y = PlayerPrefs.GetFloat("posY", 1.3f);
-        float z = PlayerPrefs.GetFloat("posZ", 0);
+        float x = PlayerPrefs.GetFloat("posX", player.position.x);
+        float y = PlayerPrefs.GetFloat("posY", player.position.y);
+        float z = PlayerPrefs.GetFloat("posZ", player.position.z);
         return new Vector3(x, y, z);
     }
 
