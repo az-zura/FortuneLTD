@@ -108,7 +108,7 @@ public class GameLoop : MonoBehaviour
         DayUpdated?.Invoke(this, EventArgs.Empty);
     }
 
-    protected virtual void OnWorkdayStarted()
+    public virtual void OnWorkdayStarted()
     {
         isWorkingTime = true;
         WorkdayStarted?.Invoke(this, EventArgs.Empty);

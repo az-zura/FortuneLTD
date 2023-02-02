@@ -19,8 +19,9 @@ namespace EventSystem
         private EventStatus status = EventStatus.EventNew;
         public abstract void OnEventInitialized();
 
-        private void Start()
+        private IEnumerator Start()
         {
+            yield return new WaitUntil(() => SaveGameManager.instance != null);
             if (uniqueEventName == "")
                 Debug.Log(gameObject.name);
             if (SaveGameManager.instance.WasEventCompleted(uniqueEventName))

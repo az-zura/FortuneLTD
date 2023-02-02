@@ -12,6 +12,8 @@ public class TimeDisplay : MonoBehaviour
     private Color defaultColor;
     [SerializeField]
     private Color workTimeColor;
+    [SerializeField]
+    private Color midnightColor;
     private TextMeshProUGUI text;
     
     // Start is called before the first frame update
@@ -30,7 +32,7 @@ public class TimeDisplay : MonoBehaviour
 
         int someRandomStartDay = 4042;
         
-        text.text = $"Montag {d + someRandomStartDay} - {(h > 9 ? h.ToString() : "0" + h)}:{(min > 9 ? min.ToString() : "0" + min)} Uhr \n{(work ? "(Arbeitszeit)" : "(Freizeit)")}";
-        text.color = work ? workTimeColor : defaultColor;
+        text.text = $"Montag {d + someRandomStartDay} - {(h > 9 ? h.ToString() : "0" + h)}:{(min > 9 ? min.ToString() : "0" + min)} Uhr \n{(h == 0 ? ("(Geisterstunde - freiwillige Mittagspause)") : (work ? "(Arbeitszeit)" : "(Freizeit)"))}";
+        text.color = h == 0 ? midnightColor : (work ? workTimeColor : defaultColor);
     }
 }

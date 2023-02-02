@@ -11,7 +11,7 @@ public class SaveGameManager : MonoBehaviour
     
     private List<string> eventsCompleted = new List<string>();
     
-    private void Awake()
+    private void Start()
     {
         if (instance)
         {
@@ -30,7 +30,11 @@ public class SaveGameManager : MonoBehaviour
         // Time
         gameLoop.timePassedToday = GetSavedTimePassedToday();
         gameLoop.currentDay = GetSavedDay();
-        
+        if (gameLoop.GetHour() >= 21 || gameLoop.GetHour() < 5)
+        {
+            gameLoop.OnWorkdayStarted();
+        }
+
         // PlayerPos
         player.position = GetSavedPosition();
         
