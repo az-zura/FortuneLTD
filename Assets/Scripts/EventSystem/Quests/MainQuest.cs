@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using EventSystem;
@@ -22,6 +23,7 @@ public class MainQuest : MonoBehaviour
     [SerializeField] private SequentialEvent event10;
     [SerializeField] private GameObject event30Object;
     [SerializeField] private GameObject event50Object;
+    [SerializeField] private GameObject event70Object;
 
     private int mainQuestState = -1;
 
@@ -36,7 +38,6 @@ public class MainQuest : MonoBehaviour
         switch (newState)
         {
             case 0:
-                gameLoop.setTime(17);
                 event10.InitializeEvent();
                 break;
             case 10: break;
@@ -49,13 +50,27 @@ public class MainQuest : MonoBehaviour
                 break;
             case 50:
                 break;
+            case 60:
+                event70Object.SetActive(true);
+                break;
+            case 70:
+                break;
+            case 80:
+                break;
 
         }
     }
 
+    //start of game has to be set before npcs start
+    private void Awake()
+    {
+        gameLoop.setTime(17);
+
+    }
+
     void Start()
     {
-        setMainQuestState(0);
+        setMainQuestState(60);
     }
 
     // Update is called once per frame

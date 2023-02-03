@@ -9,9 +9,9 @@ using UnityEngine;
 public class Event10 : SequentialEvent
 {
     public MainQuest mainQuest;
-    public SpecificNpcController pam;
+    public NPCControllerPositionsRandom pam;
     public GameObject player;
-    public NpcControllerRandom hannahRandom;
+    public NPCControllerPositionsRandom hannahRandom;
     public NPCControllerFollow hannahFollow;
     public Speechbubble bubble;
     public Transform kitchenCenter;
@@ -40,7 +40,7 @@ public class Event10 : SequentialEvent
             "Ach hör auf, das Warten ist echt unerträglich."));
         AddEventItem(new NPCGotoAction(hannahRandom.GetLocomotion,kitchenCenter.position,0,0.1f,false));
         AddEventItem(new SpeakAction(bubble, pam.gameObject,
-            "Seit 189 Jahren warte ich jetzt auf meine Passage, wer hätte gedacht, dass die letzten 30 Tage die schlimmsten werden."));
+            "Seit 189 Jahren warte ich jetzt auf meine Passage, wer hätte gedacht, dass die letzten 6 Tage die schlimmsten werden."));
         
         AddEventItem(new NPCLookAtAction(hannahRandom.GetAnimation, player.transform));
         

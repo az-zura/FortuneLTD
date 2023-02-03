@@ -14,15 +14,18 @@ public class NPCControllerEmployee : SpecificNpcController
 
     private GameObject amature;
     
-    private void Start()
+    private new void Start()
     {
         gameLoop.WorkdayStarted += startWorkDay;
         gameLoop.WorkdayEnded += endWorkDay;
         amature = this.gameObject.transform.Find("Ghost/ghost").gameObject;
+        base.Start();
+
     }
     
     protected override void OnStartControlling()
     {
+        Debug.Log("start controlling  " + gameObject.name);
         if (gameLoop.IsWorkingTime())
         {
             startWorkDay(this,EventArgs.Empty);
@@ -35,12 +38,16 @@ public class NPCControllerEmployee : SpecificNpcController
 
     private void startWorkDay(object sender, EventArgs args)
     {
+        Debug.Log("startWorkDay  " + gameObject.name);
+
         if (!isControllingNpc) return;
         amature.SetActive(true);
         this.GetLocomotion.MoveTo(desk.position);
     }
     private void endWorkDay(object sender, EventArgs args)
     {
+        Debug.Log("endWorkDay  " + gameObject.name);
+
         if (!isControllingNpc) return;
         onLeafDesk();
         this.GetLocomotion.MoveTo(elevator.position);

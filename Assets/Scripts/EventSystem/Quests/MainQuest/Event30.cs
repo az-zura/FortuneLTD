@@ -10,7 +10,9 @@ public class Event30 : SequentialEvent
     public Speechbubble bubble;
 
     public NPCControllerFollow hannahFollow;
+    public NPCControllerPositionsRandom hannahRandom;
 
+    public Transform houseGoto;
     public Transform schoolGoto;
     
     public override void OnEventInitialized()
@@ -35,7 +37,11 @@ public class Event30 : SequentialEvent
         
         AddEventItem(new NPCLookAtAction(hannahFollow.GetAnimation));
         AddEventItem(new NPCGotoAction(hannahFollow.GetLocomotion,schoolGoto.position));
-        AddEventItem(new ToggleActiveAction(hannahFollow.gameObject,false));
+        
+        AddEventItem(new SetNpcControllerPossession(true,hannahFollow));
+        AddEventItem(new TeleportAction(hannahRandom.GetLocomotion,houseGoto));
+        AddEventItem(new SetNpcControllerPossession(false,hannahRandom));
+
         StartSequentialEvent();
     }
 }

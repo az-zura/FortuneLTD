@@ -47,10 +47,13 @@ namespace NPC.NpcMovement
                 return;
             }
             Locomotion.PathEndReached += onPathEndHidden;
+        }
+
+        protected void Start()
+        {
             if(isControllingNpc) OnStartControlling();
         }
-        
-        
+
 
         private void OnDestroy()
         {

@@ -9,6 +9,9 @@ public class GameLoop : MonoBehaviour
     [HideInInspector] public int currentDay;
     [HideInInspector] public float timePassedToday = 19;
 
+    public int workDayStart = 21;
+    public int workDayEnd = 5;
+
     public float oneHourIsEquivalentToXSeconds = 60;
 
     public event EventHandler HourUpdated;
