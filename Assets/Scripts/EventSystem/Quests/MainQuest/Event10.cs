@@ -8,6 +8,7 @@ using UnityEngine;
 
 public class Event10 : SequentialEvent
 {
+    public GameLoop gameLoop;
     public MainQuest mainQuest;
     public NPCControllerPositionsRandom pam;
     public GameObject player;
@@ -61,6 +62,7 @@ public class Event10 : SequentialEvent
          
         AddEventItem(new NPCLookAtAction(pam.GetAnimation));
         AddEventItem(new NPCLookAtAction(hannahRandom.GetAnimation));
+        
 
         AddEventItem(new FollowAction(hannahFollow,player.transform));
         AddEventItem(new SetNpcControllerPossession(false, pam));

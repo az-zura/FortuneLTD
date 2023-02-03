@@ -27,6 +27,7 @@ public class SaveGameManager : MonoBehaviour
 
     public void LoadGame()
     {
+        Debug.Log("Load game");
         // Time
         gameLoop.timePassedToday = GetSavedTimePassedToday();
         gameLoop.currentDay = GetSavedDay();
@@ -71,7 +72,7 @@ public class SaveGameManager : MonoBehaviour
     
     public float GetSavedTimePassedToday()
     {
-        return PlayerPrefs.GetFloat("TimePassedToday", 0);
+        return PlayerPrefs.GetFloat("TimePassedToday", 17);
     }
     
     public Vector3 GetSavedPosition()

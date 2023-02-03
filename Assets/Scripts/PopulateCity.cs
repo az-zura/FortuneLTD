@@ -20,8 +20,13 @@ public class PopulateCity : MonoBehaviour
     private List<NPC_Goto> spawnPedestrian = new List<NPC_Goto>();
     private List<NPC_Goto> spawnRoadGhost = new List<NPC_Goto>();
     private int checkNPCIndex;
-    
-    
+
+    private bool supsended = false;
+
+    public void setSuspended(bool suspend)
+    {
+        this.supsended = supsended;
+    }
     
     private List<GameObject> npcs = new List<GameObject>();
     
@@ -65,7 +70,7 @@ public class PopulateCity : MonoBehaviour
 
     private void Update()
     {
-        if (npcs.Count < amountNPCMin)
+        if (npcs.Count < amountNPCMin && !supsended)
         {
             for (int i = 0; i < Random.Range(amountNPCMin,amountNPCMax) - npcs.Count; i++)
             {

@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Event30 : SequentialEvent
 {
+    public GameLoop gameLoop;
     public MainQuest mainQuest;
     public GameObject player;
     public Speechbubble bubble;
@@ -41,6 +42,7 @@ public class Event30 : SequentialEvent
         AddEventItem(new SetNpcControllerPossession(true,hannahFollow));
         AddEventItem(new TeleportAction(hannahRandom.GetLocomotion,houseGoto));
         AddEventItem(new SetNpcControllerPossession(false,hannahRandom));
+
 
         StartSequentialEvent();
     }

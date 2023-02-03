@@ -24,6 +24,10 @@ public class GameLoop : MonoBehaviour
 
     private bool isWorkingTime = false;
 
+    private float dontSurpassTime = -1;
+    private float fastForwardHours = -1;
+    public float dontSurpassHalt = 0.5f;
+    public float fastForwardMultiplier = 12;
     private void Start()
     {
         WorkdayEndedEarly = false;
@@ -34,9 +38,23 @@ public class GameLoop : MonoBehaviour
     private void Update()
     {
         //update time
-        float timePreUpdate = timePassedToday;
-        timePassedToday += Time.deltaTime / oneHourIsEquivalentToXSeconds;
+        float multiplier = 1;
+        if (dontSurpassTime > -1 && Math.Abs(dontSurpassTime - timePassedToday) < dontSurpassHalt)
+        {
+            multiplier = (dontSurpassTime < timePassedToday)? 0 : (dontSurpassTime - timePassedToday) * 1 / dontSurpassHalt;
+        }
 
+        if (fastForwardHours > 0)
+        {
+            multiplier = fastForwardMultiplier;
+        }
+        float timePreUpdate = timePassedToday;
+        var d =  (Time.deltaTime / oneHourIsEquivalentToXSeconds) * multiplier;
+        timePassedToday += d;
+        if (fastForwardHours > 0)
+        {
+            fastForwardMultiplier -= d;
+        }
         if ((int)timePreUpdate != (int)timePassedToday && (int)timePassedToday != 0)
         {
             OnNewHour((int)timePassedToday);
@@ -48,6 +66,32 @@ public class GameLoop : MonoBehaviour
     {
         timePassedToday = hour;
         OnNewHour((int)timePassedToday);
+    }
+
+    public void setDontSurpass(float time)
+    {
+        this.dontSurpassTime = time;
+    }
+
+    public void setFastForwardUntil(float targetHour)
+    {
+        if (targetHour < timePassedToday)
+        {
+            setFastForwardHours(24 - timePassedToday + targetHour);
+        }
+        else
+        {
+            setFastForwardHours(targetHour - timePassedToday);
+        }
+    }
+    public void setFastForwardHours(float time)
+    {
+        this.fastForwardHours = time;
+    }
+
+    public void clearDontSurpass()
+    {
+        dontSurpassTime = -1;
     }
 
     private void OnNewHour(int hour)
