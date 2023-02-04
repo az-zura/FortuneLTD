@@ -26,6 +26,10 @@ public class MainQuest : MonoBehaviour
     [SerializeField] private GameObject event50Object;
     [SerializeField] private GameObject event70Object;
     [SerializeField] private GameObject event110Object;
+    [SerializeField] private GameObject event130Object;
+    [SerializeField] private Event150 event150;
+    [SerializeField] private GameObject event170Object;
+
 
     private int mainQuestState = -1;
 
@@ -64,31 +68,51 @@ public class MainQuest : MonoBehaviour
             case 70: //Konversation am abend zwischen pam und joe EVENT
                 break;
             case 80: //nacht skippen
-                gameLoop.clearDontSurpass();
-                gameLoop.setFastForwardUntil(19);
+                gameLoop.setDontSurpass(19);
+                gameLoop.setFastForwardUntil(18);
                 event90.InitializeEvent();
                 break;
             case 90: //EVENT : pam sagt hannah bleibt heute daheim
                 break;
             case 100: // gesräch mit pam vorbei joe geht in die arbeit
+                gameLoop.setDontSurpass(20.5f);
                 event110Object.SetActive(true);
                 break;
             case 110: //EVENT Blumen incident
                 break;
-            case 120: //blument event fertig
+            case 120: //blument event fertig joe geht arbeiten
+                gameLoop.setDontSurpass(8);
+                event130Object.SetActive(true);
+                break;
+            case 130: //gespräch ziwschen pam und joe am abend
+                break;
+            case 140: //gespräch ziwschen pam vorbei // nacht skippen
+                gameLoop.setFastForwardUntil(17);
+                gameLoop.setDontSurpass(19);
+                event150.InitializeEvent();
+                break;
+            case 150: //gespräch zwishen pam und joe am nächsten mrogen, blume taucht auf
+                break;
+            case 160: //joe und hannah fliegen in die schule
+                gameLoop.setDontSurpass(20);
+                event170Object.SetActive(true);
+                break;
+            case 170: //gespräch hannah und joe vor der schule
+                break;
+            case 180://gespräch zwischen joe und pam
                 break;
         }
     }
 
     //start of game has to be set before npcs start
-    private void Awake()
+    private void Awake() //game starts at 17:00
     {
         gameLoop.setTime(17);
     }
 
     void Start()
     {
-        setMainQuestState(100);
+        setMainQuestState(120);
     }
 
     // Update is called once per frame

@@ -27,7 +27,7 @@ public class GameLoop : MonoBehaviour
     private float dontSurpassTime = -1;
     private float fastForwardHours = -1;
     public float dontSurpassHalt = 0.5f;
-    public float fastForwardMultiplier = 12;
+    public float fastForwardMultiplier = 35;
     private void Start()
     {
         WorkdayEndedEarly = false;
@@ -53,7 +53,7 @@ public class GameLoop : MonoBehaviour
         timePassedToday += d;
         if (fastForwardHours > 0)
         {
-            fastForwardMultiplier -= d;
+            fastForwardHours -= d;
         }
         if ((int)timePreUpdate != (int)timePassedToday && (int)timePassedToday != 0)
         {
@@ -86,6 +86,7 @@ public class GameLoop : MonoBehaviour
     }
     public void setFastForwardHours(float time)
     {
+        Debug.Log("forward : +"+time);
         this.fastForwardHours = time;
     }
 
