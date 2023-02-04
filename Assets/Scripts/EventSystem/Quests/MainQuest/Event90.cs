@@ -30,7 +30,7 @@ public class Event90 : SequentialEvent
         AddEventItem(new SpeakAction(bubble,player, "Guten Abend"));
         AddEventItem(new SpeakAction(bubble,pam.gameObject, "Guten Abend"));
         AddEventItem(new SpeakAction(bubble,pam.gameObject, "Die Schule fängt heute anscheinend später an. Ich bringe Hannah dann nachher hin, muss eh noch in die Stadt."));
-        AddEventItem(new SpeakAction(bubble,pam.gameObject, "Ok, dann bis später."));
+        AddEventItem(new SpeakAction(bubble,player, "Ok, dann bis später."));
         AddEventItem(new SpeakAction(bubble,pam.gameObject, "Bis später."));
         AddEventItem(new NPCLookAtAction(pam.GetAnimation));
         AddEventItem(new SetNpcControllerPossession(false,pam));

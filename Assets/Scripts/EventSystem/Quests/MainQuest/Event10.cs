@@ -16,6 +16,7 @@ public class Event10 : SequentialEvent
     public NPCControllerFollow hannahFollow;
     public Speechbubble bubble;
     public Transform kitchenCenter;
+    public Transform houseKitchen2;
 
     public override void OnEventInitialized()
     {
@@ -39,7 +40,7 @@ public class Event10 : SequentialEvent
             "Es soll dort riesige Meere bis zum Horizont geben, wie bei den Menschen, nur halt ohne Menschen. "));
         AddEventItem(new SpeakAction(bubble, pam.gameObject,
             "Ach hör auf, das Warten ist echt unerträglich."));
-        AddEventItem(new NPCGotoAction(hannahRandom.GetLocomotion,kitchenCenter.position,0,0.1f,false));
+        AddEventItem(new NPCGotoAction(hannahRandom.GetLocomotion,houseKitchen2.position,0,0,false));
         AddEventItem(new SpeakAction(bubble, pam.gameObject,
             "Seit 189 Jahren warte ich jetzt auf meine Passage, wer hätte gedacht, dass die letzten 6 Tage die schlimmsten werden."));
         

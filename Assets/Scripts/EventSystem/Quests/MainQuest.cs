@@ -29,6 +29,7 @@ public class MainQuest : MonoBehaviour
     [SerializeField] private GameObject event130Object;
     [SerializeField] private Event150 event150;
     [SerializeField] private GameObject event170Object;
+    [SerializeField] private GameObject event190Object;
 
 
     private int mainQuestState = -1;
@@ -99,7 +100,15 @@ public class MainQuest : MonoBehaviour
                 break;
             case 170: //gespräch hannah und joe vor der schule
                 break;
-            case 180://gespräch zwischen joe und pam
+            case 180://joe in der arbeit
+                gameLoop.setDontSurpass(8);
+                event190Object.SetActive(true);
+                break;
+            case 190:// gespräch zwischen joe und pam -> hauptquest endet hier !
+                break;
+            case 200:
+                gameLoop.clearDontSurpass();
+                gameLoop.setFastForwardUntil(17);
                 break;
         }
     }
@@ -112,7 +121,7 @@ public class MainQuest : MonoBehaviour
 
     void Start()
     {
-        setMainQuestState(120);
+        setMainQuestState(0);
     }
 
     // Update is called once per frame
