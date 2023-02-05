@@ -44,7 +44,6 @@ public class MainQuest : MonoBehaviour
         if (newState == mainQuestState) return;
         SaveGameManager.instance.SaveMainQuestState(newState);
         mainQuestState = newState;
-        
         switch (newState)
         {
             case 0: //start
