@@ -59,7 +59,7 @@ public class GameLoop : MonoBehaviour
         {
             OnNewHour((int)timePassedToday);
         }
-        
+        SaveGameManager.instance.SaveTime();
     }
 
     public void setTime(int hour)
@@ -153,6 +153,7 @@ public class GameLoop : MonoBehaviour
 
     protected virtual void OnDayUpdated()
     {
+        SaveGameManager.instance.SaveDay();
         DayUpdated?.Invoke(this, EventArgs.Empty);
     }
 

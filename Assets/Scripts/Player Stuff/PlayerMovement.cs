@@ -66,6 +66,7 @@ public class PlayerMovement : MonoBehaviour
         if (!Physics.Raycast(transform.position, Vector3.down, 1.3f, Physics.AllLayers))
         {
             transform.position += Vector3.down * Time.fixedDeltaTime;
+            SaveGameManager.instance.SavePosition();
         }
     }
 

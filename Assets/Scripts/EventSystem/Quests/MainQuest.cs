@@ -20,19 +20,19 @@ public class MainQuest : MonoBehaviour
     // Start is called before the first frame update
 
     [SerializeField] private GameLoop gameLoop;
-    [SerializeField] private SequentialEvent event10;
+    [SerializeField] private Event10 event10;
     [SerializeField] private Event90 event90;
-    [SerializeField] private GameObject event30Object;
-    [SerializeField] private GameObject event50Object;
-    [SerializeField] private GameObject event70Object;
-    [SerializeField] private GameObject event110Object;
-    [SerializeField] private GameObject event130Object;
+    [SerializeField] private Event30 event30;
+    [SerializeField] private Event50 event50;
+    [SerializeField] private Event70 event70;
+    [SerializeField] private Event110 event110;
+    [SerializeField] private Event130 event130;
     [SerializeField] private Event150 event150;
-    [SerializeField] private GameObject event170Object;
-    [SerializeField] private GameObject event190Object;
+    [SerializeField] private Event170 event170;
+    [SerializeField] private Event190 event190;
 
 
-    private int mainQuestState = -1;
+    [HideInInspector] public int mainQuestState = -1;
 
     public int getMainQuestState()
     {
@@ -42,6 +42,9 @@ public class MainQuest : MonoBehaviour
     public void setMainQuestState(int newState)
     {
         if (newState == mainQuestState) return;
+        SaveGameManager.instance.SaveMainQuestState(newState);
+        mainQuestState = newState;
+        
         switch (newState)
         {
             case 0: //start
@@ -52,19 +55,19 @@ public class MainQuest : MonoBehaviour
                 break;
             case 20://erster dialog vorbei, joe geht mit hannah in die schule
                 gameLoop.setDontSurpass(20);
-                event30Object.SetActive(true);
+                event30.gameObject.SetActive(true);
                 break;
             case 30: //dialog zwischen hannah und joe bei der schule EVENT
                 break;
             case 40://joe hat hannah in die schule gebracht und ist auf dem weg zur fortune ltd
                 gameLoop.setDontSurpass(22);
-                event50Object.SetActive(true);
+                event50.gameObject.SetActive(true);
                 break;
             case 50: //Konversation zwischen joe un karl EVENT
                 break;
             case 60: //Konversation zwischen joe und karl ist vorbei, joe arbeitet   
                 gameLoop.setDontSurpass(7);
-                event70Object.SetActive(true);
+                event70.gameObject.SetActive(true);
                 break;
             case 70: //Konversation am abend zwischen pam und joe EVENT
                 break;
@@ -77,13 +80,13 @@ public class MainQuest : MonoBehaviour
                 break;
             case 100: // gesräch mit pam vorbei joe geht in die arbeit
                 gameLoop.setDontSurpass(20.5f);
-                event110Object.SetActive(true);
+                event110.gameObject.SetActive(true);
                 break;
             case 110: //EVENT Blumen incident
                 break;
             case 120: //blument event fertig joe geht arbeiten
                 gameLoop.setDontSurpass(8);
-                event130Object.SetActive(true);
+                event130.gameObject.SetActive(true);
                 break;
             case 130: //gespräch ziwschen pam und joe am abend
                 break;
@@ -96,13 +99,13 @@ public class MainQuest : MonoBehaviour
                 break;
             case 160: //joe und hannah fliegen in die schule
                 gameLoop.setDontSurpass(20);
-                event170Object.SetActive(true);
+                event170.gameObject.SetActive(true);
                 break;
             case 170: //gespräch hannah und joe vor der schule
                 break;
             case 180://joe in der arbeit
                 gameLoop.setDontSurpass(8);
-                event190Object.SetActive(true);
+                event190.gameObject.SetActive(true);
                 break;
             case 190:// gespräch zwischen joe und pam -> hauptquest endet hier !
                 break;
@@ -116,16 +119,22 @@ public class MainQuest : MonoBehaviour
     //start of game has to be set before npcs start
     private void Awake() //game starts at 17:00
     {
-        gameLoop.setTime(17);
+        gameLoop.setTime((int)SaveGameManager.instance.GetSavedTimePassedToday());
     }
 
     void Start()
     {
-        setMainQuestState(0);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
+        setMainQuestState(SaveGameManager.instance.GetSavedMainQuestState());
+        
+        event10.gameObject.SetActive(SaveGameManager.instance.WasEventCompleted(event10.uniqueEventName));
+        event90.gameObject.SetActive(SaveGameManager.instance.WasEventCompleted(event90.uniqueEventName));
+        event30.gameObject.SetActive(SaveGameManager.instance.WasEventCompleted(event30.uniqueEventName));
+        event50.gameObject.SetActive(SaveGameManager.instance.WasEventCompleted(event50.uniqueEventName));
+        event70.gameObject.SetActive(SaveGameManager.instance.WasEventCompleted(event70.uniqueEventName));
+        event110.gameObject.SetActive(SaveGameManager.instance.WasEventCompleted(event110.uniqueEventName));
+        event130.gameObject.SetActive(SaveGameManager.instance.WasEventCompleted(event130.uniqueEventName));
+        event150.gameObject.SetActive(SaveGameManager.instance.WasEventCompleted(event150.uniqueEventName));
+        event170.gameObject.SetActive(SaveGameManager.instance.WasEventCompleted(event170.uniqueEventName));
+        event190.gameObject.SetActive(SaveGameManager.instance.WasEventCompleted(event190.uniqueEventName));
     }
 }

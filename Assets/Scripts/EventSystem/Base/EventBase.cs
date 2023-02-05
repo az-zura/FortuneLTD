@@ -51,7 +51,7 @@ namespace EventSystem
             this.status = EventStatus.EventPlayed;
             if (uniqueEventName != "")
             {
-                SaveGameManager.instance.AddCompletedEvent(uniqueEventName);
+                SaveGameManager.instance.SaveEvent(uniqueEventName);
             }
             else
             {

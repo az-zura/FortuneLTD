@@ -8,6 +8,7 @@ public class SaveGameManager : MonoBehaviour
     public static SaveGameManager instance;
     [SerializeField] private GameLoop gameLoop;
     [SerializeField] private Transform player;
+    [SerializeField] private MainQuest mainQuest;
     
     private List<string> eventsCompleted = new List<string>();
     
@@ -38,31 +39,33 @@ public class SaveGameManager : MonoBehaviour
 
         // PlayerPos
         player.position = GetSavedPosition();
-        
+
+        mainQuest.mainQuestState = GetSavedMainQuestState();
+
         // events are loaded from the event scripts with WasEventCompleted
     }
 
     public void SaveGame()
     {
         // Time
-        PlayerPrefs.SetFloat("TimePassedToday", gameLoop.timePassedToday);
-        PlayerPrefs.SetInt("Day", gameLoop.currentDay);
+        SaveDayAndTime();
         Debug.Log($"time saved: {gameLoop.timePassedToday}, day saved: {gameLoop.currentDay}");
         
         // PlayerPos
-        PlayerPrefs.SetFloat("posX", player.position.x);
-        PlayerPrefs.SetFloat("posY", player.position.y);
-        PlayerPrefs.SetFloat("posZ", player.position.z);
+        SavePosition();
         Debug.Log($"position saved: {player.position}");
         
         // Events
         foreach (var e in eventsCompleted)
         {
+            SaveEvent(e);
             Debug.Log($"event saved: {e}");
-            PlayerPrefs.SetInt(e, 1);
         }
         
         eventsCompleted.Clear();
+        
+        // Main Quest state
+        SaveMainQuestState(mainQuest.mainQuestState);
     }
 
     public int GetSavedDay()
@@ -87,10 +90,48 @@ public class SaveGameManager : MonoBehaviour
     {
         return PlayerPrefs.GetInt($"Complete{eventId}", 0) == 1;
     }
+
+    public int GetSavedMainQuestState()
+    {
+        return PlayerPrefs.GetInt("MainQuestState", 0);
+    }
     
     public void AddCompletedEvent(string eventId)
     {
         Debug.Log($"eventId added: {eventId}");
         eventsCompleted.Add($"Complete{eventId}");
+    }
+
+    public void SaveEvent(string eventId)
+    {
+        PlayerPrefs.SetInt($"Complete{eventId}", 1);
+    }
+
+    public void SavePosition()
+    {
+        PlayerPrefs.SetFloat("posX", player.position.x);
+        PlayerPrefs.SetFloat("posY", player.position.y);
+        PlayerPrefs.SetFloat("posZ", player.position.z);
+    }
+
+    public void SaveDayAndTime()
+    {
+        SaveDay();
+        SaveTime();
+    }
+    
+    public void SaveDay()
+    {
+        PlayerPrefs.SetInt("Day", gameLoop.currentDay);
+    }
+    
+    public void SaveTime()
+    {
+        PlayerPrefs.SetFloat("TimePassedToday", gameLoop.timePassedToday);
+    }
+
+    public void SaveMainQuestState(int mainQuestState)
+    {
+        PlayerPrefs.SetInt("MainQuestState", mainQuestState);
     }
 }
