@@ -118,6 +118,13 @@ public class MainQuest : MonoBehaviour
     //start of game has to be set before npcs start
     private void Awake() //game starts at 17:00
     {
+        StartCoroutine(LateAwake()); // hopefully this way npcs start after time was set
+    }
+
+    public IEnumerator LateAwake()
+    {
+        yield return new WaitUntil(() => SaveGameManager.instance != null);
+        
         gameLoop.setTime((int)SaveGameManager.instance.GetSavedTimePassedToday());
     }
 

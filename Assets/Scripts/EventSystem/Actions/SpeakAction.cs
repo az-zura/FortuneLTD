@@ -47,7 +47,7 @@ public class SpeakAction : ActionBase
     public override void OnItemStart()
     {
         speechBubble.SetBubble(text,Speechbubble.BubbleType.Speech,speaker.transform);
-        voiceType = Random.Range(0, 4);
+        voiceType = Random.Range(0, 3);
         AudioManager.instance.PlaySound($"Voice{voiceType}");
         speechBubble.btn.onClick.AddListener(Action);
         if (dismissAfterTime)

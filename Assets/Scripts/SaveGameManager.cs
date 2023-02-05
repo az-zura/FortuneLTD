@@ -11,8 +11,8 @@ public class SaveGameManager : MonoBehaviour
     [SerializeField] private MainQuest mainQuest;
     
     private List<string> eventsCompleted = new List<string>();
-    
-    private void Start()
+
+    private void Awake()
     {
         if (instance)
         {
