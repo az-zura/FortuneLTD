@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SaveGameManager : MonoBehaviour
 {
@@ -22,7 +23,7 @@ public class SaveGameManager : MonoBehaviour
         {
             instance = this;
         }
-        
+
         LoadGame();
     }
 
@@ -132,5 +133,12 @@ public class SaveGameManager : MonoBehaviour
     public void SaveMainQuestState(int mainQuestState)
     {
         PlayerPrefs.SetInt("MainQuestState", mainQuestState);
+    }
+
+    public void ResetCompletely()
+    {
+        PlayerPrefs.DeleteAll();
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
