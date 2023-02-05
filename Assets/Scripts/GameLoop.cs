@@ -28,6 +28,12 @@ public class GameLoop : MonoBehaviour
     private float fastForwardHours = -1;
     public float dontSurpassHalt = 0.5f;
     public float fastForwardMultiplier = 35;
+
+    public HologramPath pathfinding;
+    public Transform officeTarget;
+    public Transform player;
+    private bool isInOffice = false;
+    
     private void Start()
     {
         WorkdayEndedEarly = false;
@@ -59,6 +65,17 @@ public class GameLoop : MonoBehaviour
         {
             OnNewHour((int)timePassedToday);
         }
+
+        if (isWorkingTime && !isInOffice)
+        {
+            pathfinding.gameObject.SetActive(true);
+            pathfinding.target = officeTarget;
+        }
+        else
+        {
+            pathfinding.gameObject.SetActive(false);
+        }
+
         SaveGameManager.instance.SaveTime();
     }
 
@@ -160,12 +177,20 @@ public class GameLoop : MonoBehaviour
     public virtual void OnWorkdayStarted()
     {
         isWorkingTime = true;
+
         WorkdayStarted?.Invoke(this, EventArgs.Empty);
     }
 
     protected virtual void OnWorkdayEnded()
     {
         isWorkingTime = false;
+        pathfinding.gameObject.SetActive(false);
+        
         WorkdayEnded?.Invoke(this, EventArgs.Empty);
+    }
+
+    public void SetInOffice(bool inOffice)
+    {
+        isInOffice = inOffice;
     }
 }
