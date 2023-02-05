@@ -54,6 +54,8 @@ public class MiniGameLoop : MonoBehaviour
 
         [SerializeField] private GameObject decke;
 
+        [SerializeField] private GameObject seelendateinummer;
+
     #endregion
 
     #region Cameras
@@ -216,6 +218,7 @@ public class MiniGameLoop : MonoBehaviour
                     Debug.Log(toworkon.GetAkte().GetName());
                     deskCamera.gameObject.SetActive(false);
                     folderCamera.gameObject.SetActive(true);
+                    seelendateinummer.SetActive(true);
                     currentState = State.folder;
                 }
                 break;
@@ -225,6 +228,7 @@ public class MiniGameLoop : MonoBehaviour
                 if (currentState == State.folder)
                 {
                     toworkon.GetAkte().DisableFirstPageAndImage();
+                    seelendateinummer.SetActive(false);
                 }
                 break;
             }
@@ -236,6 +240,7 @@ public class MiniGameLoop : MonoBehaviour
                     if (!secondPageJustOpened || toworkon.GetAkte().isConfidential)
                     {
                         toworkon.GetAkte().EnableFirstPageAndImage();
+                        seelendateinummer.SetActive(true);
                     }
                     else
                     {
@@ -333,7 +338,7 @@ public class MiniGameLoop : MonoBehaviour
             GetCurrentFolderGameObjectToPerson().SetActive(false);
             deskCamera.gameObject.SetActive(true);
             folderCamera.gameObject.SetActive(false);
-            //folderOpened = false; //todo
+            seelendateinummer.SetActive(false);
         }
 
         if (currentState == State.monitor)
