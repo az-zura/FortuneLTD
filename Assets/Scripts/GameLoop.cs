@@ -71,10 +71,6 @@ public class GameLoop : MonoBehaviour
             pathfinding.gameObject.SetActive(true);
             pathfinding.target = officeTarget;
         }
-        else
-        {
-            pathfinding.gameObject.SetActive(false);
-        }
 
         SaveGameManager.instance.SaveTime();
     }
