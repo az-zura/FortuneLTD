@@ -42,6 +42,7 @@ public class MainQuest : MonoBehaviour
     public void setMainQuestState(int newState)
     {
         if (newState == mainQuestState) return;
+        mainQuestState = newState;
         switch (newState)
         {
             case 0: //start

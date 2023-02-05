@@ -31,7 +31,7 @@ public class Delivery : SequentialEvent
     
     public override void OnEventInitialized()
     {
-        SpecificNpcController pamController = pam.GetComponentInChildren<NpcControllerRandom>();
+        NPCControllerPositionsRandom pamController = pam.GetComponentInChildren<NPCControllerPositionsRandom>();
 
         GhostAnimation neighbour2Animation = neighbour2.GetComponentInChildren<GhostAnimation>();
         NPC_Locomotion neighbour2Locomotion = neighbour2.GetComponentInChildren<NPC_Locomotion>();
