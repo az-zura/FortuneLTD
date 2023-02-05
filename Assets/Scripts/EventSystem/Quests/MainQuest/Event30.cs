@@ -15,9 +15,12 @@ public class Event30 : SequentialEvent
 
     public Transform houseGoto;
     public Transform schoolGoto;
+
+    public HologramPath pathfinding;
     
     public override void OnEventInitialized()
     {
+        AddEventItem(new ToggleActiveAction(pathfinding.gameObject, false));
         AddEventItem(new TestAction("starting 30"));
         AddEventItem(new SetEventStateAction(mainQuest,30));
         AddEventItem(new SetNpcControllerPossession(true,hannahFollow));

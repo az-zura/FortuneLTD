@@ -17,6 +17,9 @@ public class Event10 : SequentialEvent
     public Speechbubble bubble;
     public Transform kitchenCenter;
     public Transform houseKitchen2;
+    
+    public HologramPath pathfinding;
+    public Transform schoolGoTo;
 
     public override void OnEventInitialized()
     {
@@ -64,7 +67,7 @@ public class Event10 : SequentialEvent
         AddEventItem(new NPCLookAtAction(pam.GetAnimation));
         AddEventItem(new NPCLookAtAction(hannahRandom.GetAnimation));
         
-
+        AddEventItem(new ShowPathAction(pathfinding, schoolGoTo));
         AddEventItem(new FollowAction(hannahFollow,player.transform));
         AddEventItem(new SetNpcControllerPossession(false, pam));
         AddEventItem(new SetEventStateAction(mainQuest,20));
