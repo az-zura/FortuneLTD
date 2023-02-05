@@ -132,7 +132,6 @@ public class MainQuest : MonoBehaviour
 
     void Start()
     {
-        setMainQuestState(SaveGameManager.instance.GetSavedMainQuestState());
         
         event30Object.SetActive(SaveGameManager.instance.WasEventCompleted(event30Object.GetComponentInChildren<Event30>().uniqueEventName));
         event50Object.SetActive(SaveGameManager.instance.WasEventCompleted(event50Object.GetComponentInChildren<Event50>().uniqueEventName));
@@ -141,6 +140,9 @@ public class MainQuest : MonoBehaviour
         event130Object.SetActive(SaveGameManager.instance.WasEventCompleted(event130Object.GetComponentInChildren<Event130>().uniqueEventName));
         event170Object.SetActive(SaveGameManager.instance.WasEventCompleted(event170Object.GetComponentInChildren<Event170>().uniqueEventName));
         event190Object.SetActive(SaveGameManager.instance.WasEventCompleted(event190Object.GetComponentInChildren<Event190>().uniqueEventName));
+        
+        setMainQuestState(SaveGameManager.instance.GetSavedMainQuestState());
+
     }
 }
 

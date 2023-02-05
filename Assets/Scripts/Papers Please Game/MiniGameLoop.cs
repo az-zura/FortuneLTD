@@ -1,17 +1,9 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Sprites;
-using UnityEngine.UIElements;
+
 using Random = UnityEngine.Random;
 using TMPro;
-using Unity.VisualScripting;
-using UnityEditor;
-using UnityEditorInternal;
-using UnityEngine.UI;
-using UnityEngine.XR;
-using Image = UnityEngine.UI.Image;
 
 
 public class MiniGameLoop : MonoBehaviour
