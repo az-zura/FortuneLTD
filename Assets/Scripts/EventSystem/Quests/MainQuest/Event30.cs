@@ -20,9 +20,11 @@ public class Event30 : SequentialEvent
     
     public override void OnEventInitialized()
     {
-        AddEventItem(new ToggleActiveAction(pathfinding.gameObject, false));
         AddEventItem(new TestAction("starting 30"));
         AddEventItem(new SetEventStateAction(mainQuest,30));
+        
+        AddEventItem(new ToggleActiveAction(pathfinding.gameObject, false));
+        
         AddEventItem(new SetNpcControllerPossession(true,hannahFollow));
         AddEventItem(new NPCGotoAction(hannahFollow.GetLocomotion,player.transform.position,2,3));
         //wait unit hanna is next to player

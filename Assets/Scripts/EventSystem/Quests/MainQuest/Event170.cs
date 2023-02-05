@@ -18,11 +18,16 @@ public class Event170 : SequentialEvent
     public Transform fireHydrant;
     public Transform fireHydrantPos;
     public PlayerNotInTriggerBoxCondition playerNotInTriggerBoxCondition;
+    
+    public HologramPath pathfinding;
 
     public override void OnEventInitialized()
     {
         AddEventItem(new TestAction("starting 170"));
         AddEventItem(new SetEventStateAction(mainQuest,170));
+        
+        AddEventItem(new ToggleActiveAction(pathfinding.gameObject, false));
+        
         AddEventItem(new SetNpcControllerPossession(true,hannahFollow));
         AddEventItem(new NPCGotoAction(hannahFollow.GetLocomotion,player.transform.position,2,3));
         //wait unit hanna is next to player

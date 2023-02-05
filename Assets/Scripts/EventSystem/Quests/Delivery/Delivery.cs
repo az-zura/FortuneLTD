@@ -29,6 +29,8 @@ public class Delivery : SequentialEvent
     public PlayerInTriggerBoxCondition playerAtNeightbour2House;
     public PlayerNotInTriggerBoxCondition playerNotAtNeightbour2House;
     
+    public HologramPath pathfinding;
+    
     public override void OnEventInitialized()
     {
         NPCControllerPositionsRandom pamController = pam.GetComponentInChildren<NPCControllerPositionsRandom>();
@@ -73,8 +75,11 @@ public class Delivery : SequentialEvent
         AddEventItem(new SpeakAction(speechbubble,player,"Also ich hab nix bestellt"));
         AddEventItem(new SpeakAction(speechbubble,pam,"Schau mal obs richtig zugestellt wurde"));
         
+        AddEventItem(new ShowPathAction(pathfinding, boxClickable.transform));
+        
         //wait for user click
         AddEventItem(new EventBasedCondition(boxClickable.TriggerCondition));
+        AddEventItem(new ToggleActiveAction(pathfinding.gameObject, false));
         AddEventItem(new ToggleActiveAction( box,false));
 
         AddEventItem(new ToggleActiveAction( childGhost,true));
@@ -97,8 +102,11 @@ public class Delivery : SequentialEvent
         AddEventItem(new SpeakAction(speechbubble,pam,"Als ob wir mit Hanna nicht schon genung um die Ohren hätten."));
         AddEventItem(new SpeakAction(speechbubble,pam,"Frag mal bei den Nachbarn obs denen gehört, sonst bring ichs morgen Vormitternacht auf die Post"));
         
+        AddEventItem(new ShowPathAction(pathfinding, neighbour1.transform));
+        
         AddEventItem(new NPCLookAtAction(neighbour1.GetComponentInChildren<GhostAnimation>(),player.transform));
         AddEventItem(new CyclicCondition(1).AddCondition(playerAtNeightbour1House));
+        AddEventItem(new ToggleActiveAction(pathfinding.gameObject, false));
         //at neighbour 1 house
         
         
@@ -117,8 +125,9 @@ public class Delivery : SequentialEvent
         AddEventItem(new SpeakAction(speechbubble,player,"Danke"));
         AddEventItem(new SpeakAction(speechbubble,neighbour1,"Hab ich ihnen schon von Manfreds Praktikum erzählt?"));
         
-        
+        AddEventItem(new ShowPathAction(pathfinding, neighbour2.transform));
         AddEventItem(new CyclicCondition(1).AddCondition(playerAtNeightbour2House));
+        AddEventItem(new ToggleActiveAction(pathfinding.gameObject, false));
         //player at second house
         AddEventItem(new ToggleActiveAction(childGhost,false));
         AddEventItem(new ToggleActiveAction(box,false));

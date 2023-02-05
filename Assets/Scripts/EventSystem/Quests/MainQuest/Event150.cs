@@ -20,6 +20,9 @@ public class Event150 : SequentialEvent
 
     public Transform livingRoomGoto;
     public Transform pamBedroomPos2;
+    
+    public HologramPath pathfinding;
+    public Transform schoolGoTo;
 
     public override void OnEventInitialized()
     {
@@ -65,6 +68,8 @@ public class Event150 : SequentialEvent
         AddEventItem(new SpeakAction(bubble,hannahRandom.gameObject,"Und Frühstück?"));
         AddEventItem(new SpeakAction(bubble,player,"Heute nicht, der Toaster ist eh kaputt, komm!"));
         AddEventItem(new SpeakAction(bubble,hannahRandom.gameObject,"Ok"));
+        
+        AddEventItem(new ShowPathAction(pathfinding, schoolGoTo));
         
         AddEventItem(new NPCLookAtAction(hannahRandom.GetAnimation));
         AddEventItem(new FollowAction(hannahFollow,player.transform));
