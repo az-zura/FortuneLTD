@@ -22,7 +22,8 @@ public class TestAction : ActionBase
     public override void OnItemStart()
     {
         Debug.Log("Ran test action " + name);
-        SuspendAction(1);
+        //SuspendAction(1);
+        EndEventItem();
     }
 
 

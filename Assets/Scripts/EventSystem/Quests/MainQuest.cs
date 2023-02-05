@@ -48,6 +48,7 @@ public class MainQuest : MonoBehaviour
         switch (newState)
         {
             case 0: //start
+                Debug.Log($"New state1: {newState}");
                 event10.InitializeEvent();
                 break;
             case 10: //erster tag, in der früh EVENT
@@ -133,14 +134,11 @@ public class MainQuest : MonoBehaviour
     {
         setMainQuestState(SaveGameManager.instance.GetSavedMainQuestState());
         
-        event10.gameObject.SetActive(SaveGameManager.instance.WasEventCompleted(event10.uniqueEventName));
-        event90.gameObject.SetActive(SaveGameManager.instance.WasEventCompleted(event90.uniqueEventName));
         event30.gameObject.SetActive(SaveGameManager.instance.WasEventCompleted(event30.uniqueEventName));
         event50.gameObject.SetActive(SaveGameManager.instance.WasEventCompleted(event50.uniqueEventName));
         event70.gameObject.SetActive(SaveGameManager.instance.WasEventCompleted(event70.uniqueEventName));
         event110.gameObject.SetActive(SaveGameManager.instance.WasEventCompleted(event110.uniqueEventName));
         event130.gameObject.SetActive(SaveGameManager.instance.WasEventCompleted(event130.uniqueEventName));
-        event150.gameObject.SetActive(SaveGameManager.instance.WasEventCompleted(event150.uniqueEventName));
         event170.gameObject.SetActive(SaveGameManager.instance.WasEventCompleted(event170.uniqueEventName));
         event190.gameObject.SetActive(SaveGameManager.instance.WasEventCompleted(event190.uniqueEventName));
     }
