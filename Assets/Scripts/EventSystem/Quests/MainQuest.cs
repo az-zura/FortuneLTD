@@ -42,6 +42,7 @@ public class MainQuest : MonoBehaviour
     public void setMainQuestState(int newState)
     {
         if (newState == mainQuestState) return;
+        Debug.Log($"New state: {newState}");
         SaveGameManager.instance.SaveMainQuestState(newState);
         mainQuestState = newState;
         switch (newState)

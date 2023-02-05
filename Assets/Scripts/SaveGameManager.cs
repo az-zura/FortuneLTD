@@ -40,9 +40,8 @@ public class SaveGameManager : MonoBehaviour
         // PlayerPos
         player.position = GetSavedPosition();
 
-        mainQuest.mainQuestState = GetSavedMainQuestState();
-
         // events are loaded from the event scripts with WasEventCompleted
+        // main quest state is loaded in Main Quest
     }
 
     public void SaveGame()

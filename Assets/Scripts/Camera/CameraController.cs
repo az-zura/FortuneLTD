@@ -218,7 +218,8 @@ public class CameraController : MonoBehaviour
         }
 
         //fading done
-        material.color = new Color(material.color.r, material.color.g, material.color.b, currentlyFading[renderer]);
+        if (currentlyFading.ContainsKey(renderer))
+            material.color = new Color(material.color.r, material.color.g, material.color.b, currentlyFading[renderer]);
     }
 
     /// <summary>
