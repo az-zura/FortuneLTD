@@ -1,0 +1,81 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8352645884355751197
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8352645884355751203}
+  - component: {fileID: 8352645884355751202}
+  m_Layer: 0
+  m_Name: Gen
+  m_TagString: Untagged
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8352645884355751203
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8352645884355751197}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -35, y: 0, z: -40}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8352645884355751202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8352645884355751197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f54f99bc13e41a4e8b93461f7da819e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floorPrefab: {fileID: 198914, guid: 260ea4bf1ba71314c9c3833b491586bc, type: 3}
+  housePrefab: {fileID: 4046640398836394683, guid: f8d7f9113f167b54ca178884e3e119e6, type: 3}
+  sidewalkPrefab: {fileID: 195910, guid: ae7b8255185ace64ca379cb1ca3b24e6, type: 3}
+  roadPrefab: {fileID: 159042, guid: 1ac8b9099f0c47e41a84ef1f2e41988c, type: 3}
+  lanternPrefab: {fileID: 164056, guid: 06a9858b4309bcf4cbe7ef09ae436c1d, type: 3}
+  smallRocks:
+  - {fileID: 1203483498321760, guid: 1941338505201ed4b86d0fc32a45bdcc, type: 3}
+  - {fileID: 1149057289929742, guid: 9189a6e4899a37c4d99168b0d850c676, type: 3}
+  trashPrefab:
+  - {fileID: 2868544806554117855, guid: 50a2c37cc043483458a4dbff9f31a5d0, type: 3}
+  - {fileID: 2868544806554117855, guid: 7362be1532dee8a40b82ece4057d7107, type: 3}
+  - {fileID: 2868544806554117855, guid: dad7f138528c40e429394c83d00e8697, type: 3}
+  - {fileID: 2868544806554117855, guid: fb30ca71980860e4b93e311f73470e43, type: 3}
+  randomGardenProps:
+  - {fileID: 1746144479714796, guid: b53bde1289d56bc49860af3fbed5c277, type: 3}
+  - {fileID: 1152769245514484, guid: 9d8c176e270428949991d9d2d9ce192e, type: 3}
+  - {fileID: 1000182380338702, guid: 02c7d6b5e293ab24b819dd026655f2cc, type: 3}
+  - {fileID: 1485908063295808, guid: fb18d4566413aa5459cd2362e30401a2, type: 3}
+  - {fileID: 1022330334122198, guid: ac9716868f33bd846bc118554c8a72d4, type: 3}
+  - {fileID: 1122182512248524, guid: 1265dd59fa332d74f9413ea3f346dd55, type: 3}
+  - {fileID: 1077657506260428, guid: 2660cd93116a246439780568b58eca30, type: 3}
+  - {fileID: 1277163129526764, guid: 6c943777f29ba7c4994e93de7ad5ef7f, type: 3}
+  - {fileID: 1553826968180558, guid: 3ad8a79aa34ec764885be45c25593d3d, type: 3}
+  garden:
+    m_Center: {x: 20, y: 0, z: 10}
+    m_Extent: {x: 5, y: 0, z: 7}
+  rockMin: 12
+  rockMax: 20
+  gardenAssetsMax: 4
+  gardenAssetsMin: 2
+  terrainWidth: 6
+  terrainLength: 8
+  housePosition: {x: 40, y: 5.5}
+  lanternPosition: {x: 5.9, y: 17.54}
+  trashPosition: {x: 11, y: 12.1}
