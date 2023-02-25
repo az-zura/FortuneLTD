@@ -75,7 +75,7 @@ public class SaveGameManager : MonoBehaviour
     
     public float GetSavedTimePassedToday()
     {
-        return PlayerPrefs.GetFloat("TimePassedToday", 17);
+        return PlayerPrefs.GetFloat("TimePassedToday", 19);
     }
     
     public Vector3 GetSavedPosition()
@@ -138,7 +138,7 @@ public class SaveGameManager : MonoBehaviour
     public void ResetCompletely()
     {
         PlayerPrefs.DeleteAll();
-        gameLoop.timePassedToday = 17; // TODO this is only a quick fix - think of sth nicer
+        gameLoop.timePassedToday = 19; // TODO this is only a quick fix - think of sth nicer
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
