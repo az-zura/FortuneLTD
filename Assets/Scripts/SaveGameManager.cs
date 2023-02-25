@@ -138,6 +138,7 @@ public class SaveGameManager : MonoBehaviour
     public void ResetCompletely()
     {
         PlayerPrefs.DeleteAll();
+        gameLoop.timePassedToday = 17; // TODO this is only a quick fix - think of sth nicer
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
