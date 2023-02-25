@@ -7,7 +7,7 @@ using UnityEngine;
 public class GameLoop : MonoBehaviour
 {
     [HideInInspector] public int currentDay;
-    [HideInInspector] public float timePassedToday = 19;
+    [HideInInspector] public float timePassedToday = 17;
 
     public int workDayStart = 21;
     public int workDayEnd = 5;
